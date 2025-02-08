@@ -42,7 +42,7 @@ const QuestionCard = ({ question, onNext, onPrevious }: QuestionCardProps) => {
         <CardTitle> {question?.title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <QuestionComponent />
+        <QuestionComponent question={question} />
       </CardContent>
       <CardFooter className="justify-between">
         <Button variant="outline" onClick={onPrevious} className="w-24">
