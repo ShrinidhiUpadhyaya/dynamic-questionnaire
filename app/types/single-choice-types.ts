@@ -1,13 +1,17 @@
-import { Question } from "./question-types";
+import { BaseQuestion } from "./question-types";
 
-export type SingleChoiceQuestionSubType = "radio" | "select";
+export enum SingleChoiceSubType {
+  RADIO = "radio",
+  CHECKBOX = "checkbox",
+}
 
-export type SingleChoiceOption = {
+export interface SingleChoiceOptionType {
+  id: string;
   label: string;
   value: string;
-};
+}
 
-export type SingleChoiceQuestion = Omit<Question, "sub_type" | "options"> & {
-  sub_type: SingleChoiceQuestionSubType;
-  options: SingleChoiceOption[];
-};
+export interface SingleChoiceQuestionType extends BaseQuestion {
+  sub_type: SingleChoiceSubType;
+  options: SingleChoiceOptionType[];
+}

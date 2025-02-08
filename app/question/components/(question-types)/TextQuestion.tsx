@@ -1,25 +1,35 @@
 import ShortText from "./(text-question)/ShortText";
 import LongText from "./(text-question)/LongText";
 import Number from "./(text-question)/Number";
-import { TextQuestionSubType } from "@/app/types/question-types";
-import type { Question } from "@/app/types/question-types";
+import InvalidComponent from "../InvalidComponent";
+import { TextSubType, type TextQuestion } from "@/app/types/text-types";
 
-const TEXT_QUESTION_COMPONENTS: Record<TextQuestionSubType, React.FC<any>> = {
-  shortText: ShortText,
-  longText: LongText,
-  number: Number,
+const TEXT_QUESTION_COMPONENTS: Record<TextSubType, React.FC<any>> = {
+  [TextSubType.SHORT_TEXT]: ShortText,
+  [TextSubType.LONG_TEXT]: LongText,
+  [TextSubType.NUMBER]: Number,
 };
 
-const TextQuestion = ({
-  question,
-}: {
-  question: Question & { sub_type: TextQuestionSubType };
-}) => {
+const SUPPORTED_TYPES = Object.values(TextSubType);
+
+interface TextQuestionProps {
+  question: TextQuestion;
+  onChange: (value: string) => void;
+}
+
+const TextQuestion = ({ question, onChange }: TextQuestionProps) => {
   const Component = TEXT_QUESTION_COMPONENTS[question.sub_type];
 
-  return (
-    <Component onChange={() => console.log("Text Component Value Changed")} />
-  );
+  if (!Component) {
+    return (
+      <InvalidComponent
+        subType={question.sub_type}
+        supportedTypes={SUPPORTED_TYPES}
+      />
+    );
+  }
+
+  return <Component onChange={onChange} />;
 };
 
 export default TextQuestion;

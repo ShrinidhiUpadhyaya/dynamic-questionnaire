@@ -1,6 +1,6 @@
 interface InvalidComponentProps {
   subType: string;
-  supportedTypes: string;
+  supportedTypes: string[];
 }
 
 const InvalidComponent = ({

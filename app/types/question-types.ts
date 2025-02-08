@@ -1,20 +1,21 @@
-export type Question = {
+import { TextQuestion } from "./text-types";
+import { SingleChoiceQuestionType } from "./single-choice-types";
+
+export enum QuestionType {
+  TEXT = "text",
+  SINGLE_CHOICE = "single_choice",
+}
+
+export interface BaseQuestion {
   id: string;
   title: string;
   type: QuestionType;
-  sub_type?: string;
-  options?: string[];
-  validation?: Validation;
-};
+}
 
-export type QuestionType = "text" | "single_choice" | "multiple_choice";
+export type Question = TextQuestion | SingleChoiceQuestionType;
 
-export type TextQuestionSubType = "shortText" | "longText" | "number";
-
-export type Validation = {
-  minLength?: number;
-  maxLength?: number;
-  regex?: string;
-  message?: string;
-  custom?: string;
-};
+export interface Questionnaire {
+  id: string;
+  title: string;
+  questions: Question[];
+}

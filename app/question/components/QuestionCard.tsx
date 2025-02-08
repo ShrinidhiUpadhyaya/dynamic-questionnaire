@@ -14,8 +14,11 @@ import { QuestionType, Question } from "@/app/types/question-types";
 
 interface QuestionCardProps {
   question: Question;
+  onChange: (value) => void;
   onNext: () => void;
   onPrevious: () => void;
+  isFirstQuestion: boolean;
+  isLastQuestion: boolean;
 }
 
 const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
@@ -24,7 +27,14 @@ const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   multiple_choice: MultipleChoiceQuestion,
 };
 
-const QuestionCard = ({ question, onNext, onPrevious }: QuestionCardProps) => {
+const QuestionCard = ({
+  question,
+  onChange,
+  onNext,
+  onPrevious,
+  isFirstQuestion,
+  isLastQuestion,
+}: QuestionCardProps) => {
   const QuestionComponent = QUESTION_COMPONENTS[question.type];
 
   if (!QuestionComponent) {
@@ -38,15 +48,19 @@ const QuestionCard = ({ question, onNext, onPrevious }: QuestionCardProps) => {
         <CardTitle> {question?.title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <QuestionComponent question={question} />
+        <QuestionComponent question={question} onChange={onChange} />
       </CardContent>
       <CardFooter className="justify-between">
-        <Button variant="outline" onClick={onPrevious} className="w-24">
-          Previous
-        </Button>
-        <Button onClick={onNext} className="w-24">
-          Next
-        </Button>
+        {!isFirstQuestion && (
+          <Button variant="outline" onClick={onPrevious} className="w-24">
+            Previous
+          </Button>
+        )}
+        {!isLastQuestion && (
+          <Button onClick={onNext} className="w-24">
+            Next
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
