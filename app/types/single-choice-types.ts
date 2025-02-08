@@ -2,7 +2,7 @@ import { BaseQuestion } from "./question-types";
 
 export enum SingleChoiceSubType {
   RADIO = "radio",
-  CHECKBOX = "checkbox",
+  SELECT = "select",
 }
 
 export interface SingleChoiceOptionType {

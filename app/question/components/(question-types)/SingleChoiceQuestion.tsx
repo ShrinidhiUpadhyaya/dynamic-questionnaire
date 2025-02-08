@@ -9,7 +9,7 @@ const SINGLE_CHOICE_QUESTION_COMPONENTS: Record<
   React.FC<any>
 > = {
   [SingleChoiceSubType.RADIO]: RadioButtons,
-  [SingleChoiceSubType.CHECKBOX]: DSelect,
+  [SingleChoiceSubType.SELECT]: DSelect,
 };
 
 interface SingleChoiceQuestionProps {
