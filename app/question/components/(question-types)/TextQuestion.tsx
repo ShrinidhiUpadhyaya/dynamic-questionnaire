@@ -17,7 +17,9 @@ const TextQuestion = ({
 }) => {
   const Component = TEXT_QUESTION_COMPONENTS[question.sub_type];
 
-  return <Component />;
+  return (
+    <Component onChange={() => console.log("Text Component Value Changed")} />
+  );
 };
 
 export default TextQuestion;
