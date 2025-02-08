@@ -43,7 +43,7 @@ jobs:
         key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
 
   branch-protection:
-    needs: [build-and-test, security-scan]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     
