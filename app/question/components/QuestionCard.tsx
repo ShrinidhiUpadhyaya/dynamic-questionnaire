@@ -9,8 +9,6 @@ import {
 import React from "react";
 import SingleChoiceQuestion from "./(question-types)/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./(question-types)/MultipleChoiceQuestion";
-import DateTimeQuestion from "./(question-types)/DateTimeQuestion";
-import RatingsAndScaleQuestion from "./(question-types)/RatingsAndScaleQuestion";
 import TextQuestion from "./(question-types)/TextQuestion";
 import { QuestionType, Question } from "@/app/types/question-types";
 
@@ -24,8 +22,6 @@ const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
   multiple_choice: MultipleChoiceQuestion,
-  date_time: DateTimeQuestion,
-  ratings: RatingsAndScaleQuestion,
 };
 
 const QuestionCard = ({ question, onNext, onPrevious }: QuestionCardProps) => {

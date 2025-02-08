@@ -7,12 +7,7 @@ export type Question = {
   validation?: Validation;
 };
 
-export type QuestionType =
-  | "text"
-  | "single_choice"
-  | "multiple_choice"
-  | "date_time"
-  | "ratings";
+export type QuestionType = "text" | "single_choice" | "multiple_choice";
 
 export type TextQuestionSubType = "shortText" | "longText" | "number";
 
