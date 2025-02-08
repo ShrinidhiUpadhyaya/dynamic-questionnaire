@@ -29,12 +29,17 @@ export interface LongTextQuestion extends TextQuestionBase {
   maxLength: number;
 }
 
+export type TextQuestion =
+  | NumberQuestion
+  | ShortTextQuestion
+  | LongTextQuestion;
+
 export interface BaseInputProps {
   placeholder?: string;
   minLength?: number;
   maxLength?: number;
   onChange?: (value: string) => void;
-  value?: string;
+  defaultValue?: string;
   name?: string;
   error?: string;
   disabled?: boolean;

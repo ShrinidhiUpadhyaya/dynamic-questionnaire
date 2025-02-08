@@ -16,7 +16,7 @@ const QuestionPage = () => {
     isLastQuestion,
   } = useQuestion();
 
-  const { mutate: saveAnswers } = useResponse();
+  const { answers, saveAnswers } = useResponse();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -43,8 +43,6 @@ const QuestionPage = () => {
       value: value,
     });
   };
-
-  console.log("currentQuestion", currentQuestion);
 
   return (
     <div className="flex-1">
