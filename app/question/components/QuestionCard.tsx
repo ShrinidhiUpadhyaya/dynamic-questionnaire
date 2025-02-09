@@ -17,6 +17,7 @@ import { useCallback } from "react";
 import { useConditionalLogic } from "@/app/question/hooks/useConditionalLogic";
 import SubmitAlert from "./SubmitAlert";
 import { useRouter } from "next/navigation";
+import { t } from "@/app/locales/translation";
 const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
@@ -112,12 +113,12 @@ const QuestionCardFooter = ({
     <CardFooter className="justify-between items-end h-1/4">
       {!isFirstQuestion && (
         <Button variant="outline" onClick={goToPrevious} className="w-24">
-          Previous
+          {t("previous")}
         </Button>
       )}
       {!isLastQuestion ? (
         <Button onClick={goToNext} className="w-24">
-          Next
+          {t("next")}
         </Button>
       ) : (
         <SubmitAlert onSubmit={handleSubmit} />

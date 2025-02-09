@@ -10,6 +10,7 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { t } from "@/app/locales/translation";
 
 interface SubmitAlertProps {
   onSubmit: () => void;
@@ -25,7 +26,7 @@ const SubmitAlert = ({ onSubmit }: SubmitAlertProps) => {
     <div>
       <AlertDialog onOpenChange={handleSubmit}>
         <AlertDialogTrigger asChild>
-          <Button>Submit</Button>
+          <Button>{t("submit")}</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
