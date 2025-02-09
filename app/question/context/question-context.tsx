@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo } from "react";
-import { Question } from "@/app/types/question-types";
-import { useResponse } from "@/app/hooks/useResponse";
-import { useQuestion } from "@/app/hooks/useQuestion";
+import { Question } from "@/app/question/types/question-types";
+import { useResponse } from "@/app/question/hooks/useResponse";
+import { useQuestion } from "@/app/question/hooks/useQuestion";
 
 interface QuestionContextType {
   currentQuestion: Question | null;

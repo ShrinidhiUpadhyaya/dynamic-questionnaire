@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getQuestions } from "../lib/getQuestions";
 import { useState, useEffect, useMemo, useCallback } from "react";
-import useQuestionStore from "../store/store";
+import useQuestionStore from "@/app/question/store/store";
 
 const BATCH_SIZE = 2;
 const CURRENT_QUESTION_KEY = "currentQuestionIndex";

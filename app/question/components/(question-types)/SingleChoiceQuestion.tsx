@@ -4,7 +4,7 @@ import InvalidComponent from "../InvalidComponent";
 import {
   SingleChoiceSubType,
   SingleChoiceQuestionProps,
-} from "@/app/types/single-choice-types";
+} from "@/app/question/types/single-choice-types";
 
 const SINGLE_CHOICE_QUESTION_COMPONENTS: Record<
   SingleChoiceSubType,

@@ -10,12 +10,12 @@ import React from "react";
 import SingleChoiceQuestion from "./(question-types)/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./(question-types)/MultipleChoiceQuestion";
 import TextQuestion from "./(question-types)/TextQuestion";
-import { QuestionType, Question } from "@/app/types/question-types";
+import { QuestionType, Question } from "@/app/question/types/question-types";
 import InvalidComponent from "./InvalidComponent";
 import { useQuestionContext } from "../context/question-context";
 import { useCallback } from "react";
 import useUnsavedChanges from "@/app/hooks/useUnsavedChanges";
-import { useConditionalLogic } from "@/app/hooks/useConditionalLogic";
+import { useConditionalLogic } from "@/app/question/hooks/useConditionalLogic";
 
 const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,

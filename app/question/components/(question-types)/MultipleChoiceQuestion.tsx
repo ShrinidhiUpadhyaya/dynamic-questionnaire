@@ -1,10 +1,11 @@
 import {
   MultipleChoiceSubType,
   MultipleChoiceQuestionType,
-} from "@/app/types/multiple-choice-types";
+} from "@/app/question/types/multiple-choice-types";
 import DCheckbox from "./(multiple-choice-question)/DCheckbox";
 import InvalidComponent from "../InvalidComponent";
-import { MultipleChoiceQuestionProps } from "@/app/types/multiple-choice-types";
+import { MultipleChoiceQuestionProps } from "@/app/question/types/multiple-choice-types";
+
 const MULTI_CHOICE_QUESTION_COMPONENTS: Record<
   MultipleChoiceSubType,
   React.FC<any>

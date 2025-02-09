@@ -1,5 +1,5 @@
 import { Textarea } from "@/components/ui/textarea";
-import { BaseInputProps } from "@/app/types/text-types";
+import { BaseInputProps } from "@/app/question/types/text-types";
 import { useTextComponentChange } from "@/app/question/hooks/useTextComponentChange";
 
 const LongText = ({
@@ -14,7 +14,7 @@ const LongText = ({
   const { value, handleChange } = useTextComponentChange({
     onChange,
     validate,
-    initialValue: defaultValue,
+    defaultValue: defaultValue,
   });
 
   return (

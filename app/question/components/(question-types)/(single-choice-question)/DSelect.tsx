@@ -6,7 +6,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSingleChoiceChange } from "@/app/question/hooks/useSingleChoiceChange";
-import { DSelectProps } from "@/app/types/single-choice-types";
+import { DSelectProps } from "@/app/question/types/single-choice-types";
+
 const DSelect = ({ defaultValue, answer, options, onChange }: DSelectProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
     defaultValue,

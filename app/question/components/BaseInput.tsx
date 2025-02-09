@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { BaseInputProps } from "@/app/types/text-types";
+import { BaseInputProps } from "@/app/question/types/text-types";
 
 const BaseInput = ({ value, onChange, error, ...props }: BaseInputProps) => {
   return (

@@ -1,5 +1,4 @@
-import { ConditionalRule } from "../types/question-types";
-import { Question } from "../types/question-types";
+import { ConditionalRule, Question } from "@/app/question/types/question-types";
 import { useResponse } from "./useResponse";
 
 export const useConditionalLogic = (question: Question) => {

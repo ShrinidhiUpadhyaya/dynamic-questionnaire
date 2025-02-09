@@ -30,7 +30,7 @@ const QuestionPageContent: React.FC = () => {
   // }
 
   return (
-    <div className="h-3/4 w-1/2">
+    <div className="h-3/4 md:w-3/4 lg:w-1/2 w-full">
       <QuestionCard />
     </div>
   );

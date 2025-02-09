@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { NumberInputProps } from "@/app/types/text-types";
+import { NumberInputProps } from "@/app/question/types/text-types";
 import { useTextComponentChange } from "@/app/question/hooks/useTextComponentChange";
 
 const Number = ({ placeholder, min, max, onChange }: NumberInputProps) => {

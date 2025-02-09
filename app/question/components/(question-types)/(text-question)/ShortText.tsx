@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { BaseInputProps } from "@/app/types/text-types";
+import { BaseInputProps } from "@/app/question/types/text-types";
 import { useTextComponentChange } from "@/app/question/hooks/useTextComponentChange";
 
 const ShortText = ({
