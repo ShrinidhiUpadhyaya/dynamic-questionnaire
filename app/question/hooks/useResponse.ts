@@ -1,16 +1,19 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 type UserAnswer = {
   value: string | number | null;
 };
 
 export const useResponse = (questionId: string) => {
+  const queryClient = useQueryClient();
+  const queryKey = ["response", questionId];
+
   const {
     data: answerData,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["response", questionId],
+    queryKey: queryKey,
     queryFn: async () => {
       const response = await fetch(`/api/response?questionId=${questionId}`);
       if (!response.ok) {
@@ -18,6 +21,7 @@ export const useResponse = (questionId: string) => {
       }
       return response.json();
     },
+    staleTime: 30000,
   });
 
   const { mutate: saveAnswers, isPending: isSaving } = useMutation({
@@ -34,6 +38,21 @@ export const useResponse = (questionId: string) => {
         throw new Error("Failed to save answers");
       }
       return response.json();
+    },
+    onMutate: async (newAnswers) => {
+      await queryClient.cancelQueries({ queryKey: queryKey });
+      const previousAnswers = queryClient.getQueryData(queryKey);
+      queryClient.setQueryData(queryKey, {
+        answer: newAnswers,
+      });
+
+      return { previousAnswers };
+    },
+    onError: (err, newAnswers, context) => {
+      queryClient.setQueryData(queryKey, context?.previousAnswers);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: queryKey });
     },
   });
 

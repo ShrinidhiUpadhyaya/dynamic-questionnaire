@@ -1,55 +1,60 @@
-// app/api/answers/route.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import db from "../(config)/db";
+import { getQuestionId, createErrorResponse } from "./utils";
 
-export async function POST(request: NextRequest, response: NextResponse) {
+interface Answer {
+  questionId: string;
+  answer: string | string[];
+}
+
+let answers: Answer[] = [];
+
+const findAnswer = (questionId: string): Answer | undefined => {
+  return answers.find((item) => item.questionId === questionId);
+};
+
+const upsertAnswer = (questionId: string, answer: string): void => {
+  const existingIndex = answers.findIndex(
+    (item) => item.questionId === questionId
+  );
+
+  if (existingIndex !== -1) {
+    answers[existingIndex] = { ...answers[existingIndex], answer };
+  } else {
+    answers = [...answers, { questionId, answer }];
+  }
+};
+
+export async function POST(request: NextRequest) {
   try {
-    const { answers } = await request.json();
+    const questionId = getQuestionId(request);
+    const { answers: newAnswer } = await request.json();
 
-    const { searchParams } = new URL(request.url);
+    if (!answers) {
+      return createErrorResponse("Answers are required", 400);
+    }
 
-    const stmt = db.prepare(
-      "INSERT OR REPLACE INTO answers (questionId, answer) VALUES (?, ?)"
-    );
-    stmt.run(questionId, answers);
+    upsertAnswer(questionId, newAnswer);
 
     return NextResponse.json(
       { message: "Answers saved successfully" },
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to save answers" },
-      { status: 500 }
-    );
+    return createErrorResponse("Failed to retrieve answers");
   }
 }
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const questionId = searchParams.get("questionId");
-
-    if (!questionId) {
-      return NextResponse.json(
-        { error: "Question ID is required" },
-        { status: 400 }
-      );
-    }
-
-    const result = db
-      .prepare("SELECT answer FROM answers WHERE questionId = ?")
-      .get(questionId);
+    const questionId = getQuestionId(request);
+    const result = findAnswer(questionId);
 
     return NextResponse.json(
       { answer: result ? result.answer : null },
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to retrieve answers" },
-      { status: 500 }
-    );
+    return createErrorResponse("Failed to retrieve answers");
   }
 }
