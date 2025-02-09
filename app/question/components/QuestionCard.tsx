@@ -49,7 +49,10 @@ const QuestionCard = ({
   return (
     <Card className="w-full h-full flex flex-col justify-between">
       <CardHeader>
-        <CardTitle> {question?.title}</CardTitle>
+        <CardTitle className="font-extrabold text-4xl text-[#155263]">
+          {" "}
+          {question?.title}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <QuestionComponent question={question} onChange={onChange} />
