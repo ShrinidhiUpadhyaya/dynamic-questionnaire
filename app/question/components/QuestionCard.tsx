@@ -12,14 +12,8 @@ import MultipleChoiceQuestion from "./(question-types)/MultipleChoiceQuestion";
 import TextQuestion from "./(question-types)/TextQuestion";
 import { QuestionType, Question } from "@/app/types/question-types";
 import InvalidComponent from "./InvalidComponent";
-interface QuestionCardProps {
-  question: Question;
-  onChange: (value) => void;
-  onNext: () => void;
-  onPrevious: () => void;
-  isFirstQuestion: boolean;
-  isLastQuestion: boolean;
-}
+import { useQuestionContext } from "../context/question-context";
+import { useCallback } from "react";
 
 const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
@@ -27,20 +21,30 @@ const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   multiple_choice: MultipleChoiceQuestion,
 };
 
-const QuestionCard = ({
-  question,
-  onChange,
-  onNext,
-  onPrevious,
-  isFirstQuestion,
-  isLastQuestion,
-}: QuestionCardProps) => {
-  const QuestionComponent = QUESTION_COMPONENTS[question.type];
+const QuestionCard = () => {
+  const {
+    currentQuestion,
+    answer,
+    saveAnswer,
+    goToNext,
+    goToPrevious,
+    isFirstQuestion,
+    isLastQuestion,
+  } = useQuestionContext();
+
+  const handleChange = useCallback(
+    (value: string | string[]) => {
+      saveAnswer(value);
+    },
+    [saveAnswer]
+  );
+
+  const QuestionComponent = QUESTION_COMPONENTS[currentQuestion?.type];
 
   if (!QuestionComponent) {
     return (
       <InvalidComponent
-        type={question.type}
+        type={currentQuestion?.type}
         supportedTypes={Object.keys(QUESTION_COMPONENTS)}
       />
     );
@@ -48,28 +52,64 @@ const QuestionCard = ({
 
   return (
     <Card className="w-full h-full flex flex-col justify-between">
-      <CardHeader>
-        <CardTitle className="font-extrabold text-4xl text-[#155263]">
-          {" "}
-          {question?.question}
-        </CardTitle>
-      </CardHeader>
+      <QuestionCardHeader title={currentQuestion?.question} />
       <CardContent>
-        <QuestionComponent question={question} onChange={onChange} />
+        <QuestionComponent
+          question={currentQuestion}
+          answer={answer}
+          onChange={handleChange}
+        />
       </CardContent>
-      <CardFooter className="justify-between">
-        {!isFirstQuestion && (
-          <Button variant="outline" onClick={onPrevious} className="w-24">
-            Previous
-          </Button>
-        )}
-        {!isLastQuestion && (
-          <Button onClick={onNext} className="w-24">
-            Next
-          </Button>
-        )}
-      </CardFooter>
+      <QuestionCardFooter
+        isFirstQuestion={isFirstQuestion}
+        isLastQuestion={isLastQuestion}
+        goToPrevious={goToPrevious}
+        goToNext={goToNext}
+      />
     </Card>
+  );
+};
+
+type QuestionCardHeaderProps = {
+  title: string;
+};
+
+const QuestionCardHeader = ({ title }: QuestionCardHeaderProps) => {
+  return (
+    <CardHeader>
+      <CardTitle className="font-extrabold text-4xl text-[#155263]">
+        {title}
+      </CardTitle>
+    </CardHeader>
+  );
+};
+
+type QuestionCardFooterProps = {
+  isFirstQuestion: boolean;
+  isLastQuestion: boolean;
+  goToPrevious: () => void;
+  goToNext: () => void;
+};
+
+const QuestionCardFooter = ({
+  isFirstQuestion,
+  isLastQuestion,
+  goToPrevious,
+  goToNext,
+}: QuestionCardFooterProps) => {
+  return (
+    <CardFooter className="justify-between">
+      {!isFirstQuestion && (
+        <Button variant="outline" onClick={goToPrevious} className="w-24">
+          Previous
+        </Button>
+      )}
+      {!isLastQuestion && (
+        <Button onClick={goToNext} className="w-24">
+          Next
+        </Button>
+      )}
+    </CardFooter>
   );
 };
 

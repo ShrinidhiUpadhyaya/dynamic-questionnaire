@@ -1,13 +1,7 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { SingleChoiceOptionType } from "@/app/types/single-choice-types";
 import { useSingleChoiceChange } from "@/app/question/hooks/useSingleChoiceChange";
-
-interface RadioButtonsProps {
-  defaultValue: string;
-  options: SingleChoiceOptionType[];
-  onChange: (value: string) => void;
-}
+import { RadioButtonsProps } from "@/app/types/single-choice-types";
 
 const RadioButtons = ({
   defaultValue,

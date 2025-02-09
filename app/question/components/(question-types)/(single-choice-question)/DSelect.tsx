@@ -5,16 +5,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SingleChoiceOption } from "@/app/types/single-choice-types";
 import { useSingleChoiceChange } from "@/app/question/hooks/useSingleChoiceChange";
-
-interface DSelectProps {
-  defaultValue: string;
-  options: SingleChoiceOption[];
-  onChange: (value: string) => void;
-}
-
-const DSelect = ({ defaultValue, options, onChange }: DSelectProps) => {
+import { DSelectProps } from "@/app/types/single-choice-types";
+const DSelect = ({ defaultValue, answer, options, onChange }: DSelectProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
     defaultValue,
     onChange,

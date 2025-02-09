@@ -2,59 +2,36 @@
 
 import React from "react";
 import QuestionCard from "./components/QuestionCard";
-import { useResponse } from "@/app/hooks/useResponse";
-import { useQuestion } from "@/app/hooks/useQuestion";
 import QuestionLoadingCard from "./components/QuestionLoadingCard";
+import {
+  QuestionProvider,
+  useQuestionContext,
+} from "./context/question-context";
 
 const QuestionPage = () => {
-  const {
-    currentQuestion,
-    isLoading,
-    error,
-    goToNextQuestion,
-    goToPreviousQuestion,
-    isFirstQuestion,
-    isLastQuestion,
-  } = useQuestion();
+  return (
+    // <ErrorBoundary fallback={<ErrorFallback />}>
+    <QuestionProvider>
+      <QuestionPageContent />
+    </QuestionProvider>
+    // </ErrorBoundary>
+  );
+};
 
-  const { answers, saveAnswers } = useResponse();
+const QuestionPageContent: React.FC = () => {
+  const { isLoading, error } = useQuestionContext();
 
   if (isLoading) {
     return <QuestionLoadingCard />;
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  const handleNext = () => {
-    console.log("Next");
-    goToNextQuestion();
-  };
-
-  const handlePrevious = () => {
-    console.log("Previous");
-    goToPreviousQuestion();
-  };
-
-  const handleChange = (value) => {
-    console.log("Value changed:", value);
-    saveAnswers({
-      questionId: currentQuestion?.id,
-      value: value,
-    });
-  };
+  // if (error || !currentQuestion) {
+  //   return <QuestionError error={error} />;
+  // }
 
   return (
     <div className="flex-1">
-      <QuestionCard
-        question={currentQuestion}
-        onChange={handleChange}
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-        isFirstQuestion={isFirstQuestion}
-        isLastQuestion={isLastQuestion}
-      />
+      <QuestionCard />
     </div>
   );
 };

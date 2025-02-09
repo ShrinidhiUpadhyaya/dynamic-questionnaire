@@ -38,6 +38,13 @@ export type TextQuestion =
   | ShortTextQuestion
   | LongTextQuestion;
 
+// Component Types
+export interface TextQuestionProps {
+  question: TextQuestion;
+  answer: string;
+  onChange: (value: string) => void;
+}
+
 export interface BaseInputProps {
   placeholder?: string;
   minLength?: number;
