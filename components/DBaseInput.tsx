@@ -1,13 +1,17 @@
 import { Input } from "@/components/ui/input";
 import { BaseInputProps } from "@/app/question/types/text-types";
+import DErrorMessage from "@/components/DErrorMessage";
 
-const DBaseInput = ({ value, onChange, error, ...props }: BaseInputProps) => {
+const DBaseInput = ({ value, error, onChange, ...props }: BaseInputProps) => {
   return (
-    <Input
-      value={value}
-      onChange={(e) => onChange?.(e.target.value)}
-      {...props}
-    />
+    <div className="space-y-1">
+      <Input
+        value={value}
+        onChange={(e) => onChange?.(e.target.value)}
+        {...props}
+      />
+      {error && <DErrorMessage error={error} />}
+    </div>
   );
 };
 
