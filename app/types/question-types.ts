@@ -10,7 +10,7 @@ export enum QuestionType {
 
 export interface BaseQuestion {
   id: string;
-  title: string;
+  question: string;
   type: QuestionType;
 }
 

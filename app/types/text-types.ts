@@ -9,6 +9,10 @@ export enum TextSubType {
 interface TextQuestionBase extends BaseQuestion {
   type: QuestionType.TEXT;
   sub_type: TextSubType;
+  validation?: {
+    pattern?: string;
+    errorMessage?: string;
+  };
 }
 
 export interface NumberQuestion extends TextQuestionBase {
@@ -19,14 +23,14 @@ export interface NumberQuestion extends TextQuestionBase {
 
 export interface ShortTextQuestion extends TextQuestionBase {
   sub_type: TextSubType.SHORT_TEXT;
-  minLength: number;
-  maxLength: number;
+  minLength?: number;
+  maxLength?: number;
 }
 
 export interface LongTextQuestion extends TextQuestionBase {
   sub_type: TextSubType.LONG_TEXT;
-  minLength: number;
-  maxLength: number;
+  minLength?: number;
+  maxLength?: number;
 }
 
 export type TextQuestion =

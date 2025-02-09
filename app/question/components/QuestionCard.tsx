@@ -51,7 +51,7 @@ const QuestionCard = ({
       <CardHeader>
         <CardTitle className="font-extrabold text-4xl text-[#155263]">
           {" "}
-          {question?.title}
+          {question?.question}
         </CardTitle>
       </CardHeader>
       <CardContent>

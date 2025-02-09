@@ -33,7 +33,7 @@ const MultipleChoiceQuestion = ({
       />
     );
   }
-  return <Component label={question.title} onChange={onChange} />;
+  return <Component options={question.options} onChange={onChange} />;
 };
 
 export default MultipleChoiceQuestion;
