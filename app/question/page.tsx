@@ -4,6 +4,7 @@ import React from "react";
 import QuestionCard from "./components/QuestionCard";
 import { useResponse } from "@/app/hooks/useResponse";
 import { useQuestion } from "@/app/hooks/useQuestion";
+import QuestionLoadingCard from "./components/QuestionLoadingCard";
 
 const QuestionPage = () => {
   const {
@@ -19,7 +20,7 @@ const QuestionPage = () => {
   const { answers, saveAnswers } = useResponse();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <QuestionLoadingCard />;
   }
 
   if (error) {
