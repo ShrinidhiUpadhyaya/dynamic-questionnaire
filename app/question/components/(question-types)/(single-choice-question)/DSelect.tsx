@@ -27,7 +27,11 @@ const DSelect = ({ defaultValue, options, onChange }: DSelectProps) => {
       </SelectTrigger>
       <SelectContent>
         {options.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
+          <SelectItem
+            key={option.value}
+            value={option.value}
+            className="text-base text-[#155263]"
+          >
             {option.label}
           </SelectItem>
         ))}
