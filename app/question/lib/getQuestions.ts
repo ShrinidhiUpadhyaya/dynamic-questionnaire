@@ -1,3 +1,5 @@
+import { API_URL } from "@/app/config/apiUrls";
+
 interface Question {
   id: number;
 }
@@ -16,7 +18,7 @@ export const getQuestions = async (params: {
     ...(params.offset && { offset: params.offset.toString() }),
   });
 
-  const response = await fetch(`/api/questions?${queryParams}`);
+  const response = await fetch(`${API_URL.QUESTIONS}?${queryParams}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch questions");

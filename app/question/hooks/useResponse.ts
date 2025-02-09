@@ -1,4 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { sendResponse } from "../lib/sendResponse";
+import { getResponse } from "../lib/getResponse";
 
 type UserAnswer = {
   value: string | number | null;
@@ -15,29 +17,16 @@ export const useResponse = (questionId: string) => {
   } = useQuery({
     queryKey: queryKey,
     queryFn: async () => {
-      const response = await fetch(`/api/response?questionId=${questionId}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch answers");
-      }
-      return response.json();
+      const response = await getResponse(questionId);
+      return response;
     },
     staleTime: 30000,
   });
 
   const { mutate: saveAnswers, isPending: isSaving } = useMutation({
     mutationFn: async (answers: UserAnswer[]) => {
-      const response = await fetch(`/api/response?questionId=${questionId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ answers }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to save answers");
-      }
-      return response.json();
+      const response = await sendResponse(questionId, answers);
+      return response;
     },
     onMutate: async (newAnswers) => {
       await queryClient.cancelQueries({ queryKey: queryKey });
