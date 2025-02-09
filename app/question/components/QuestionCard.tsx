@@ -84,7 +84,7 @@ type QuestionCardHeaderProps = {
 
 const QuestionCardHeader = ({ title }: QuestionCardHeaderProps) => {
   return (
-    <CardHeader>
+    <CardHeader className="h-1/4">
       <CardTitle className="font-extrabold text-4xl text-primary-foreground">
         {title}
       </CardTitle>
@@ -106,7 +106,7 @@ const QuestionCardFooter = ({
   goToNext,
 }: QuestionCardFooterProps) => {
   return (
-    <CardFooter className="justify-between">
+    <CardFooter className="justify-between items-end h-1/4">
       {!isFirstQuestion && (
         <Button variant="outline" onClick={goToPrevious} className="w-24">
           Previous
