@@ -11,7 +11,7 @@ import SingleChoiceQuestion from "./(question-types)/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./(question-types)/MultipleChoiceQuestion";
 import TextQuestion from "./(question-types)/TextQuestion";
 import { QuestionType, Question } from "@/app/types/question-types";
-
+import InvalidComponent from "./InvalidComponent";
 interface QuestionCardProps {
   question: Question;
   onChange: (value) => void;
@@ -38,12 +38,16 @@ const QuestionCard = ({
   const QuestionComponent = QUESTION_COMPONENTS[question.type];
 
   if (!QuestionComponent) {
-    console.error(`Unknown question type: ${question.type}`);
-    return null;
+    return (
+      <InvalidComponent
+        type={question.type}
+        supportedTypes={Object.keys(QUESTION_COMPONENTS)}
+      />
+    );
   }
 
   return (
-    <Card className="w-full">
+    <Card className="w-full h-full flex flex-col justify-between">
       <CardHeader>
         <CardTitle> {question?.title}</CardTitle>
       </CardHeader>

@@ -28,7 +28,7 @@ const MultipleChoiceQuestion = ({
   if (!Component) {
     return (
       <InvalidComponent
-        subType={question.sub_type}
+        type={question.sub_type}
         supportedTypes={SUPPORTED_TYPES}
       />
     );
