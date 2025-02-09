@@ -23,7 +23,7 @@ const DSelect = ({ defaultValue, answer, options, onChange }: DSelectProps) => {
           <SelectItem
             key={option.value}
             value={option.value}
-            className="text-base text-[#155263]"
+            className="text-base text-primary-foreground"
           >
             {option.label}
           </SelectItem>

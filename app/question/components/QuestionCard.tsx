@@ -77,7 +77,7 @@ type QuestionCardHeaderProps = {
 const QuestionCardHeader = ({ title }: QuestionCardHeaderProps) => {
   return (
     <CardHeader>
-      <CardTitle className="font-extrabold text-4xl text-[#155263]">
+      <CardTitle className="font-extrabold text-4xl text-primary-foreground">
         {title}
       </CardTitle>
     </CardHeader>
