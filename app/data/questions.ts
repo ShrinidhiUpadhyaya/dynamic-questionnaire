@@ -61,7 +61,8 @@ export const INITIAL_QUESTIONS: Questionnaire = {
         { id: "5-5", label: "Other", value: "other" },
       ],
       conditional: {
-        questionId: 4,
+        questionId: "4",
+        operator: "equals",
         value: "yes",
       },
     },

@@ -14,6 +14,8 @@ import { QuestionType, Question } from "@/app/types/question-types";
 import InvalidComponent from "./InvalidComponent";
 import { useQuestionContext } from "../context/question-context";
 import { useCallback } from "react";
+import useUnsavedChanges from "@/app/hooks/useUnsavedChanges";
+import { useConditionalLogic } from "@/app/hooks/useConditionalLogic";
 
 const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
@@ -31,6 +33,10 @@ const QuestionCard = () => {
     isFirstQuestion,
     isLastQuestion,
   } = useQuestionContext();
+
+  const { showQuestion } = useConditionalLogic(currentQuestion);
+
+  useUnsavedChanges(true, currentQuestion?.id);
 
   const handleChange = useCallback(
     (value: string | string[]) => {
@@ -53,7 +59,9 @@ const QuestionCard = () => {
   return (
     <Card className="w-full h-full flex flex-col justify-between">
       <QuestionCardHeader title={currentQuestion?.question} />
-      <CardContent>
+      <CardContent
+        className={`${!showQuestion() && "opacity-50 pointer-events-none"}`}
+      >
         <QuestionComponent
           question={currentQuestion}
           answer={answer}
@@ -104,9 +112,13 @@ const QuestionCardFooter = ({
           Previous
         </Button>
       )}
-      {!isLastQuestion && (
+      {!isLastQuestion ? (
         <Button onClick={goToNext} className="w-24">
           Next
+        </Button>
+      ) : (
+        <Button onClick={goToNext} className="w-24">
+          Submit
         </Button>
       )}
     </CardFooter>

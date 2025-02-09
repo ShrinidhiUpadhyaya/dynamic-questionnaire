@@ -1,19 +1,25 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useDebounce } from "@/app/hooks/useDebounce";
 
 interface UseTextInputProps {
   onChange?: (value: string) => void;
-  initialValue?: string;
+  defaultValue?: string;
   validate?: (value: string) => boolean;
 }
 
 export const useTextComponentChange = ({
   onChange,
-  initialValue = "",
+  defaultValue = "",
   validate,
 }: UseTextInputProps = {}) => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(defaultValue);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (defaultValue !== undefined) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue]);
 
   const { debouncedSave } = useDebounce({
     onSave: useCallback(

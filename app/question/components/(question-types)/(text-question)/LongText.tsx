@@ -4,6 +4,7 @@ import { useTextComponentChange } from "@/app/question/hooks/useTextComponentCha
 
 const LongText = ({
   placeholder,
+  defaultValue,
   minLength,
   maxLength,
   onChange,
@@ -13,6 +14,7 @@ const LongText = ({
   const { value, handleChange } = useTextComponentChange({
     onChange,
     validate,
+    initialValue: defaultValue,
   });
 
   return (

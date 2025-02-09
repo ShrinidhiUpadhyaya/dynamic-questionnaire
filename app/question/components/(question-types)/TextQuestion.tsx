@@ -12,7 +12,7 @@ const TEXT_QUESTION_COMPONENTS: Record<TextSubType, React.FC<any>> = {
 
 const SUPPORTED_TYPES = Object.values(TextSubType);
 
-const TextQuestion = ({ question, onChange }: TextQuestionProps) => {
+const TextQuestion = ({ question, answer, onChange }: TextQuestionProps) => {
   const Component = TEXT_QUESTION_COMPONENTS[question.sub_type];
 
   if (!Component) {
@@ -24,7 +24,7 @@ const TextQuestion = ({ question, onChange }: TextQuestionProps) => {
     );
   }
 
-  return <Component onChange={onChange} />;
+  return <Component defaultValue={answer} onChange={onChange} />;
 };
 
 export default TextQuestion;

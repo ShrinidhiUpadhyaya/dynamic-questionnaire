@@ -7,12 +7,14 @@ const ShortText = ({
   minLength,
   maxLength,
   onChange,
+  defaultValue,
 }: BaseInputProps) => {
   const validate = (value: string) => !maxLength || value.length <= maxLength;
 
   const { value, handleChange } = useTextComponentChange({
     onChange,
     validate,
+    defaultValue: defaultValue,
   });
 
   return (

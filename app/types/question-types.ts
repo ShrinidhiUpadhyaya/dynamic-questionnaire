@@ -8,10 +8,25 @@ export enum QuestionType {
   MULTIPLE_CHOICE = "multiple_choice",
 }
 
+export interface ConditionalRule {
+  questionId: string;
+  operator:
+    | "equals"
+    | "notEquals"
+    | "contains"
+    | "notContains"
+    | "greaterThan"
+    | "lessThan";
+  value: string | number | boolean | string[];
+  logic?: "and" | "or";
+  conditions?: ConditionalRule[];
+}
+
 export interface BaseQuestion {
   id: string;
   question: string;
   type: QuestionType;
+  conditional?: ConditionalRule;
 }
 
 export type Question =
