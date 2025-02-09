@@ -1,42 +1,74 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getQuestions } from "../lib/getQuestions";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import useQuestionStore from "../store/store";
 
 const BATCH_SIZE = 2;
 const CURRENT_QUESTION_KEY = "currentQuestionIndex";
+const STALE_TIME = 5 * 60 * 1000;
+const CACHE_TIME = 30 * 60 * 1000;
 
 export const useQuestion = () => {
   const queryClient = useQueryClient();
   const [currentIndex, setCurrentIndex] = useState(() => {
-    if (typeof window === "undefined") return 0;
-    const saved = localStorage.getItem(CURRENT_QUESTION_KEY);
-    return saved ? parseInt(saved, 10) : 0;
+    try {
+      if (typeof window === "undefined") return 0;
+      const saved = localStorage.getItem(CURRENT_QUESTION_KEY);
+      const parsed = saved ? parseInt(saved, 10) : 0;
+      return isNaN(parsed) ? 0 : parsed;
+    } catch (error) {
+      console.error("Error reading from localStorage:", error);
+      return 0;
+    }
   });
-  const batchIndex = Math.floor(currentIndex / BATCH_SIZE);
-  const offset = batchIndex * BATCH_SIZE;
+  const { setCurrentQuestionIndex, setTotalQuestions } = useQuestionStore();
+
+  const batchIndex = useMemo(
+    () => Math.floor(currentIndex / BATCH_SIZE),
+    [currentIndex]
+  );
+  const offset = useMemo(() => batchIndex * BATCH_SIZE, [batchIndex]);
+
+  const queryConfig = useMemo(
+    () => ({
+      queryKey: ["questions", batchIndex, BATCH_SIZE],
+      queryFn: () => getQuestions({ offset, limit: BATCH_SIZE }),
+      keepPreviousData: true,
+      staleTime: STALE_TIME,
+      cacheTime: CACHE_TIME,
+      retry: 2,
+      onError: (error: Error) => {
+        console.error("Error fetching questions:", error);
+      },
+    }),
+    [batchIndex, offset]
+  );
 
   const {
     data: questionnaire,
     isLoading,
     isError,
     error,
-  } = useQuery({
-    queryKey: ["questions", batchIndex, BATCH_SIZE],
-    queryFn: () => getQuestions({ offset: offset, limit: BATCH_SIZE }),
-    keepPreviousData: true,
-    staleTime: 5 * 60 * 1000,
-    cacheTime: 30 * 60 * 1000,
-  });
+  } = useQuery(queryConfig);
 
   useEffect(() => {
-    localStorage.setItem(CURRENT_QUESTION_KEY, currentIndex.toString());
-  }, [currentIndex]);
+    try {
+      localStorage.setItem(CURRENT_QUESTION_KEY, currentIndex.toString());
+      setCurrentQuestionIndex(currentIndex);
+    } catch (error) {
+      console.error("Error writing to localStorage:", error);
+    }
+  }, [currentIndex, setCurrentQuestionIndex]);
 
   const questions = questionnaire?.questions || [];
   const totalQuestions = questionnaire?.total || 0;
   const currentQuestion = questions[currentIndex % BATCH_SIZE];
 
-  const goToNextQuestion = () => {
+  useEffect(() => {
+    setTotalQuestions(totalQuestions);
+  }, [totalQuestions]);
+
+  const goToNextQuestion = useCallback(() => {
     if (currentIndex < totalQuestions - 1) {
       if ((currentIndex + 1) % BATCH_SIZE === 0) {
         const nextBatchIndex = batchIndex + 1;
@@ -47,28 +79,40 @@ export const useQuestion = () => {
               offset: nextBatchIndex * BATCH_SIZE,
               limit: BATCH_SIZE,
             }),
-          staleTime: 5 * 60 * 1000,
-          cacheTime: 30 * 60 * 1000,
+          staleTime: STALE_TIME,
+          cacheTime: CACHE_TIME,
         });
       }
-      setCurrentIndex(currentIndex + 1);
+      setCurrentIndex((prev) => prev + 1);
     }
-  };
+  }, [currentIndex, totalQuestions, batchIndex, queryClient]);
 
-  const goToPreviousQuestion = () => {
-    setCurrentIndex(currentIndex - 1);
-  };
+  const goToPreviousQuestion = useCallback(() => {
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  }, []);
 
-  return {
-    currentQuestion,
-    isFirstQuestion: currentIndex === 0,
-    isLastQuestion: currentIndex === totalQuestions - 1,
-    totalQuestions,
-    isLoading,
-    isError,
-    error,
-    goToNextQuestion,
-    goToPreviousQuestion,
-    currentIndex,
-  };
+  return useMemo(
+    () => ({
+      currentQuestion,
+      isFirstQuestion: currentIndex === 0,
+      isLastQuestion: currentIndex === totalQuestions - 1,
+      totalQuestions,
+      isLoading,
+      isError,
+      error,
+      goToNextQuestion,
+      goToPreviousQuestion,
+      currentIndex,
+    }),
+    [
+      currentQuestion,
+      currentIndex,
+      totalQuestions,
+      isLoading,
+      isError,
+      error,
+      goToNextQuestion,
+      goToPreviousQuestion,
+    ]
+  );
 };
