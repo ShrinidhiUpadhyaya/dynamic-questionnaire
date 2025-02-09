@@ -1,12 +1,17 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getQuestions } from "../lib/getQuestions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const BATCH_SIZE = 2;
+const CURRENT_QUESTION_KEY = "currentQuestionIndex";
 
 export const useQuestion = () => {
   const queryClient = useQueryClient();
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    if (typeof window === "undefined") return 0;
+    const saved = localStorage.getItem(CURRENT_QUESTION_KEY);
+    return saved ? parseInt(saved, 10) : 0;
+  });
   const batchIndex = Math.floor(currentIndex / BATCH_SIZE);
   const offset = batchIndex * BATCH_SIZE;
 
@@ -22,6 +27,10 @@ export const useQuestion = () => {
     staleTime: 5 * 60 * 1000,
     cacheTime: 30 * 60 * 1000,
   });
+
+  useEffect(() => {
+    localStorage.setItem(CURRENT_QUESTION_KEY, currentIndex.toString());
+  }, [currentIndex]);
 
   const questions = questionnaire?.questions || [];
   const totalQuestions = questionnaire?.total || 0;
