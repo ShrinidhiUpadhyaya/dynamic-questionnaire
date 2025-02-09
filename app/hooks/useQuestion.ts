@@ -10,17 +10,7 @@ const CACHE_TIME = 30 * 60 * 1000;
 
 export const useQuestion = () => {
   const queryClient = useQueryClient();
-  const [currentIndex, setCurrentIndex] = useState(() => {
-    try {
-      if (typeof window === "undefined") return 0;
-      const saved = localStorage.getItem(CURRENT_QUESTION_KEY);
-      const parsed = saved ? parseInt(saved, 10) : 0;
-      return isNaN(parsed) ? 0 : parsed;
-    } catch (error) {
-      console.error("Error reading from localStorage:", error);
-      return 0;
-    }
-  });
+  const [currentIndex, setCurrentIndex] = useState(0);
   const { setCurrentQuestionIndex, setTotalQuestions } = useQuestionStore();
 
   const batchIndex = useMemo(
@@ -52,12 +42,7 @@ export const useQuestion = () => {
   } = useQuery(queryConfig);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(CURRENT_QUESTION_KEY, currentIndex.toString());
-      setCurrentQuestionIndex(currentIndex);
-    } catch (error) {
-      console.error("Error writing to localStorage:", error);
-    }
+    setCurrentQuestionIndex(currentIndex);
   }, [currentIndex, setCurrentQuestionIndex]);
 
   const questions = questionnaire?.questions || [];
