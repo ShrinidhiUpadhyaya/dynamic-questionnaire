@@ -49,6 +49,17 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const questionId = getQuestionId(request);
+
+    if (questionId === "all") {
+      return NextResponse.json(
+        {
+          answers,
+          totalAnswers: answers.length,
+        },
+        { status: 200 }
+      );
+    }
+
     const result = findAnswer(questionId);
 
     return NextResponse.json(

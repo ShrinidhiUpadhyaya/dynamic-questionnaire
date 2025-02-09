@@ -1,7 +1,8 @@
 import { API_URL } from "@/app/config/apiUrls";
 
-export const getResponse = async (questionId: string) => {
-  const response = await fetch(`${API_URL.RESPONSE}${questionId}`);
+export const getAllResponses = async () => {
+  console.log("getAllResponses");
+  const response = await fetch(`${API_URL.ALL_RESPONSES}`);
   if (!response.ok) {
     throw new Error("Failed to get response");
   }

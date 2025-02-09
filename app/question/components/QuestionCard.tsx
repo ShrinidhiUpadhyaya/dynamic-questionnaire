@@ -15,7 +15,8 @@ import InvalidComponent from "./InvalidComponent";
 import { useQuestionContext } from "../context/question-context";
 import { useCallback } from "react";
 import { useConditionalLogic } from "@/app/question/hooks/useConditionalLogic";
-
+import SubmitAlert from "./SubmitAlert";
+import { useRouter } from "next/navigation";
 const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
@@ -102,6 +103,11 @@ const QuestionCardFooter = ({
   goToPrevious,
   goToNext,
 }: QuestionCardFooterProps) => {
+  const router = useRouter();
+  const handleSubmit = () => {
+    router.push("/answers");
+  };
+
   return (
     <CardFooter className="justify-between items-end h-1/4">
       {!isFirstQuestion && (
@@ -114,9 +120,7 @@ const QuestionCardFooter = ({
           Next
         </Button>
       ) : (
-        <Button onClick={goToNext} className="w-24">
-          Submit
-        </Button>
+        <SubmitAlert onSubmit={handleSubmit} />
       )}
     </CardFooter>
   );
