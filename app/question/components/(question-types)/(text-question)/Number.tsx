@@ -1,6 +1,6 @@
-import { Input } from "@/components/ui/input";
 import { NumberInputProps } from "@/app/question/types/text-types";
 import { useTextComponentChange } from "@/app/question/hooks/useTextComponentChange";
+import DBaseInput from "@/components/DBaseInput";
 
 const Number = ({
   placeholder,
@@ -25,7 +25,7 @@ const Number = ({
   });
 
   return (
-    <Input
+    <DBaseInput
       type="number"
       placeholder={placeholder}
       min={min}

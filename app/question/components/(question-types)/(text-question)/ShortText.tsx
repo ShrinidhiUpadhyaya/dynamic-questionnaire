@@ -1,14 +1,14 @@
 import { Input } from "@/components/ui/input";
-import { BaseInputProps } from "@/app/question/types/text-types";
+import { ShortTextInputProps } from "@/app/question/types/text-types";
 import { useTextComponentChange } from "@/app/question/hooks/useTextComponentChange";
 
 const ShortText = ({
   placeholder,
+  defaultValue,
   minLength,
   maxLength,
   onChange,
-  defaultValue,
-}: BaseInputProps) => {
+}: ShortTextInputProps) => {
   const validate = (value: string) => !maxLength || value.length <= maxLength;
 
   const { value, handleChange } = useTextComponentChange({

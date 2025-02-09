@@ -46,18 +46,25 @@ export interface TextQuestionProps {
 }
 
 export interface BaseInputProps {
+  value?: string;
   placeholder?: string;
-  minLength?: number;
-  maxLength?: number;
-  onChange?: (value: string) => void;
   defaultValue?: string;
-  name?: string;
-  error?: string;
   disabled?: boolean;
+  onChange?: (value: string) => void;
+  error?: string;
 }
 
-export interface NumberInputProps
-  extends Omit<BaseInputProps, "minLength" | "maxLength"> {
+export interface ShortTextInputProps extends BaseInputProps {
+  minLength?: number;
+  maxLength?: number;
+}
+
+export interface LongTextInputProps extends BaseInputProps {
+  minLength?: number;
+  maxLength?: number;
+}
+
+export interface NumberInputProps extends BaseInputProps {
   min?: number;
   max?: number;
 }
