@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import useQuestionStore from "@/app/question/store/store";
 
 const BATCH_SIZE = 2;
-const CURRENT_QUESTION_KEY = "currentQuestionIndex";
 const STALE_TIME = 5 * 60 * 1000;
 const CACHE_TIME = 30 * 60 * 1000;
 

@@ -7,10 +7,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React from "react";
-import SingleChoiceQuestion from "./(question-types)/SingleChoiceQuestion";
-import MultipleChoiceQuestion from "./(question-types)/MultipleChoiceQuestion";
-import TextQuestion from "./(question-types)/TextQuestion";
-import { QuestionType, Question } from "@/app/question/types/question-types";
+import SingleChoiceQuestion from "./(question-types)/(single-choice-question)";
+import MultipleChoiceQuestion from "./(question-types)/(multiple-choice-question)";
+import TextQuestion from "./(question-types)/(text-question)";
+import { QuestionType } from "@/app/question/types/question-types";
 import InvalidComponent from "./InvalidComponent";
 import { useQuestionContext } from "../context/question-context";
 import { useCallback } from "react";

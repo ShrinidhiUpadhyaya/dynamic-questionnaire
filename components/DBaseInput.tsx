@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { BaseInputProps } from "@/app/question/types/text-types";
 
-const BaseInput = ({ value, onChange, error, ...props }: BaseInputProps) => {
+const DBaseInput = ({ value, onChange, error, ...props }: BaseInputProps) => {
   return (
     <Input
       value={value}
@@ -11,4 +11,4 @@ const BaseInput = ({ value, onChange, error, ...props }: BaseInputProps) => {
   );
 };
 
-export default BaseInput;
+export default DBaseInput;

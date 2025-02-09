@@ -15,6 +15,7 @@ const DCheckbox = ({ options, defaultValues, onChange }: DCheckboxProps) => {
     setValues(newValues);
     onChange(newValues);
   };
+
   return (
     <div className="space-y-2">
       {options.map((option) => (

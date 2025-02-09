@@ -8,7 +8,7 @@ import {
 import { useSingleChoiceChange } from "@/app/question/hooks/useSingleChoiceChange";
 import { DSelectProps } from "@/app/question/types/single-choice-types";
 
-const DSelect = ({ defaultValue, answer, options, onChange }: DSelectProps) => {
+const DSelect = ({ defaultValue, options, onChange }: DSelectProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
     defaultValue,
     onChange,
