@@ -14,7 +14,6 @@ import { QuestionType } from "@/app/question/types/question-types";
 import InvalidComponent from "./InvalidComponent";
 import { useQuestionContext } from "../context/question-context";
 import { useCallback } from "react";
-import useUnsavedChanges from "@/app/hooks/useUnsavedChanges";
 import { useConditionalLogic } from "@/app/question/hooks/useConditionalLogic";
 
 const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
@@ -35,8 +34,6 @@ const QuestionCard = () => {
   } = useQuestionContext();
 
   const { showQuestion } = useConditionalLogic(currentQuestion);
-
-  useUnsavedChanges(true, currentQuestion?.id);
 
   const handleChange = useCallback(
     (value: string | string[]) => {
