@@ -10,11 +10,9 @@ import {
 
 const QuestionPage = () => {
   return (
-    // <ErrorBoundary fallback={<ErrorFallback />}>
     <QuestionProvider>
       <QuestionPageContent />
     </QuestionProvider>
-    // </ErrorBoundary>
   );
 };
 

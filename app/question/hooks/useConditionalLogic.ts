@@ -4,7 +4,7 @@ import { useResponse } from "./useResponse";
 export const useConditionalLogic = (question: Question) => {
   if (!question) return true;
 
-  const { answer } = useResponse(question.conditional?.questionId);
+  const { answer } = useResponse(question.conditional?.questionId || "");
 
   const evaluateCondition = (rule: ConditionalRule): boolean => {
     switch (rule.operator) {

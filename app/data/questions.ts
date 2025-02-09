@@ -72,7 +72,8 @@ export const INITIAL_QUESTIONS: Questionnaire = {
       sub_type: TextSubType.SHORT_TEXT,
       question: "If you selected 'Other', please specify.",
       conditional: {
-        questionId: 5,
+        questionId: "5",
+        operator: "equals",
         value: "other",
       },
     },
