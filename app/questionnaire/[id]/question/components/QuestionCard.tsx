@@ -18,6 +18,7 @@ import { useConditionalLogic } from "@/app/questionnaire/[id]/question/hooks/use
 import SubmitAlert from "./SubmitAlert";
 import { useRouter } from "next/navigation";
 import { t } from "@/app/locales/translation";
+
 const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
@@ -39,14 +40,14 @@ const QuestionCard = () => {
     return <div>No question found</div>;
   }
 
-  const { showQuestion } = useConditionalLogic(currentQuestion);
-
   const handleChange = useCallback(
     (value: string | string[]) => {
       saveAnswer(value);
     },
     [saveAnswer]
   );
+
+  const { showQuestion } = useConditionalLogic(currentQuestion);
 
   const QuestionComponent = QUESTION_COMPONENTS[currentQuestion?.type];
 
@@ -55,13 +56,17 @@ const QuestionCard = () => {
       <InvalidComponent
         type={currentQuestion?.type}
         supportedTypes={Object.keys(QUESTION_COMPONENTS)}
+        isFirstQuestion={isFirstQuestion}
+        isLastQuestion={isLastQuestion}
+        onPrevious={goToPrevious}
+        onNext={goToNext}
       />
     );
   }
 
   return (
     <Card className="w-full h-full flex flex-col justify-between">
-      <QuestionCardHeader title={currentQuestion?.question} />
+      <QuestionCardHeader title={currentQuestion.question} />
       <CardContent
         className={`${!showQuestion() && "opacity-50 pointer-events-none"}`}
       >
@@ -102,7 +107,7 @@ type QuestionCardFooterProps = {
   goToNext: () => void;
 };
 
-const QuestionCardFooter = ({
+export const QuestionCardFooter = ({
   isFirstQuestion,
   isLastQuestion,
   goToPrevious,
@@ -114,7 +119,11 @@ const QuestionCardFooter = ({
   };
 
   return (
-    <CardFooter className="justify-between items-end h-1/4">
+    <CardFooter
+      className={`justify-between items-end h-1/4 ${
+        isFirstQuestion && "justify-end"
+      }`}
+    >
       {!isFirstQuestion && (
         <Button variant="outline" onClick={goToPrevious} className="w-24">
           {t("previous")}

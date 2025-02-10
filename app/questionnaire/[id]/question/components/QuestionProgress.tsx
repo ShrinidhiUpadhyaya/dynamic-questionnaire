@@ -7,7 +7,7 @@ const QuestionProgress = () => {
   return (
     <Progress
       value={(currentQuestionIndex / totalQuestions) * 100}
-      className="h-6 w-3/4"
+      className="h-6 w-full md:w-3/4"
     />
   );
 };
