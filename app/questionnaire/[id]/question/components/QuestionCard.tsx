@@ -18,7 +18,7 @@ import { useConditionalLogic } from "@/app/questionnaire/[id]/question/hooks/use
 import SubmitAlert from "./SubmitAlert";
 import { useRouter } from "next/navigation";
 import { t } from "@/app/locales/translation";
-
+import { useParams } from "next/navigation";
 const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
@@ -113,9 +113,11 @@ export const QuestionCardFooter = ({
   goToPrevious,
   goToNext,
 }: QuestionCardFooterProps) => {
+  const { id } = useParams();
   const router = useRouter();
+
   const handleSubmit = () => {
-    router.push("/answers");
+    router.push(`/answers/${id}`);
   };
 
   return (

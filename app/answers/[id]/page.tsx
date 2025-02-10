@@ -1,10 +1,12 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getQuestions } from "../question/lib/getQuestions";
+import { getQuestions } from "../../questionnaire/[id]/question/lib/getQuestions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAllResponses } from "../question/lib/getAllResponses";
-import { useEffect, useMemo } from "react";
+import { getAllResponses } from "../../questionnaire/[id]/question/lib/getAllResponses";
+import { useMemo } from "react";
+import { Button } from "@/components/ui/button";
+import { useParams } from "next/navigation";
 
 interface Question {
   id: string;
@@ -24,9 +26,10 @@ interface CombinedData {
 }
 
 const AnswersPage = () => {
+  const { id } = useParams();
   const { data: questionsData, isLoading: isLoadingQuestions } = useQuery({
     queryKey: ["questions"],
-    queryFn: () => getQuestions({ offset: 0, limit: 15 }),
+    queryFn: () => getQuestions({ questionnaireId: id as string }),
   });
 
   const { data: answersData, isLoading: isLoadingAnswers } = useQuery({
@@ -72,29 +75,32 @@ const AnswersPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-16">
-      {combinedData.map((item: CombinedData) => (
-        <Card key={item.id} className="hover:shadow-lg transition-shadow">
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold">
-              {item.question}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="mt-2">
-              <p className="text-sm font-medium text-gray-500">Answer:</p>
-              <p className="mt-1 text-base">
-                {formatAnswer(item.answer, item.type)}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-400">
-                Question Type: {item.type}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="flex flex-col gap-4 items-center justify-center p-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {combinedData.map((item: CombinedData) => (
+          <Card key={item.id} className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold">
+                {item.question}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="mt-2">
+                <p className="text-sm font-medium text-gray-500">Answer:</p>
+                <p className="mt-1 text-base">
+                  {formatAnswer(item.answer, item.type)}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-400">
+                  Question Type: {item.type}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      <Button>Restart Quiz</Button>
     </div>
   );
 };
