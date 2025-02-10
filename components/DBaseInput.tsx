@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { BaseInputProps } from "@/app/question/types/text-types";
+import { BaseInputProps } from "@/app/questionnaire/[id]/question/types/text-types";
 import DErrorMessage from "@/components/DErrorMessage";
 
 const DBaseInput = ({ value, error, onChange, ...props }: BaseInputProps) => {

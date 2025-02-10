@@ -1,7 +1,10 @@
-import { TextSubType } from "../question/types/text-types";
-import { SingleChoiceSubType } from "../question/types/single-choice-types";
-import { QuestionType, Questionnaire } from "../question/types/question-types";
-import { MultipleChoiceSubType } from "../question/types/multiple-choice-types";
+import { TextSubType } from "../questionnaire/[id]/question/types/text-types";
+import { SingleChoiceSubType } from "../questionnaire/[id]/question/types/single-choice-types";
+import {
+  QuestionType,
+  Questionnaire,
+} from "../questionnaire/[id]/question/types/question-types";
+import { MultipleChoiceSubType } from "../questionnaire/[id]/question/types/multiple-choice-types";
 
 export const INITIAL_QUESTIONS: Questionnaire = {
   id: "compliance-questionnaire",
@@ -57,7 +60,11 @@ export const INITIAL_QUESTIONS: Questionnaire = {
         { id: "5-1", label: "Vegetarian", value: "vegetarian" },
         { id: "5-2", label: "Vegan", value: "vegan" },
         { id: "5-3", label: "Gluten-Free", value: "gluten_free" },
-        { id: "5-4", label: "Lactose Intolerant", value: "lactose_intolerant" },
+        {
+          id: "5-4",
+          label: "Lactose Intolerant",
+          value: "lactose_intolerant",
+        },
         { id: "5-5", label: "Other", value: "other" },
       ],
       conditional: {
@@ -167,3 +174,81 @@ export const INITIAL_QUESTIONS: Questionnaire = {
     },
   ],
 };
+
+// Schema 1: Job Application Questionnaire
+export const JOB_APPLICATION_QUESTIONNAIRE: Questionnaire = {
+  id: "job-application",
+  title: "Software Developer Position Application",
+  questions: [
+    {
+      id: "name",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT_TEXT,
+      question: "What is your full name?",
+      required: true,
+      validation: {
+        minLength: 2,
+        maxLength: 100,
+      },
+    },
+    {
+      id: "phone",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT_TEXT,
+      question: "What is your phone number?",
+      required: true,
+      validation: {
+        pattern: "^[+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{4,6}$",
+        errorMessage: "Please enter a valid phone number",
+      },
+    },
+    {
+      id: "resume",
+      type: QuestionType.FILE,
+      question: "Please upload your resume",
+      required: true,
+      validation: {
+        allowedTypes: ["pdf", "doc", "docx"],
+        maxSize: 5000000, // 5MB
+      },
+    },
+  ],
+};
+
+// Schema 2: Product Feedback Survey
+export const PRODUCT_FEEDBACK_QUESTIONNAIRE: Questionnaire = {
+  id: "product-feedback",
+  title: "Product Usage and Satisfaction Survey",
+  questions: [
+    {
+      id: "product-used",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.DROPDOWN,
+      question: "Which of our products do you use the most?",
+      required: true,
+      options: [
+        { id: "prod-1", label: "Mobile App", value: "mobile" },
+        { id: "prod-2", label: "Web Platform", value: "web" },
+        { id: "prod-3", label: "Desktop Software", value: "desktop" },
+      ],
+    },
+    {
+      id: "usage-frequency",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "How often do you use our product?",
+      options: [
+        { id: "freq-1", label: "Daily", value: "daily" },
+        { id: "freq-2", label: "Weekly", value: "weekly" },
+        { id: "freq-3", label: "Monthly", value: "monthly" },
+        { id: "freq-4", label: "Rarely", value: "rarely" },
+      ],
+    },
+  ],
+};
+
+export const QUESTIONNAIRE_LIST = [
+  INITIAL_QUESTIONS,
+  JOB_APPLICATION_QUESTIONNAIRE,
+  PRODUCT_FEEDBACK_QUESTIONNAIRE,
+];
