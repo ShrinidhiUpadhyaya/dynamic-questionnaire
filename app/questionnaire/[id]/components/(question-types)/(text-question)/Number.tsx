@@ -1,5 +1,5 @@
-import { NumberInputProps } from "@/app/questionnaire/[id]/question/types/text-types";
-import { useTextComponentChange } from "@/app/questionnaire/[id]/question/hooks/useTextComponentChange";
+import { NumberInputProps } from "@/app/questionnaire/[id]/types/text-types";
+import { useTextComponentChange } from "@/app/questionnaire/[id]/hooks/useTextComponentChange";
 import DBaseInput from "@/components/DBaseInput";
 
 const Number = ({

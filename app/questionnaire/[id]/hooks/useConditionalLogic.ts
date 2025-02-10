@@ -1,7 +1,7 @@
 import {
   ConditionalRule,
   Question,
-} from "@/app/questionnaire/[id]/question/types/question-types";
+} from "@/app/questionnaire/[id]/types/question-types";
 import { useResponse } from "./useResponse";
 
 export const useConditionalLogic = (question: Question) => {

@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo } from "react";
-import { Question } from "@/app/questionnaire/[id]/question/types/question-types";
-import { useResponse } from "@/app/questionnaire/[id]/question/hooks/useResponse";
-import { useQuestion } from "@/app/questionnaire/[id]/question/hooks/useQuestion";
+import { Question } from "@/app/questionnaire/[id]/types/question-types";
+import { useResponse } from "@/app/questionnaire/[id]/hooks/useResponse";
+import { useQuestion } from "@/app/questionnaire/[id]/hooks/useQuestion";
 import { useParams } from "next/navigation";
 interface QuestionContextType {
   currentQuestion: Question | null;

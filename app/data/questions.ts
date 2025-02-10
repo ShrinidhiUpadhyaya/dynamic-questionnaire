@@ -1,10 +1,10 @@
-import { TextSubType } from "../questionnaire/[id]/question/types/text-types";
-import { SingleChoiceSubType } from "../questionnaire/[id]/question/types/single-choice-types";
+import { TextSubType } from "../questionnaire/[id]/types/text-types";
+import { SingleChoiceSubType } from "../questionnaire/[id]/types/single-choice-types";
 import {
   QuestionType,
   Questionnaire,
-} from "../questionnaire/[id]/question/types/question-types";
-import { MultipleChoiceSubType } from "../questionnaire/[id]/question/types/multiple-choice-types";
+} from "../questionnaire/[id]/types/question-types";
+import { MultipleChoiceSubType } from "../questionnaire/[id]/types/multiple-choice-types";
 
 export const INITIAL_QUESTIONS: Questionnaire = {
   id: "compliance-questionnaire",

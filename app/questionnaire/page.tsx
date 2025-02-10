@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import useQuestionnaires from "../questionnaire/[id]/question/hooks/useQuestionnaires";
+import useQuestionnaires from "@/app/questionnaire/[id]/hooks/useQuestionnaires";
 
 const QuestionnairePage = () => {
   const { data, isLoading, error } = useQuestionnaires();
@@ -12,7 +12,7 @@ const QuestionnairePage = () => {
   const { questionnaires } = data;
 
   const handleClick = (id: string) => {
-    router.push(`/questionnaire/${id}/question`);
+    router.push(`/questionnaire/${id}`);
   };
   return (
     <div className="flex flex-col gap-4 p-16 w-full h-svh items-center justify-center">

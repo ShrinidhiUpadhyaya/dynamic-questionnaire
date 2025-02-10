@@ -1,7 +1,7 @@
-import { SingleChoiceSubType } from "@/app/questionnaire/[id]/question/types/single-choice-types";
+import { SingleChoiceSubType } from "@/app/questionnaire/[id]/types/single-choice-types";
 import RadioButtons from "./RadioButtons";
 import DSelect from "./DSelect";
-import { ComponentRegistry } from "@/app/questionnaire/[id]/question/types/component-types";
+import { ComponentRegistry } from "@/app/questionnaire/[id]/types/component-types";
 import { QuestionComponent } from "../../QuestionComponent";
 
 const SINGLE_CHOICE_COMPONENTS: ComponentRegistry<SingleChoiceSubType> = {

@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getQuestions } from "../lib/getQuestions";
 import { useState, useEffect, useMemo, useCallback } from "react";
-import useQuestionStore from "@/app/questionnaire/[id]/question/store/store";
+import useQuestionStore from "@/app/questionnaire/[id]/store/store";
 
 const BATCH_SIZE = 2;
 const STALE_TIME = 5 * 60 * 1000;

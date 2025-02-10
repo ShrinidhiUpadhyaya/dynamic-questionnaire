@@ -1,7 +1,7 @@
 import {
   ComponentRegistry,
   BaseQuestionProps,
-} from "@/app/questionnaire/[id]/question/types/component-types";
+} from "@/app/questionnaire/[id]/types/component-types";
 import InvalidComponent from "./InvalidComponent";
 
 export function QuestionComponent<T extends string>({

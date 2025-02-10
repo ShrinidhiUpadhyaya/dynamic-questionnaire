@@ -1,5 +1,5 @@
 import { Progress } from "@/components/ui/progress";
-import useQuestionStore from "@/app/questionnaire/[id]/question/store/store";
+import useQuestionStore from "@/app/questionnaire/[id]/store/store";
 
 const QuestionProgress = () => {
   const { currentQuestionIndex, totalQuestions } = useQuestionStore();

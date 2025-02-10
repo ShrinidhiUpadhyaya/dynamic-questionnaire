@@ -12,6 +12,18 @@ export async function GET(
       { status: 400 }
     );
   }
+
+  if (id === "all") {
+    const questions = QUESTIONNAIRE_LIST.flatMap(
+      (questionnaire) => questionnaire.questions
+    );
+
+    return NextResponse.json({
+      questions,
+      total: questions.length,
+    });
+  }
+
   const { searchParams } = new URL(request.url);
   const limit = Number(searchParams.get("limit")) || 5;
   const offset = Number(searchParams.get("offset")) || 0;

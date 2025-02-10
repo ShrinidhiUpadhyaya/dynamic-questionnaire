@@ -1,6 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DCheckboxProps } from "@/app/questionnaire/[id]/question/types/multiple-choice-types";
+import { DCheckboxProps } from "@/app/questionnaire/[id]/types/multiple-choice-types";
 import { useState } from "react";
 
 const DCheckbox = ({ options, defaultValues, onChange }: DCheckboxProps) => {
