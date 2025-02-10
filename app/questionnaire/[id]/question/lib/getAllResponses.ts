@@ -1,9 +1,6 @@
 import { API_URL } from "@/app/config/apiUrls";
+import requestHandler from "@/lib/requestHandler";
 
 export const getAllResponses = async () => {
-  const response = await fetch(`${API_URL.ALL_RESPONSES}`);
-  if (!response.ok) {
-    throw new Error("Failed to get response");
-  }
-  return response.json();
+  return requestHandler(API_URL.ALL_RESPONSES);
 };

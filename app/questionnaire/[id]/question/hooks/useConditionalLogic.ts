@@ -40,12 +40,11 @@ export const useConditionalLogic = (question: Question) => {
   };
 
   const showQuestion = (): boolean => {
-    console.log("!!!!question.conditional", question.conditional);
     if (!question.conditional) return true;
     return evaluateNestedConditions(question.conditional);
   };
 
-  useResponse(question.conditional?.questionId || "");
+  const answer = useResponse(question?.conditional?.questionId);
 
   return { showQuestion };
 };

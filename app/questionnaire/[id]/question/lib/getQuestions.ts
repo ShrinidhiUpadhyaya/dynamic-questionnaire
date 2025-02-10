@@ -1,13 +1,5 @@
 import { API_URL } from "@/app/config/apiUrls";
-
-interface Question {
-  id: number;
-}
-
-interface QuestionsResponse {
-  questions: Question[];
-  total: number;
-}
+import requestHandler from "@/lib/requestHandler";
 
 export const getQuestions = async (params: {
   questionnaireId: string;
@@ -19,12 +11,7 @@ export const getQuestions = async (params: {
     ...(params.offset && { offset: params.offset.toString() }),
   });
 
-  const response = await fetch(
-    `/api/question/${params.questionnaireId}?${queryParams}`
+  return requestHandler(
+    `${API_URL.QUESTIONS}/${params.questionnaireId}?${queryParams}`
   );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch questions");
-  }
-  return response.json() as Promise<QuestionsResponse>;
 };

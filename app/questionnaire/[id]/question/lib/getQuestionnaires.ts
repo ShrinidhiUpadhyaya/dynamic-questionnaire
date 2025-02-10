@@ -1,7 +1,8 @@
+import { API_URL } from "@/app/config/apiUrls";
+import requestHandler from "@/lib/requestHandler";
+
 const getQuestionnaires = async () => {
-  const response = await fetch("/api/question");
-  const data = await response.json();
-  return data;
+  return requestHandler(API_URL.QUESTIONS);
 };
 
 export default getQuestionnaires;

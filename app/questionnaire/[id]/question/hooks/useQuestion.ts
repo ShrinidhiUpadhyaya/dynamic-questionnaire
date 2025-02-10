@@ -48,19 +48,12 @@ export const useQuestion = (questionnaireId: string) => {
   const questions = questionnaire?.questions || [];
   const totalQuestions = questionnaire?.total || 0;
   const currentQuestion = questions[currentIndex % BATCH_SIZE];
-  console.log(
-    "!!!!currentQuestion",
-    currentQuestion,
-    questions,
-    totalQuestions
-  );
 
   useEffect(() => {
     setTotalQuestions(totalQuestions);
   }, [totalQuestions]);
 
   const goToNextQuestion = useCallback(() => {
-    console.log("!!!!currentIndex", currentIndex, totalQuestions);
     if (currentIndex < totalQuestions - 1) {
       if ((currentIndex + 1) % BATCH_SIZE === 0) {
         const nextBatchIndex = batchIndex + 1;

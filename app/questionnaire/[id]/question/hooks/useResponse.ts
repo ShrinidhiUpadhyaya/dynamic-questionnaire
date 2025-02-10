@@ -8,7 +8,7 @@ type UserAnswer = {
 
 export const useResponse = (questionId: string) => {
   if (!questionId) {
-    throw new Error("Question ID is required");
+    return null;
   }
   const queryClient = useQueryClient();
   const queryKey = ["response", questionId];
