@@ -1,10 +1,10 @@
-import { TextSubType } from "../questionnaire/[id]/types/text-types";
-import { SingleChoiceSubType } from "../questionnaire/[id]/types/single-choice-types";
 import {
   QuestionType,
   Questionnaire,
-} from "../questionnaire/[id]/types/question-types";
-import { MultipleChoiceSubType } from "../questionnaire/[id]/types/multiple-choice-types";
+  TextSubType,
+  SingleChoiceSubType,
+  MultipleChoiceSubType,
+} from "@/types/question";
 
 export const INITIAL_QUESTIONS: Questionnaire = {
   id: "compliance-questionnaire",

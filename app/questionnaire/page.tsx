@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import useQuestionnaires from "@/app/questionnaire/[id]/hooks/useQuestionnaires";
+import useQuestionnaires from "@/app/questionnaire/hooks/useQuestionnaires";
 
 const QuestionnairePage = () => {
   const { data, isLoading, error } = useQuestionnaires();

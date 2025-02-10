@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import QuestionProgress from "./components/QuestionProgress";
+import QuestionProgress from "../components/QuestionProgress";
 
 const QuestionsLayout = ({ children }: { children: React.ReactNode }) => {
   return (

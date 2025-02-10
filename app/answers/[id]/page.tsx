@@ -1,21 +1,18 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getQuestions } from "../../questionnaire/[id]/question/lib/getQuestions";
+import { getQuestions } from "../../questionnaire/lib/getQuestions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAllResponses } from "../../questionnaire/[id]/question/lib/getAllResponses";
+import { getAllResponses } from "../../questionnaire/lib/getAllResponses";
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { Answer } from "@/types/answer";
 
 interface Question {
   id: string;
   question: string;
-}
-
-interface Answer {
-  questionId: string;
-  answer: string | string[];
 }
 
 interface CombinedData {
@@ -27,6 +24,7 @@ interface CombinedData {
 
 const AnswersPage = () => {
   const { id } = useParams();
+  const router = useRouter();
   const { data: questionsData, isLoading: isLoadingQuestions } = useQuery({
     queryKey: ["questions"],
     queryFn: () => getQuestions({ questionnaireId: id as string }),
@@ -37,7 +35,6 @@ const AnswersPage = () => {
     queryFn: () => getAllResponses(),
   });
 
-  // Combine questions and answers
   const combinedData = useMemo(() => {
     if (!questionsData?.questions || !answersData?.answers) return [];
 
@@ -55,8 +52,7 @@ const AnswersPage = () => {
     });
   }, [questionsData, answersData]);
 
-  // Format answer for display
-  const formatAnswer = (answer: string | string[] | null, type: string) => {
+  const formatAnswer = (answer: string | string[] | null) => {
     if (!answer) return "No answer provided";
 
     if (Array.isArray(answer)) {
@@ -73,6 +69,14 @@ const AnswersPage = () => {
       </div>
     );
   }
+
+  const handleRestartQuiz = () => {
+    router.push(`/questionnaire/${id}`);
+  };
+
+  const handleTakeAnotherQuestionnaire = () => {
+    router.push("/questionnaire");
+  };
 
   return (
     <div className="flex flex-col gap-4 items-center justify-center p-16">
@@ -100,7 +104,15 @@ const AnswersPage = () => {
           </Card>
         ))}
       </div>
-      <Button>Restart Quiz</Button>
+      <div className="flex gap-4 items-center justify-center">
+        <Button
+          variant="outline"
+          onClick={() => handleTakeAnotherQuestionnaire()}
+        >
+          Take Another Questionnaire
+        </Button>
+        <Button onClick={() => handleRestartQuiz()}>Restart Quiz</Button>
+      </div>
     </div>
   );
 };

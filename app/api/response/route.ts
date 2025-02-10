@@ -1,11 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getQuestionId, createErrorResponse } from "./utils";
-
-interface Answer {
-  questionId: string;
-  answer: string | string[];
-}
+import { Answer } from "@/types/answer";
 
 let answers: Answer[] = [];
 
