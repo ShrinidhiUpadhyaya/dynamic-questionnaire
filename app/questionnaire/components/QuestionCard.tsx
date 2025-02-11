@@ -10,7 +10,7 @@ import React from "react";
 import SingleChoiceQuestion from "./(question-types)/(single-choice-question)";
 import MultipleChoiceQuestion from "./(question-types)/(multiple-choice-question)";
 import TextQuestion from "./(question-types)/(text-question)";
-import { Question, QuestionType } from "@/types/question";
+import { QuestionType } from "@/types/question";
 import InvalidComponent from "./InvalidComponent";
 import { useQuestionContext } from "../context/question-context";
 import { useCallback } from "react";
@@ -20,7 +20,12 @@ import { useRouter } from "next/navigation";
 import { t } from "@/app/locales/translation";
 import { useParams } from "next/navigation";
 
-const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
+const QUESTION_COMPONENTS: Record<
+  QuestionType,
+  | typeof TextQuestion
+  | typeof SingleChoiceQuestion
+  | typeof MultipleChoiceQuestion
+> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
   multiple_choice: MultipleChoiceQuestion,

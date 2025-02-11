@@ -30,9 +30,9 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({
     goToPreviousQuestion,
     isFirstQuestion,
     isLastQuestion,
-  } = useQuestion(id);
+  } = useQuestion(id as string);
 
-  const response = useResponse(id);
+  const response = useResponse(id as string);
   const answer = response?.answer;
   const saveAnswers = response?.saveAnswers;
 
