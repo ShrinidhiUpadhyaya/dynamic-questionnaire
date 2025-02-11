@@ -208,3 +208,44 @@ The schema is defined as a Questionnaire object with the following top-level pro
       "error": "Failed to fetch questionnaire"
     }
     ```
+### Adding a New Component Sub Component to a existing Component Type
+Lets a Toggle Button Component in `multi-choice-question`
+- Install the toggle component from `shadcn\ui`
+  ```
+  npx shadcn@latest add toggle
+  ```
+- create a new file called `ToggleButton` in `(multiple-choice)`
+- add the type `TOGGLE = "toggle"` to `MultipleChoiceSubType` in `question.ts`
+  ```
+  export enum MultipleChoiceSubType {
+    CHECKBOX = "checkbox",
+    TOGGLE = "toggle",
+  }
+  ```
+- Register the component in component Registery
+```
+const MULTI_CHOICE_COMPONENTS: ComponentRegistry<MultipleChoiceSubType> = {
+  [MultipleChoiceSubType.CHECKBOX]: DCheckbox,
+  [MultipleChoiceSubType.TOGGLE]: ToggleButton,
+};
+```
+- Include data in `questions.ts`
+```
+ {
+      id: "important-work-values",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.TOGGLE,
+      question: "What work values are most important to you?",
+      options: [
+        {
+          id: "value-1",
+          label: "Work-Life Balance",
+          value: "work-life-balance",
+        },
+        { id: "value-2", label: "Job Security", value: "job-security" },
+        { id: "value-3", label: "Salary & Benefits", value: "salary-benefits" },
+        { id: "value-4", label: "Career Growth", value: "career-growth" },
+        { id: "value-5", label: "Company Culture", value: "company-culture" },
+      ],
+},
+```
