@@ -21,7 +21,6 @@ const upsertAnswer = (id: string, answer: string): void => {
 };
 
 export async function POST(request: NextRequest) {
-  console.log("#############", USE_REDIS)
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
