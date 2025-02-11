@@ -13,8 +13,6 @@ const DCheckbox = ({
     onChange,
   });
 
-  console.log("checkbox values", values, defaultValue);
-
   return (
     <div className="space-y-2">
       {options.map((option) => (
