@@ -4,6 +4,7 @@ import {
   TextSubType,
   SingleChoiceSubType,
   MultipleChoiceSubType,
+  RatingsSubType,
 } from "@/types/question";
 
 export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
@@ -283,6 +284,16 @@ export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
         { id: "value-4", label: "Career Growth", value: "career-growth" },
         { id: "value-5", label: "Company Culture", value: "company-culture" },
       ],
+    },
+    {
+      id: "dummy-ratings",
+      type: QuestionType.RATINGS,
+      sub_type: RatingsSubType.SLIDER,
+      question: "How important is work-life balance to you?",
+      min: 1,
+      max: 10,
+      step: 1,
+      defaultValue: 5,
     },
     {
       id: "preferred-work-environment",

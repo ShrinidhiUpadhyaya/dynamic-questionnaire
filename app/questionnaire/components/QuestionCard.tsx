@@ -19,16 +19,13 @@ import SubmitAlert from "./SubmitAlert";
 import { useRouter } from "next/navigation";
 import { t } from "@/app/locales/translation";
 import { useParams } from "next/navigation";
+import RatingsQuestion from "./(question-types)/(ratings-question)";
 
-const QUESTION_COMPONENTS: Record<
-  QuestionType,
-  | typeof TextQuestion
-  | typeof SingleChoiceQuestion
-  | typeof MultipleChoiceQuestion
-> = {
+const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
   multiple_choice: MultipleChoiceQuestion,
+  ratings: RatingsQuestion,
 };
 
 const QuestionCard = () => {

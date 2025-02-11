@@ -2,6 +2,7 @@ export enum QuestionType {
   TEXT = "text",
   SINGLE_CHOICE = "single_choice",
   MULTIPLE_CHOICE = "multiple_choice",
+  RATINGS = "ratings",
 }
 
 export interface ConditionalRule {
@@ -95,10 +96,28 @@ export interface MultipleChoiceQuestionType extends BaseQuestion {
   options: MultipleChoiceOptionType[];
 }
 
+export enum RatingsSubType {
+  SLIDER = "slider",
+}
+
+export interface RatingsBaseType extends BaseQuestion {
+  type: QuestionType.RATINGS;
+  sub_type: RatingsSubType;
+  min: number;
+  max: number;
+  step: number;
+  defaultValue: number;
+}
+
+export interface SliderQuestionType extends RatingsBaseType {}
+
+export type RatingsQuestionType = SliderQuestionType;
+
 export type Question =
   | TextQuestionType
   | SingleChoiceQuestionType
-  | MultipleChoiceQuestionType;
+  | MultipleChoiceQuestionType
+  | RatingsQuestionType;
 
 export interface Questionnaire {
   id: string;
