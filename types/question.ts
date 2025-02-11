@@ -81,6 +81,7 @@ export interface SingleChoiceQuestionType extends BaseQuestion {
 
 export enum MultipleChoiceSubType {
   CHECKBOX = "checkbox",
+  TOGGLE = "toggle",
 }
 
 export interface MultipleChoiceOptionType {

@@ -270,7 +270,7 @@ export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
     {
       id: "important-work-values",
       type: QuestionType.MULTIPLE_CHOICE,
-      sub_type: MultipleChoiceSubType.CHECKBOX,
+      sub_type: MultipleChoiceSubType.TOGGLE,
       question: "What work values are most important to you?",
       options: [
         {

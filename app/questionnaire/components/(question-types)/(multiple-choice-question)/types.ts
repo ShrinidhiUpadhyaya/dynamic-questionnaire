@@ -15,4 +15,10 @@ export interface DCheckboxProps {
   onChange: (value: string[]) => void;
 }
 
+export interface ToggleButtonProps {
+  defaultValue: string[];
+  options: MultipleChoiceOptionType[];
+  onChange: (value: string[]) => void;
+}
+
 export type MultipleChoiceQuestionComponentProps = DCheckboxProps;
