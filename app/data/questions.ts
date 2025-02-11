@@ -6,223 +6,415 @@ import {
   MultipleChoiceSubType,
 } from "@/types/question";
 
-export const INITIAL_QUESTIONS: Questionnaire = {
-  id: "compliance-questionnaire",
-  title: "Organizational Compliance Assessment",
+export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
+  id: "hair-transplant",
+  title: "Hair Transplant Experience and Expectations",
   questions: [
     {
-      id: "1",
-      type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
-      question: "What is your full name?",
-      minLength: 1,
-      maxLength: 20,
-    },
-    {
-      id: "2",
-      type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
-      question: "What is your email address?",
-      validation: {
-        pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
-        errorMessage: "Please enter a valid email address.",
-      },
-    },
-    {
-      id: "3",
+      id: "reason-for-hair-loss",
       type: QuestionType.SINGLE_CHOICE,
       sub_type: SingleChoiceSubType.RADIO,
-      question: "What is your age group?",
+      question: "What is the primary reason for your hair loss?",
       options: [
-        { id: "3-1", label: "Under 18", value: "under_18" },
-        { id: "3-2", label: "18-24", value: "18_24" },
-        { id: "3-3", label: "25-34", value: "25_34" },
-        { id: "3-4", label: "35-44", value: "35_44" },
-        { id: "3-5", label: "45 and above", value: "45_above" },
-      ],
-    },
-    {
-      id: "4",
-      type: QuestionType.SINGLE_CHOICE,
-      sub_type: SingleChoiceSubType.RADIO,
-      question: "Do you have any dietary restrictions?",
-      options: [
-        { id: "4-1", label: "Yes", value: "yes" },
-        { id: "4-2", label: "No", value: "no" },
-      ],
-    },
-    {
-      id: "5",
-      type: QuestionType.MULTIPLE_CHOICE,
-      sub_type: MultipleChoiceSubType.CHECKBOX,
-      question: "If yes, please select your dietary restrictions.",
-      options: [
-        { id: "5-1", label: "Vegetarian", value: "vegetarian" },
-        { id: "5-2", label: "Vegan", value: "vegan" },
-        { id: "5-3", label: "Gluten-Free", value: "gluten_free" },
+        { id: "reason-1", label: "Genetics", value: "genetics" },
+        { id: "reason-2", label: "Stress", value: "stress" },
         {
-          id: "5-4",
-          label: "Lactose Intolerant",
-          value: "lactose_intolerant",
+          id: "reason-3",
+          label: "Medical Condition",
+          value: "medical-condition",
         },
-        { id: "5-5", label: "Other", value: "other" },
+        { id: "reason-4", label: "Other", value: "other" },
       ],
-      conditional: {
-        questionId: "4",
-        operator: "equals",
-        value: "yes",
-      },
     },
     {
-      id: "6",
+      id: "hair-loss-duration",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.SELECT,
+      question: "How long have you been experiencing hair loss?",
+      options: [
+        {
+          id: "duration-1",
+          label: "Less than a year",
+          value: "less-than-a-year",
+        },
+        { id: "duration-2", label: "1-3 years", value: "1-3-years" },
+        {
+          id: "duration-3",
+          label: "More than 3 years",
+          value: "more-than-3-years",
+        },
+      ],
+    },
+    {
+      id: "previous-hair-treatments",
       type: QuestionType.TEXT,
       sub_type: TextSubType.SHORT_TEXT,
-      question: "If you selected 'Other', please specify.",
-      conditional: {
-        questionId: "5",
-        operator: "equals",
-        value: "other",
-      },
+      question:
+        "Have you undergone any previous hair loss treatments? If yes, please specify.",
     },
     {
-      id: "7",
-      type: QuestionType.SINGLE_CHOICE,
-      sub_type: SingleChoiceSubType.RADIO,
-      question: "Do you have any prior coding experience?",
-      options: [
-        { id: "7-1", label: "Yes", value: "yes" },
-        { id: "7-2", label: "No", value: "no" },
-      ],
-    },
-    {
-      id: "8",
+      id: "transplant-expectations",
       type: QuestionType.MULTIPLE_CHOICE,
       sub_type: MultipleChoiceSubType.CHECKBOX,
-      question: "Which programming languages have you worked with?",
+      question: "What are your expectations from a hair transplant?",
       options: [
-        { id: "8-1", label: "JavaScript", value: "javascript" },
-        { id: "8-2", label: "Python", value: "python" },
-        { id: "8-3", label: "Java", value: "java" },
-        { id: "8-4", label: "C++", value: "c++" },
-        { id: "8-5", label: "Other", value: "other" },
+        {
+          id: "expectation-1",
+          label: "Full Hair Restoration",
+          value: "full-restoration",
+        },
+        {
+          id: "expectation-2",
+          label: "Improved Hairline",
+          value: "improved-hairline",
+        },
+        { id: "expectation-3", label: "Thicker Hair", value: "thicker-hair" },
       ],
-      conditional: {
-        questionId: "7",
-        operator: "equals",
-        value: "yes",
-      },
     },
     {
-      id: "9",
-      type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
-      question: "If you selected 'Other', please specify.",
-      conditional: {
-        questionId: "8",
-        operator: "equals",
-        value: "other",
-      },
-    },
-    // {
-    //   id: 10,
-    //   type: "QuestionType.INFO",
-    //   message:
-    //     "Thank you for your responses so far! The next section is about your preferences.",
-    //   conditional: {
-    //     questionId: 3,
-    //     value: "18_24",
-    //   },
-    // },
-    {
-      id: "11",
+      id: "surgery-concerns",
       type: QuestionType.MULTIPLE_CHOICE,
       sub_type: MultipleChoiceSubType.CHECKBOX,
-      question: "Do you prefer online or in-person events?",
+      question: "What concerns do you have about the procedure?",
       options: [
-        { id: "11-1", label: "Online", value: "online" },
-        { id: "11-2", label: "In-Person", value: "in_person" },
+        { id: "concern-1", label: "Cost", value: "cost" },
+        { id: "concern-2", label: "Side Effects", value: "side-effects" },
+        { id: "concern-3", label: "Recovery Time", value: "recovery-time" },
       ],
     },
     {
-      id: "12",
-      type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
-      question: "What is your preferred mode of communication?",
-    },
-    {
-      id: "13",
+      id: "preferred-technique",
       type: QuestionType.SINGLE_CHOICE,
       sub_type: SingleChoiceSubType.RADIO,
-      question: "Would you like to receive updates via email?",
+      question: "Which hair transplant technique are you interested in?",
       options: [
-        { id: "13-1", label: "Yes", value: "yes" },
-        { id: "13-2", label: "No", value: "no" },
+        {
+          id: "technique-1",
+          label: "FUE (Follicular Unit Extraction)",
+          value: "fue",
+        },
+        {
+          id: "technique-2",
+          label: "FUT (Follicular Unit Transplant)",
+          value: "fut",
+        },
       ],
     },
-    // {
-    //   id: 14,
-    //   type: QuestionType.INFO",
-    //   message: "You're almost done! Just a few more questions.",
-    //   conditional: {
-    //     questionId: 13,
-    //     value: "yes",
-    //   },
-    // },
     {
-      id: "15",
+      id: "desired-hair-density",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT_TEXT,
+      question: "What is your desired hair density after the procedure?",
+    },
+    {
+      id: "pain-threshold",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "How comfortable are you with minor surgical pain?",
+      options: [
+        {
+          id: "pain-1",
+          label: "Not comfortable at all",
+          value: "not-comfortable",
+        },
+        {
+          id: "pain-2",
+          label: "Moderately comfortable",
+          value: "moderately-comfortable",
+        },
+        { id: "pain-3", label: "Very comfortable", value: "very-comfortable" },
+      ],
+    },
+    {
+      id: "post-surgery-care",
       type: QuestionType.TEXT,
       sub_type: TextSubType.LONG_TEXT,
-      question: "Any additional comments or feedback?",
-    },
-  ],
-};
-
-// Schema 1: Job Application Questionnaire
-export const JOB_APPLICATION_QUESTIONNAIRE: Questionnaire = {
-  id: "job-application",
-  title: "Software Developer Position Application",
-  questions: [
-    {
-      id: "name",
-      type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
-      question: "What is your full name?",
+      question: "Do you have any concerns about post-surgery care?",
     },
     {
-      id: "phone",
-      type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
-      question: "What is your phone number?",
-      validation: {
-        pattern: "^[+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{4,6}$",
-        errorMessage: "Please enter a valid phone number",
-      },
-    },
-  ],
-};
-
-// Schema 2: Product Feedback Survey
-export const PRODUCT_FEEDBACK_QUESTIONNAIRE: Questionnaire = {
-  id: "product-feedback",
-  title: "Product Usage and Satisfaction Survey",
-  questions: [
-    {
-      id: "usage-frequency",
+      id: "final-decision-timeline",
       type: QuestionType.SINGLE_CHOICE,
       sub_type: SingleChoiceSubType.RADIO,
-      question: "How often do you use our product?",
+      question: "When do you plan to make a decision regarding the transplant?",
       options: [
-        { id: "freq-1", label: "Daily", value: "daily" },
-        { id: "freq-2", label: "Weekly", value: "weekly" },
-        { id: "freq-3", label: "Monthly", value: "monthly" },
-        { id: "freq-4", label: "Rarely", value: "rarely" },
+        { id: "timeline-1", label: "Within a month", value: "within-a-month" },
+        { id: "timeline-2", label: "In 3-6 months", value: "3-6-months" },
+        { id: "timeline-3", label: "In a year", value: "in-a-year" },
+      ],
+    },
+  ],
+};
+
+export const PLASTIC_SURGERY_QUESTIONNAIRE: Questionnaire = {
+  id: "plastic-surgery",
+  title: "Plastic Surgery Consultation Questionnaire",
+  questions: [
+    {
+      id: "surgery-interest",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.SELECT,
+      question: "Which type of plastic surgery are you considering?",
+      options: [
+        { id: "surgery-1", label: "Rhinoplasty", value: "rhinoplasty" },
+        {
+          id: "surgery-2",
+          label: "Breast Augmentation",
+          value: "breast-augmentation",
+        },
+        { id: "surgery-3", label: "Liposuction", value: "liposuction" },
+        { id: "surgery-4", label: "Facelift", value: "facelift" },
+      ],
+    },
+    {
+      id: "motivation-for-surgery",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.LONG_TEXT,
+      question: "What is your main motivation for considering surgery?",
+    },
+    {
+      id: "surgery-risks",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "Are you aware of the potential risks involved?",
+      options: [
+        { id: "risk-1", label: "Yes", value: "yes" },
+        { id: "risk-2", label: "No", value: "no" },
+      ],
+    },
+    {
+      id: "expected-recovery-time",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT_TEXT,
+      question: "What is your expected recovery time?",
+    },
+    {
+      id: "preference-surgeon",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "Would you prefer a male or female surgeon?",
+      options: [
+        { id: "gender-1", label: "No preference", value: "no-preference" },
+        { id: "gender-2", label: "Male", value: "male" },
+        { id: "gender-3", label: "Female", value: "female" },
+      ],
+    },
+    {
+      id: "past-surgeries",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT_TEXT,
+      question: "Have you undergone any previous cosmetic surgeries?",
+    },
+    {
+      id: "realistic-outcomes",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.LONG_TEXT,
+      question: "What are your realistic expectations for the outcome?",
+    },
+  ],
+};
+
+export const QUESTIONS_FOR_DOCTORS_QUESTIONNAIRE: Questionnaire = {
+  id: "questions-for-doctors",
+  title: "Questions You May Have for Your Doctor",
+  questions: [
+    {
+      id: "health-concern",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT_TEXT,
+      question: "What is the primary health concern you want to discuss?",
+    },
+    {
+      id: "preferred-communication",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "How do you prefer to communicate with your doctor?",
+      options: [
+        { id: "comm-1", label: "In-person", value: "in-person" },
+        { id: "comm-2", label: "Phone", value: "phone" },
+        { id: "comm-3", label: "Online", value: "online" },
+      ],
+    },
+    {
+      id: "medications",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.LONG_TEXT,
+      question:
+        "Are you currently taking any medications or supplements? If so, please list them.",
+    },
+    {
+      id: "symptom-duration",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "How long have you been experiencing your current symptoms?",
+      options: [
+        {
+          id: "duration-1",
+          label: "Less than a week",
+          value: "less-than-a-week",
+        },
+        { id: "duration-2", label: "1-4 weeks", value: "1-4-weeks" },
+        {
+          id: "duration-3",
+          label: "More than a month",
+          value: "more-than-a-month",
+        },
+      ],
+    },
+  ],
+};
+
+export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
+  id: "job-seekers-values",
+  title: "Work Values and Career Priorities",
+  questions: [
+    {
+      id: "important-work-values",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
+      question: "What work values are most important to you?",
+      options: [
+        {
+          id: "value-1",
+          label: "Work-Life Balance",
+          value: "work-life-balance",
+        },
+        { id: "value-2", label: "Job Security", value: "job-security" },
+        { id: "value-3", label: "Salary & Benefits", value: "salary-benefits" },
+        { id: "value-4", label: "Career Growth", value: "career-growth" },
+        { id: "value-5", label: "Company Culture", value: "company-culture" },
+      ],
+    },
+    {
+      id: "preferred-work-environment",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "What type of work environment do you prefer?",
+      options: [
+        { id: "env-1", label: "Remote", value: "remote" },
+        { id: "env-2", label: "Hybrid (Remote & Office)", value: "hybrid" },
+        { id: "env-3", label: "In-Office", value: "in-office" },
+        { id: "env-4", label: "Flexible", value: "flexible" },
+      ],
+    },
+    {
+      id: "career-goals",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.LONG_TEXT,
+      question: "What are your long-term career goals?",
+    },
+    {
+      id: "ideal-leadership-style",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "What leadership style do you thrive under?",
+      options: [
+        {
+          id: "leader-1",
+          label: "Supportive & Collaborative",
+          value: "supportive",
+        },
+        {
+          id: "leader-2",
+          label: "Results-Oriented & Goal-Driven",
+          value: "results-oriented",
+        },
+        { id: "leader-3", label: "Hands-Off & Autonomous", value: "hands-off" },
+        {
+          id: "leader-4",
+          label: "Structured & Detail-Oriented",
+          value: "structured",
+        },
+      ],
+    },
+    {
+      id: "preferred-schedule",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "What work schedule do you prefer?",
+      options: [
+        { id: "schedule-1", label: "Standard 9-to-5", value: "9-to-5" },
+        { id: "schedule-2", label: "Flexible Hours", value: "flexible" },
+        { id: "schedule-3", label: "Shift Work", value: "shift-work" },
+        {
+          id: "schedule-4",
+          label: "Freelance/Project-Based",
+          value: "freelance",
+        },
+      ],
+    },
+    {
+      id: "most-motivating-factor",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "What motivates you most in a job?",
+      options: [
+        {
+          id: "motivation-1",
+          label: "Recognition & Appreciation",
+          value: "recognition",
+        },
+        {
+          id: "motivation-2",
+          label: "Financial Rewards",
+          value: "financial-rewards",
+        },
+        {
+          id: "motivation-3",
+          label: "Challenging & Engaging Work",
+          value: "challenging-work",
+        },
+        {
+          id: "motivation-4",
+          label: "Opportunities for Learning & Growth",
+          value: "learning-growth",
+        },
+      ],
+    },
+    {
+      id: "teamwork-vs-individual",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "Do you prefer working independently or in a team?",
+      options: [
+        { id: "work-style-1", label: "Independently", value: "independent" },
+        { id: "work-style-2", label: "In a Team", value: "team" },
+        { id: "work-style-3", label: "A mix of both", value: "mix" },
+      ],
+    },
+    {
+      id: "desired-company-size",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "What size company do you prefer working at?",
+      options: [
+        {
+          id: "company-size-1",
+          label: "Startup (1-50 employees)",
+          value: "startup",
+        },
+        {
+          id: "company-size-2",
+          label: "Small (51-200 employees)",
+          value: "small",
+        },
+        {
+          id: "company-size-3",
+          label: "Mid-sized (201-1000 employees)",
+          value: "mid-sized",
+        },
+        {
+          id: "company-size-4",
+          label: "Large (1000+ employees)",
+          value: "large",
+        },
       ],
     },
   ],
 };
 
 export const QUESTIONNAIRE_LIST = [
-  INITIAL_QUESTIONS,
-  JOB_APPLICATION_QUESTIONNAIRE,
-  PRODUCT_FEEDBACK_QUESTIONNAIRE,
+  HAIR_TRANSPLANT_QUESTIONNAIRE,
+  PLASTIC_SURGERY_QUESTIONNAIRE,
+  QUESTIONS_FOR_DOCTORS_QUESTIONNAIRE,
+  JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE,
 ];

@@ -13,14 +13,13 @@ import { Button } from "@/components/ui/button";
 import { t } from "@/app/locales/translation";
 
 const SubmitAlert = ({ onSubmit }: { onSubmit: () => void }) => {
-  const handleSubmit = (open: boolean) => {
-    if (!open) {
-      onSubmit();
-    }
+  const handleSubmit = () => {
+    onSubmit();
   };
+
   return (
     <div>
-      <AlertDialog onOpenChange={handleSubmit}>
+      <AlertDialog>
         <AlertDialogTrigger asChild>
           <Button>{t("submit")}</Button>
         </AlertDialogTrigger>
@@ -34,7 +33,9 @@ const SubmitAlert = ({ onSubmit }: { onSubmit: () => void }) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Yes, Continue</AlertDialogAction>
+            <AlertDialogAction onClick={() => handleSubmit()}>
+              Yes, Continue
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

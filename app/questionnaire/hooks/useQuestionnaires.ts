@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import getQuestionnaires from "../lib/getQuestionnaires";
+import { getQuestionnaires } from "../lib/questionnaries";
 
 const useQuestionnaires = () => {
   const { data, isLoading, error } = useQuery({

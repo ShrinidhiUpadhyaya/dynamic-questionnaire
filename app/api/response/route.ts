@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getQuestionId, createErrorResponse } from "./utils";
+// import { redis } from "@/lib/redis"; // Assuming Redis for persistence
 import { Answer } from "@/types/answer";
 
 let answers: Answer[] = [];
@@ -21,49 +21,65 @@ const upsertAnswer = (questionId: string, answer: string): void => {
   }
 };
 
-export async function POST(request: NextRequest) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    const questionId = getQuestionId(request);
-    const { answers: newAnswer } = await request.json();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    const { answers } = await request.json();
 
-    if (!answers) {
-      return createErrorResponse("Answers are required", 400);
+    if (!id || !answers) {
+      return NextResponse.json(
+        { error: "Question ID and answer are required" },
+        { status: 400 }
+      );
     }
 
-    upsertAnswer(questionId, newAnswer);
+    // await redis.hSet(`answers:${id}`, { answer });
+
+    upsertAnswer(id, answers);
 
     return NextResponse.json(
-      { message: "Answers saved successfully" },
+      { message: "Answer saved successfully", status: "success" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error in POST request:", error);
-    return createErrorResponse("Failed to retrieve answers");
+    console.error("Error saving answer:", error);
+    return NextResponse.json(
+      { error: "Failed to save answer" },
+      { status: 500 }
+    );
   }
 }
 
 export async function GET(request: NextRequest) {
   try {
-    const questionId = getQuestionId(request);
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
 
-    if (questionId === "all") {
-      return NextResponse.json(
-        {
-          answers,
-          totalAnswers: answers.length,
-        },
-        { status: 200 }
-      );
+    if (id === "all") {
+      // const allAnswers = await redis.hGetAll("answers:*");
+      return NextResponse.json({
+        answers: answers,
+        total: answers.length,
+        status: "success",
+      });
     }
 
-    const result = findAnswer(questionId);
+    // const answer = await redis.hGetAll(`answers:${questionId}`);
+    const result = findAnswer(id);
 
-    return NextResponse.json(
-      { answer: result ? result.answer : null },
-      { status: 200 }
-    );
+    return NextResponse.json({
+      answer: result ? result.answer : null,
+      status: "success",
+    });
   } catch (error) {
-    console.error("Error in GET request:", error);
-    return createErrorResponse("Failed to retrieve answers");
+    console.error("Error fetching answers:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch answers" },
+      { status: 500 }
+    );
   }
 }

@@ -1,9 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getQuestions } from "../../questionnaire/lib/getQuestions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAllResponses } from "../../questionnaire/lib/getAllResponses";
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
@@ -11,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { Answer } from "@/types/answer";
 import { QuestionType } from "@/types/question";
 import DLoadingComponent from "@/components/DLoadingComponent";
+import { getAllQuestions } from "@/app/questionnaire/lib/questions";
+import { getAllResponses } from "@/app/questionnaire/lib/response";
 
 interface Question {
   id: string;
@@ -30,7 +30,7 @@ const AnswersPage = () => {
   const router = useRouter();
   const { data: questionsData, isLoading: isLoadingQuestions } = useQuery({
     queryKey: ["questions"],
-    queryFn: () => getQuestions({ questionnaireId: id as string }),
+    queryFn: () => getAllQuestions({ questionnaireId: id as string }),
   });
 
   const { data: answersData, isLoading: isLoadingAnswers } = useQuery({
@@ -38,10 +38,12 @@ const AnswersPage = () => {
     queryFn: () => getAllResponses(),
   });
 
-  const combinedData = useMemo(() => {
-    if (!questionsData?.questions || !answersData?.answers) return [];
+  const { questions } = questionsData?.questions ?? {};
 
-    return questionsData.questions.map((question: Question) => {
+  const combinedData = useMemo(() => {
+    if (!questions || !answersData?.answers) return [];
+
+    return questions.map((question: Question) => {
       const answer = answersData.answers.find(
         (ans: Answer) => ans.questionId === question.id
       );
@@ -53,7 +55,7 @@ const AnswersPage = () => {
         answer: answer ? answer.answer : null,
       };
     });
-  }, [questionsData, answersData]);
+  }, [questions, answersData]);
 
   const formatAnswer = (answer: string | string[] | null) => {
     if (!answer) return "No answer provided";

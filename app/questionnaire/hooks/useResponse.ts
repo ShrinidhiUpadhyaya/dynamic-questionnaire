@@ -1,6 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { sendResponse } from "../lib/sendResponse";
-import { getResponse } from "../lib/getResponse";
+import { sendResponse, getResponse } from "../lib/response";
 import { UserAnswer } from "@/types/answer";
 
 export const useResponse = (questionId: string) => {

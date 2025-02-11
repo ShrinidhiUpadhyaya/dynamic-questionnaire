@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getQuestions } from "../lib/getQuestions";
+import { getQuestions } from "../lib/questions";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import useQuestionStore from "@/app/questionnaire/store/store";
 

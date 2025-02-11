@@ -1,46 +1,75 @@
 import { NextResponse, NextRequest } from "next/server";
+import { cache } from "react";
 import { QUESTIONNAIRE_LIST } from "@/app/data/questions";
+import { Question, Questionnaire } from "@/types/question";
 
-export async function GET(request: NextRequest, props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-  const id = params.id;
-  if (!id) {
-    return NextResponse.json(
-      { error: "Questionnaire ID is required" },
-      { status: 400 }
-    );
+const getQuestionnaire = cache(
+  async (id: string): Promise<Questionnaire | null> => {
+    return QUESTIONNAIRE_LIST.find((q) => q.id === id) ?? null;
   }
+);
 
-  if (id === "all") {
-    const questions = QUESTIONNAIRE_LIST.flatMap(
-      (questionnaire) => questionnaire.questions
-    );
+const getPaginatedQuestions = cache(
+  async (
+    id: string,
+    limit: number = 5,
+    offset: number = 0
+  ): Promise<{ questions: Question[]; total: number }> => {
+    const questionnaire = await getQuestionnaire(id);
+    if (!questionnaire) return { questions: [], total: 0 };
+
+    return {
+      questions: questionnaire.questions.slice(offset, offset + limit),
+      total: questionnaire.questions.length,
+    };
+  }
+);
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+    if (!id) {
+      return NextResponse.json(
+        { error: "Questionnaire ID is required" },
+        { status: 400 }
+      );
+    }
+
+    const { searchParams } = new URL(request.url);
+    const getAll = searchParams.get("all") === "true";
+
+    if (getAll) {
+      const questions = await getQuestionnaire(id);
+      return NextResponse.json({
+        questions,
+        total: questions?.questions.length,
+        status: "success",
+      });
+    }
+
+    const limit = Number(searchParams.get("limit")) || 5;
+    const offset = Number(searchParams.get("offset")) || 0;
+
+    const result = await getPaginatedQuestions(id, limit, offset);
+    if (!result.questions.length) {
+      return NextResponse.json(
+        { error: "Questionnaire not found" },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json({
-      questions,
-      total: questions.length,
+      ...result,
+      status: "success",
     });
-  }
-
-  const { searchParams } = new URL(request.url);
-  const limit = Number(searchParams.get("limit")) || 5;
-  const offset = Number(searchParams.get("offset")) || 0;
-
-  const questionnaire = QUESTIONNAIRE_LIST.find(
-    (questionnaire) => questionnaire.id === id
-  );
-
-  const questions = questionnaire?.questions.slice(offset, offset + limit);
-
-  if (!questionnaire) {
+  } catch (error) {
+    console.error("Error fetching questionnaire:", error);
     return NextResponse.json(
-      { error: "Questionnaire not found" },
-      { status: 404 }
+      { error: "Failed to fetch questionnaire" },
+      { status: 500 }
     );
   }
-
-  return NextResponse.json({
-    questions,
-    total: questionnaire?.questions.length,
-  });
 }
