@@ -78,37 +78,48 @@ const AnswersPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 items-center justify-center p-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {combinedData.map((item: CombinedData) => (
-          <Card key={item.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold">
-                {item.question}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="mt-2">
-                <p className="text-sm font-medium text-gray-500">Answer:</p>
-                <p className="mt-1 text-base">{formatAnswer(item.answer)}</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-400">
-                  Question Type: {item.type}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-      <div className="flex gap-4 items-center justify-center">
-        <Button
-          variant="outline"
-          onClick={() => handleTakeAnotherQuestionnaire()}
-        >
-          Take Another Questionnaire
-        </Button>
-        <Button onClick={() => handleRestartQuiz()}>Restart Quiz</Button>
+    <div className="min-h-screen w-full flex flex-col items-center justify-center p-16">
+      <div className="w-full max-w-7xl space-y-16">
+        <div className="flex flex-wrap justify-center gap-8">
+          {combinedData.map((item: CombinedData) => (
+            <Card
+              key={item.id}
+              className="w-full max-w-sm hover:shadow-lg transition-shadow"
+            >
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold">
+                  {item.question}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="mt-2">
+                  <p className="text-sm font-medium text-gray-500">Answer:</p>
+                  <p className="mt-1 text-base">{formatAnswer(item.answer)}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400">
+                    Question Type: {item.type}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-8 flex-col md:flex-row">
+          <Button
+            variant="outline"
+            onClick={() => handleTakeAnotherQuestionnaire()}
+            className="w-full max-w-sm hover:shadow-lg transition-shadow"
+          >
+            Take Another Questionnaire
+          </Button>
+          <Button
+            onClick={() => handleRestartQuiz()}
+            className="w-full max-w-sm hover:shadow-lg transition-shadow"
+          >
+            Restart Quiz
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -23,12 +23,12 @@ const QuestionnairePage = () => {
   };
   return (
     <div className="flex flex-col gap-4 p-16 w-full h-svh items-center justify-center">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         {questionnaires?.map((questionnaire) => (
           <div
             key={questionnaire.id}
             onClick={() => handleClick(questionnaire.id)}
-            className="hover:shadow-lg transition-shadow shadow-md p-8 rounded-lg border border-gray-200 cursor-pointer"
+            className="hover:shadow-lg transition-shadow shadow-md p-8 rounded-lg border border-gray-200 cursor-pointer text-center"
           >
             {questionnaire.title}
           </div>
