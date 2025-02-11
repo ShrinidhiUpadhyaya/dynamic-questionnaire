@@ -2,12 +2,19 @@
 import { useRouter } from "next/navigation";
 import useQuestionnaires from "@/app/questionnaire/hooks/useQuestionnaires";
 import { Questionnaire } from "@/types/question";
+import DLoadingComponent from "../../components/DLoadingComponent";
+
 const QuestionnairePage = () => {
   const { data, isLoading, error } = useQuestionnaires();
   const router = useRouter();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <DLoadingComponent />;
+  if (error)
+    return (
+      <div className="w-svw h-svh flex items-center justify-center text-2xl">
+        Error: {error.message}
+      </div>
+    );
 
   const { questionnaires }: { questionnaires: Questionnaire[] } = data;
 

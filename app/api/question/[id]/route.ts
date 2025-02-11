@@ -1,10 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import { QUESTIONNAIRE_LIST } from "@/app/data/questions";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const id = params.id;
   if (!id) {
     return NextResponse.json(

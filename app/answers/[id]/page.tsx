@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Answer } from "@/types/answer";
 import { QuestionType } from "@/types/question";
+import DLoadingComponent from "@/components/DLoadingComponent";
 
 interface Question {
   id: string;
@@ -65,11 +66,7 @@ const AnswersPage = () => {
   };
 
   if (isLoadingQuestions || isLoadingAnswers) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        Loading...
-      </div>
-    );
+    return <DLoadingComponent />;
   }
 
   const handleRestartQuiz = () => {

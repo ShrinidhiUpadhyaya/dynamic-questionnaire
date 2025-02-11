@@ -107,7 +107,8 @@ export const INITIAL_QUESTIONS: Questionnaire = {
         { id: "8-5", label: "Other", value: "other" },
       ],
       conditional: {
-        questionId: 7,
+        questionId: "7",
+        operator: "equals",
         value: "yes",
       },
     },
@@ -117,7 +118,8 @@ export const INITIAL_QUESTIONS: Questionnaire = {
       sub_type: TextSubType.SHORT_TEXT,
       question: "If you selected 'Other', please specify.",
       conditional: {
-        questionId: 8,
+        questionId: "8",
+        operator: "equals",
         value: "other",
       },
     },
@@ -185,11 +187,6 @@ export const JOB_APPLICATION_QUESTIONNAIRE: Questionnaire = {
       type: QuestionType.TEXT,
       sub_type: TextSubType.SHORT_TEXT,
       question: "What is your full name?",
-      required: true,
-      validation: {
-        minLength: 2,
-        maxLength: 100,
-      },
     },
     {
       id: "phone",
@@ -201,16 +198,6 @@ export const JOB_APPLICATION_QUESTIONNAIRE: Questionnaire = {
         errorMessage: "Please enter a valid phone number",
       },
     },
-    {
-      id: "resume",
-      type: QuestionType.FILE,
-      question: "Please upload your resume",
-      required: true,
-      validation: {
-        allowedTypes: ["pdf", "doc", "docx"],
-        maxSize: 5000000, // 5MB
-      },
-    },
   ],
 };
 
@@ -219,18 +206,6 @@ export const PRODUCT_FEEDBACK_QUESTIONNAIRE: Questionnaire = {
   id: "product-feedback",
   title: "Product Usage and Satisfaction Survey",
   questions: [
-    {
-      id: "product-used",
-      type: QuestionType.SINGLE_CHOICE,
-      sub_type: SingleChoiceSubType.DROPDOWN,
-      question: "Which of our products do you use the most?",
-      required: true,
-      options: [
-        { id: "prod-1", label: "Mobile App", value: "mobile" },
-        { id: "prod-2", label: "Web Platform", value: "web" },
-        { id: "prod-3", label: "Desktop Software", value: "desktop" },
-      ],
-    },
     {
       id: "usage-frequency",
       type: QuestionType.SINGLE_CHOICE,
