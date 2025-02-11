@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { t } from "./locales/translation";
 
-export default function Home() {
+export default function HomePage() {
   const router = useRouter();
   const handleClick = () => {
     router.push("/questionnaire");
