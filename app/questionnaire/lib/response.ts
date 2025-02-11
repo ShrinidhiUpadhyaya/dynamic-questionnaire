@@ -43,3 +43,14 @@ export const sendResponse = async (
 export const getAllResponses = async () => {
   return requestHandler(API_URL.ALL_RESPONSES);
 };
+
+/**
+ * Deletes all user responses.
+ *
+ * @returns A promise resolving with the result of the deletion.
+ */
+export const deleteResponses = async () => {
+  return requestHandler(API_URL.RESPONSE, {
+    method: "DELETE",
+  });
+};

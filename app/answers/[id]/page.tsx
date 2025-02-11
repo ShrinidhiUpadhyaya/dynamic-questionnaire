@@ -44,7 +44,7 @@ const AnswersPage = () => {
 
     return questions.map((question: Question) => {
       const answer = answersData.answers.find(
-        (ans: Answer) => ans.questionId === question.id
+        (ans: Answer) => ans.id === question.id
       );
 
       return {

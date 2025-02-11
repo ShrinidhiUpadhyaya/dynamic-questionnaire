@@ -3,6 +3,7 @@ import useQuestionnaires from "@/app/questionnaire/hooks/useQuestionnaires";
 import { Questionnaire } from "@/types/question";
 import { useRouter } from "next/navigation";
 import DLoadingComponent from "../../components/DLoadingComponent";
+import { deleteResponses } from "./lib/response";
 
 const QuestionnairePage = () => {
   const { data, isLoading, error } = useQuestionnaires();
@@ -21,6 +22,9 @@ const QuestionnairePage = () => {
   const handleClick = (id: string) => {
     router.push(`/questionnaire/${id}`);
   };
+
+  deleteResponses();
+  
   return (
     <div className="flex flex-col gap-4 p-16 w-full h-svh items-center justify-center">
       <div className="grid md:grid-cols-2 gap-4">
