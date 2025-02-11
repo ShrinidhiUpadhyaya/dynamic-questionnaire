@@ -1,22 +1,19 @@
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DCheckboxProps } from "./types";
-import { useState } from "react";
+import { useMultipleChoiceChange } from "@/app/questionnaire/hooks/useMultipleChoiceChange";
 
 const DCheckbox = ({
   options,
   defaultValue = [],
   onChange,
 }: DCheckboxProps) => {
-  const [values, setValues] = useState<string[]>(defaultValue);
+  const { values, handleValueChange } = useMultipleChoiceChange({
+    defaultValue,
+    onChange,
+  });
 
-  const handleValueChange = (value: string, checked: boolean) => {
-    const newValues = checked
-      ? [...values, value]
-      : values.filter((v) => v !== value);
-    setValues(newValues);
-    onChange(newValues);
-  };
+  console.log("checkbox values", values, defaultValue);
 
   return (
     <div className="space-y-2">

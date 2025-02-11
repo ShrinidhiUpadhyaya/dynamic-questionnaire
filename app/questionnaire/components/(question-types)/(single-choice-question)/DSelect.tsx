@@ -7,15 +7,16 @@ import {
 } from "@/components/ui/select";
 import { useSingleChoiceChange } from "@/app/questionnaire/hooks/useSingleChoiceChange";
 import { DSelectProps } from "./types";
-
 const DSelect = ({ defaultValue, options, onChange }: DSelectProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
     defaultValue,
     onChange,
   });
 
+  const selectedValue = Array.isArray(value) ? value[0] : value;
+
   return (
-    <Select value={value} onValueChange={handleValueChange}>
+    <Select value={selectedValue} onValueChange={handleValueChange}>
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>

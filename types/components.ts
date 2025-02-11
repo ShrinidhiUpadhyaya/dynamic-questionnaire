@@ -7,6 +7,6 @@ export type BaseQuestionProps<T> = {
     sub_type: T;
     options?: Array<{ id: string; label: string; value: any }>;
   };
-  answer?: any;
+  answer?: string | string[];
   onChange: (value: any) => void;
 };
