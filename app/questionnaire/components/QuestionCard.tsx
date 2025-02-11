@@ -1,3 +1,5 @@
+import { t } from "@/app/locales/translation";
+import { useConditionalLogic } from "@/app/questionnaire/hooks/useConditionalLogic";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,19 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import React from "react";
-import SingleChoiceQuestion from "./(question-types)/(single-choice-question)";
-import MultipleChoiceQuestion from "./(question-types)/(multiple-choice-question)";
-import TextQuestion from "./(question-types)/(text-question)";
 import { QuestionType } from "@/types/question";
-import InvalidComponent from "./InvalidComponent";
-import { useQuestionContext } from "../context/question-context";
+import { useParams, useRouter } from "next/navigation";
 import { useCallback } from "react";
-import { useConditionalLogic } from "@/app/questionnaire/hooks/useConditionalLogic";
+import { useQuestionContext } from "../context/question-context";
+import MultipleChoiceQuestion from "./(question-types)/(multiple-choice-question)";
+import SingleChoiceQuestion from "./(question-types)/(single-choice-question)";
+import TextQuestion from "./(question-types)/(text-question)";
+import InvalidComponent from "./InvalidComponent";
 import SubmitAlert from "./SubmitAlert";
-import { useRouter } from "next/navigation";
-import { t } from "@/app/locales/translation";
-import { useParams } from "next/navigation";
 
 const QUESTION_COMPONENTS: Record<
   QuestionType,

@@ -1,6 +1,6 @@
 import {
-  SingleChoiceQuestionType,
   SingleChoiceOptionType,
+  SingleChoiceQuestionType,
 } from "@/types/question";
 
 export interface SingleChoiceQuestionProps {

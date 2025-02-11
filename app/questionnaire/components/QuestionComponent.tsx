@@ -1,4 +1,4 @@
-import { ComponentRegistry, BaseQuestionProps } from "@/types/components";
+import { BaseQuestionProps, ComponentRegistry } from "@/types/components";
 import InvalidComponent from "./InvalidComponent";
 
 export function QuestionComponent<T extends string>({

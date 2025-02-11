@@ -1,5 +1,5 @@
-import { Input } from "@/components/ui/input";
 import { useTextComponentChange } from "@/app/questionnaire/hooks/useTextComponentChange";
+import { Input } from "@/components/ui/input";
 import { ShortTextInputProps } from "./types";
 
 const ShortText = ({

@@ -1,16 +1,15 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useMemo } from "react";
-import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { Answer } from "@/types/answer";
-import { QuestionType } from "@/types/question";
-import DLoadingComponent from "@/components/DLoadingComponent";
 import { getAllQuestions } from "@/app/questionnaire/lib/questions";
 import { getAllResponses } from "@/app/questionnaire/lib/response";
+import DLoadingComponent from "@/components/DLoadingComponent";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Answer } from "@/types/answer";
+import { QuestionType } from "@/types/question";
+import { useQuery } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
+import { useMemo } from "react";
 
 interface Question {
   id: string;

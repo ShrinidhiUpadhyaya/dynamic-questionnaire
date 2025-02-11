@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import QuestionCard from "../components/QuestionCard";
 import QuestionLoadingCard from "../components/QuestionLoadingCard";
 import {

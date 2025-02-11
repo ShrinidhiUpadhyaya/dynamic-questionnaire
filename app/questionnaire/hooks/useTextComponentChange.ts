@@ -1,5 +1,5 @@
-import { useState, useCallback, useEffect } from "react";
 import { useDebounce } from "@/app/hooks/useDebounce";
+import { useCallback, useEffect, useState } from "react";
 
 interface UseTextInputProps {
   defaultValue?: string;

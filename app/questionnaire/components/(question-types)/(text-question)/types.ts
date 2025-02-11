@@ -1,7 +1,7 @@
 import {
+  LongTextQuestion,
   NumberQuestion,
   ShortTextQuestion,
-  LongTextQuestion,
 } from "@/types/question";
 
 export type TextQuestion =

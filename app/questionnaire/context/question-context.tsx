@@ -1,8 +1,8 @@
-import { createContext, useContext, useMemo } from "react";
-import { Question } from "@/types/question";
-import { useResponse } from "@/app/questionnaire/hooks/useResponse";
 import { useQuestion } from "@/app/questionnaire/hooks/useQuestion";
+import { useResponse } from "@/app/questionnaire/hooks/useResponse";
+import { Question } from "@/types/question";
 import { useParams } from "next/navigation";
+import { createContext, useContext, useMemo } from "react";
 
 interface QuestionContextType {
   currentQuestion: Question;

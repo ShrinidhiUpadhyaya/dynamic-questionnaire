@@ -1,5 +1,5 @@
-import { ErrorBoundary } from "react-error-boundary";
 import { Button } from "@/components/ui/button";
+import { ErrorBoundary } from "react-error-boundary";
 
 const DErrorBoundary = ({ children }: { children: React.ReactNode }) => {
   const handleRefresh = () => {

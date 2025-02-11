@@ -1,16 +1,16 @@
+import { t } from "@/app/locales/translation";
 import {
   AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  AlertDialogCancel,
-  AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { t } from "@/app/locales/translation";
 
 const SubmitAlert = ({ onSubmit }: { onSubmit: () => void }) => {
   const handleSubmit = () => {

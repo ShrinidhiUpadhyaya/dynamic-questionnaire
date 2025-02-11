@@ -1,6 +1,6 @@
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { useSingleChoiceChange } from "@/app/questionnaire/hooks/useSingleChoiceChange";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { RadioButtonsProps } from "./types";
 
 const RadioButtons = ({

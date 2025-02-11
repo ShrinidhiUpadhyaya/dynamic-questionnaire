@@ -1,7 +1,7 @@
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { DCheckboxProps } from "./types";
 import { useMultipleChoiceChange } from "@/app/questionnaire/hooks/useMultipleChoiceChange";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { DCheckboxProps } from "./types";
 
 const DCheckbox = ({
   options,

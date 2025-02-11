@@ -1,9 +1,9 @@
+import { ComponentRegistry } from "@/types/components";
 import { TextSubType } from "@/types/question";
-import ShortText from "./ShortText";
+import { QuestionComponent } from "../../QuestionComponent";
 import LongText from "./LongText";
 import NumberText from "./NumberText";
-import { ComponentRegistry } from "@/types/components";
-import { QuestionComponent } from "../../QuestionComponent";
+import ShortText from "./ShortText";
 
 const TEXT_COMPONENTS: ComponentRegistry<TextSubType> = {
   [TextSubType.SHORT_TEXT]: ShortText,

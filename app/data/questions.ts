@@ -1,9 +1,9 @@
 import {
+  MultipleChoiceSubType,
   QuestionType,
   Questionnaire,
-  TextSubType,
   SingleChoiceSubType,
-  MultipleChoiceSubType,
+  TextSubType,
 } from "@/types/question";
 
 export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {

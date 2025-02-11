@@ -1,5 +1,5 @@
-import { Textarea } from "@/components/ui/textarea";
 import { useTextComponentChange } from "@/app/questionnaire/hooks/useTextComponentChange";
+import { Textarea } from "@/components/ui/textarea";
 import { LongTextInputProps } from "./types";
 
 const LongText = ({
