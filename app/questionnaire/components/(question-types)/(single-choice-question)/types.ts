@@ -9,7 +9,7 @@ export interface SingleChoiceQuestionProps {
   onChange: (value: string) => void;
 }
 
-export interface DSelectProps {
+export interface CustomSelectProps {
   defaultValue: string;
   answer: string;
   options: SingleChoiceOptionType[];
@@ -23,5 +23,5 @@ export interface RadioButtonsProps {
 }
 
 export type SingleChoiceQuestionComponentProps =
-  | DSelectProps
+  | CustomSelectProps
   | RadioButtonsProps;

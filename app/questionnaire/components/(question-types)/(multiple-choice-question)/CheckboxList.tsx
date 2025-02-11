@@ -1,13 +1,13 @@
 import { useMultipleChoiceChange } from "@/app/questionnaire/hooks/useMultipleChoiceChange";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { DCheckboxProps } from "./types";
+import { CheckboxListProps, CheckboxListProps } from "./types";
 
-const DCheckbox = ({
+const CheckboxList = ({
   options,
   defaultValue = [],
   onChange,
-}: DCheckboxProps) => {
+}: CheckboxListProps) => {
   const { values, handleValueChange } = useMultipleChoiceChange({
     defaultValue,
     onChange,
@@ -31,4 +31,4 @@ const DCheckbox = ({
   );
 };
 
-export default DCheckbox;
+export default CheckboxList;

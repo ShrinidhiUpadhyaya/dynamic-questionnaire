@@ -6,8 +6,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DSelectProps } from "./types";
-const DSelect = ({ defaultValue, options, onChange }: DSelectProps) => {
+import { CustomSelectProps } from "./types";
+
+const CustomSelect = ({ defaultValue, options, onChange }: CustomSelectProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
     defaultValue,
     onChange,
@@ -35,4 +36,4 @@ const DSelect = ({ defaultValue, options, onChange }: DSelectProps) => {
   );
 };
 
-export default DSelect;
+export default CustomSelect;

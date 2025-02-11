@@ -225,7 +225,7 @@ Lets a Toggle Button Component in `multi-choice-question`
 - Register the component in component Registery
 ```
 const MULTI_CHOICE_COMPONENTS: ComponentRegistry<MultipleChoiceSubType> = {
-  [MultipleChoiceSubType.CHECKBOX]: DCheckbox,
+  [MultipleChoiceSubType.CHECKBOX]: CheckboxList,
   [MultipleChoiceSubType.TOGGLE]: ToggleButton,
 };
 ```
@@ -251,7 +251,7 @@ const MULTI_CHOICE_COMPONENTS: ComponentRegistry<MultipleChoiceSubType> = {
 ```
 ```
 export type MultipleChoiceQuestionComponentProps =
-  | DCheckboxProps
+  | CheckboxListProps
   | ToggleButtonProps;
 ```
 

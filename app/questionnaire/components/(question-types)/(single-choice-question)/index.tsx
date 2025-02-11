@@ -1,12 +1,12 @@
 import { ComponentRegistry } from "@/types/components";
 import { SingleChoiceSubType } from "@/types/question";
 import { QuestionComponent } from "../../QuestionComponent";
-import DSelect from "./DSelect";
+import CustomSelect from "./CustomSelect";
 import RadioButtons from "./RadioButtons";
 
 const SINGLE_CHOICE_COMPONENTS: ComponentRegistry<SingleChoiceSubType> = {
   [SingleChoiceSubType.RADIO]: RadioButtons,
-  [SingleChoiceSubType.SELECT]: DSelect,
+  [SingleChoiceSubType.SELECT]: CustomSelect,
 };
 
 export const SingleChoiceQuestion = QuestionComponent({
