@@ -3,10 +3,8 @@ import InvalidComponent from "./InvalidComponent";
 
 export function QuestionComponent<T extends string>({
   components,
-  defaultComponent,
 }: {
   components: ComponentRegistry<T>;
-  defaultComponent?: React.FC<any>;
 }) {
   return function QuestionComponent({
     question,
@@ -14,7 +12,7 @@ export function QuestionComponent<T extends string>({
     onChange,
     ...props
   }: BaseQuestionProps<T>) {
-    const Component = components[question.sub_type] || defaultComponent;
+    const Component = components[question.sub_type];
 
     if (!Component) {
       return (
