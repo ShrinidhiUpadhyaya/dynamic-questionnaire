@@ -249,3 +249,107 @@ const MULTI_CHOICE_COMPONENTS: ComponentRegistry<MultipleChoiceSubType> = {
       ],
 },
 ```
+```
+export type MultipleChoiceQuestionComponentProps =
+  | DCheckboxProps
+  | ToggleButtonProps;
+```
+
+### Adding a new Question Type
+Lets create a new question type called ratings
+-  add a new type called ratings in `QuestionType` in types
+```
+export enum QuestionType {
+  TEXT = "text",
+  SINGLE_CHOICE = "single_choice",
+  MULTIPLE_CHOICE = "multiple_choice",
+  RATINGS = "ratings",
+}
+```
+- lets create a `slider` sub type under Ratings
+```
+export enum RatingsSubType {
+  SLIDER = "slider",
+}
+```
+- add the types for a Ratings question like `min`, `max`, `step`, `defaultValue` 
+```
+export interface RatingsBaseType extends BaseQuestion {
+  type: QuestionType.RATINGS;
+  sub_type: RatingsSubType;
+  min: number;
+  max: number;
+  step: number;
+  defaultValue: number;
+}
+```
+- Dont forget to export it
+```
+export interface SliderQuestionType extends RatingsBaseType {}
+
+export type RatingsQuestionType = SliderQuestionType;
+```
+- add the `RatingsQuestionType` to type `Question`
+```
+export type Question =
+  | TextQuestionType
+  | SingleChoiceQuestionType
+  | MultipleChoiceQuestionType
+  | RatingsQuestionType;
+```
+- Now lets create the component, create a new folder called `(ratings-question)` under `(question-types)`
+- create a new file `types.ts`, this will include all the types related to ratings component
+```
+export interface DSliderProps {
+  min?: number;
+  max?: number;
+  step?: number;
+  defaultValue?: number;
+  onChange?: (value: number) => void;
+}
+
+export type RatingsQuestionComponentProps = DSliderProps;
+```
+- Install the `Slider` component from `shadcn\ui` `npx shadcn@latest add slider`
+
+- create a new file called `DSlider.tsx`
+```
+import { Slider } from "@/components/ui/slider";
+import { DSliderProps } from "./types";
+
+const DSlider = ({
+  min = 0,
+  max = 10,
+  step = 1,
+  defaultValue = 4,
+}: DSliderProps) => {
+  return (
+    <Slider
+      min={min}
+      max={max}
+      step={step}
+      defaultValue={[defaultValue]}
+      className="h-8"
+    />
+  );
+};
+
+export default DSlider;
+```
+- create a new file called `index.tsx` for exporting the Ratings Components
+```
+import { ComponentRegistry } from "@/types/components";
+import { QuestionComponent } from "../../QuestionComponent";
+import { RatingsSubType } from "@/types/question";
+import DSlider from "./DSlider";
+
+const RATINGS_COMPONENTS: ComponentRegistry<RatingsSubType> = {
+  [RatingsSubType.SLIDER]: DSlider,
+};
+
+export const RatingsQuestion = QuestionComponent({
+  components: RATINGS_COMPONENTS,
+});
+
+export default RatingsQuestion;
+```
