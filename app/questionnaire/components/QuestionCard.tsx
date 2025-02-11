@@ -20,14 +20,7 @@ import { useRouter } from "next/navigation";
 import { t } from "@/app/locales/translation";
 import { useParams } from "next/navigation";
 
-const QUESTION_COMPONENTS: Record<
-  QuestionType,
-  React.FC<{
-    question: Question;
-    answer: string | string[];
-    onChange: (value: string | string[]) => void;
-  }>
-> = {
+const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
   multiple_choice: MultipleChoiceQuestion,
@@ -108,12 +101,12 @@ const QuestionCardHeader = ({ title }: QuestionCardHeaderProps) => {
   );
 };
 
-type QuestionCardFooterProps = {
-  isFirstQuestion: boolean;
-  isLastQuestion: boolean;
-  goToPrevious: () => void;
-  goToNext: () => void;
-};
+interface QuestionCardFooterProps {
+  isFirstQuestion?: boolean;
+  isLastQuestion?: boolean;
+  goToPrevious?: () => void;
+  goToNext?: () => void;
+}
 
 export const QuestionCardFooter = ({
   isFirstQuestion,

@@ -2,9 +2,8 @@ import { ConditionalRule, Question } from "@/types/question";
 import { useResponse } from "./useResponse";
 
 export const useConditionalLogic = (question: Question) => {
-  const answer = useResponse(question?.conditional?.questionId);
-
-  if (!question) return true;
+  const response = useResponse(question?.conditional?.questionId as string);
+  const answer = response?.answer;
 
   const evaluateCondition = (rule: ConditionalRule): boolean => {
     switch (rule.operator) {
@@ -39,7 +38,7 @@ export const useConditionalLogic = (question: Question) => {
   };
 
   const showQuestion = (): boolean => {
-    if (!question.conditional) return true;
+    if (!question?.conditional) return true;
     return evaluateNestedConditions(question.conditional);
   };
 

@@ -196,7 +196,6 @@ export const JOB_APPLICATION_QUESTIONNAIRE: Questionnaire = {
       type: QuestionType.TEXT,
       sub_type: TextSubType.SHORT_TEXT,
       question: "What is your phone number?",
-      required: true,
       validation: {
         pattern: "^[+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{4,6}$",
         errorMessage: "Please enter a valid phone number",

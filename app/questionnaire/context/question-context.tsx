@@ -5,15 +5,15 @@ import { useQuestion } from "@/app/questionnaire/hooks/useQuestion";
 import { useParams } from "next/navigation";
 
 interface QuestionContextType {
-  currentQuestion: Question | null;
-  answer: string | string[] | null;
+  currentQuestion: Question;
+  answer: string | string[];
   saveAnswer: (value: string | string[]) => Promise<void>;
   goToNext: () => void;
   goToPrevious: () => void;
   isFirstQuestion: boolean;
   isLastQuestion: boolean;
   isLoading: boolean;
-  error: Error | null;
+  error: Error;
 }
 
 const QuestionContext = createContext<QuestionContextType | null>(null);
@@ -32,7 +32,9 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({
     isLastQuestion,
   } = useQuestion(id);
 
-  const { answer, saveAnswers } = useResponse(id);
+  const response = useResponse(id);
+  const answer = response?.answer;
+  const saveAnswers = response?.saveAnswers;
 
   const contextValue = useMemo(
     () => ({

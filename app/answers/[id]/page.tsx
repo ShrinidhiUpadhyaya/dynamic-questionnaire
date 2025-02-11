@@ -9,17 +9,19 @@ import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Answer } from "@/types/answer";
+import { QuestionType } from "@/types/question";
 
 interface Question {
   id: string;
   question: string;
+  type: QuestionType;
 }
 
 interface CombinedData {
   id: string;
   question: string;
   answer: string | string[] | null;
-  type: string;
+  type: QuestionType;
 }
 
 const AnswersPage = () => {
@@ -91,9 +93,7 @@ const AnswersPage = () => {
             <CardContent>
               <div className="mt-2">
                 <p className="text-sm font-medium text-gray-500">Answer:</p>
-                <p className="mt-1 text-base">
-                  {formatAnswer(item.answer, item.type)}
-                </p>
+                <p className="mt-1 text-base">{formatAnswer(item.answer)}</p>
               </div>
               <div>
                 <p className="text-xs text-gray-400">

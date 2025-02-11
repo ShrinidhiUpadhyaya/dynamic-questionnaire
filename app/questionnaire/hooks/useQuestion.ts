@@ -66,7 +66,6 @@ export const useQuestion = (questionnaireId: string) => {
               limit: BATCH_SIZE,
             }),
           staleTime: STALE_TIME,
-          cacheTime: CACHE_TIME,
         });
       }
       setCurrentIndex((prev) => prev + 1);

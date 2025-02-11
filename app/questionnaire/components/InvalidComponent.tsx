@@ -54,8 +54,8 @@ const InvalidComponent = ({
       <QuestionCardFooter
         isFirstQuestion={isFirstQuestion}
         isLastQuestion={isLastQuestion}
-        goToPrevious={onPrevious}
-        goToNext={onNext}
+        goToPrevious={onPrevious || (() => {})}
+        goToNext={onNext || (() => {})}
       />
     </Card>
   );

@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import useQuestionnaires from "@/app/questionnaire/hooks/useQuestionnaires";
-
+import { Questionnaire } from "@/types/question";
 const QuestionnairePage = () => {
   const { data, isLoading, error } = useQuestionnaires();
   const router = useRouter();
@@ -9,7 +9,7 @@ const QuestionnairePage = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  const { questionnaires } = data;
+  const { questionnaires }: { questionnaires: Questionnaire[] } = data;
 
   const handleClick = (id: string) => {
     router.push(`/questionnaire/${id}`);

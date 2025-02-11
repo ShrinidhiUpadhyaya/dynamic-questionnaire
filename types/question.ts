@@ -26,7 +26,7 @@ export interface BaseQuestion {
 }
 
 export enum TextSubType {
-  NUMBER = "number",
+  NUMBER_TEXT = "number_text",
   SHORT_TEXT = "short_text",
   LONG_TEXT = "long_text",
 }
@@ -53,10 +53,15 @@ export interface LongTextQuestion extends TextQuestionBase {
 }
 
 export interface NumberQuestion extends TextQuestionBase {
-  sub_type: TextSubType.NUMBER;
+  sub_type: TextSubType.NUMBER_TEXT;
   min: number;
   max: number;
 }
+
+export type TextQuestionType =
+  | NumberQuestion
+  | ShortTextQuestion
+  | LongTextQuestion;
 
 export enum SingleChoiceSubType {
   RADIO = "radio",
@@ -90,7 +95,7 @@ export interface MultipleChoiceQuestionType extends BaseQuestion {
 }
 
 export type Question =
-  | TextQuestion
+  | TextQuestionType
   | SingleChoiceQuestionType
   | MultipleChoiceQuestionType;
 

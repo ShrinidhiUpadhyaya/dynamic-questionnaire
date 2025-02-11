@@ -2,15 +2,15 @@ import { useTextComponentChange } from "@/app/questionnaire/hooks/useTextCompone
 import DBaseInput from "@/components/DBaseInput";
 import { NumberInputProps } from "./types";
 
-const Number = ({
+const NumberText = ({
   placeholder,
   defaultValue,
   min,
   max,
   onChange,
 }: NumberInputProps) => {
-  const validate = (value: string) => {
-    const num = Number(value);
+  const validate = (validateValue: string | number) => {
+    const num = Number(validateValue);
     return (
       !isNaN(num) &&
       (min === undefined || num >= min) &&
@@ -36,4 +36,4 @@ const Number = ({
   );
 };
 
-export default Number;
+export default NumberText;
