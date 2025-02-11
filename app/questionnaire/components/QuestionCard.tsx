@@ -47,13 +47,13 @@ const QuestionCard = () => {
     [saveAnswer]
   );
 
-  const { showQuestion } = useConditionalLogic(currentQuestion);
+  const showQuestion = useConditionalLogic(currentQuestion);
+
+  const QuestionComponent = QUESTION_COMPONENTS[currentQuestion?.type];
 
   if (!currentQuestion) {
     return <div>No question found</div>;
   }
-
-  const QuestionComponent = QUESTION_COMPONENTS[currentQuestion?.type];
 
   if (!QuestionComponent) {
     return (
@@ -72,7 +72,7 @@ const QuestionCard = () => {
     <Card className="w-full h-full flex flex-col justify-between">
       <QuestionCardHeader title={currentQuestion.question} />
       <CardContent
-        className={`${!showQuestion() && "opacity-50 pointer-events-none"}`}
+        className={`${!showQuestion && "opacity-50 pointer-events-none"}`}
       >
         <QuestionComponent
           question={currentQuestion}
@@ -97,7 +97,7 @@ type QuestionCardHeaderProps = {
 const QuestionCardHeader = ({ title }: QuestionCardHeaderProps) => {
   return (
     <CardHeader className="h-1/4">
-      <CardTitle className="font-extrabold text-4xl text-primary-foreground">
+      <CardTitle className="font-extrabold text-3xl text-primary-foreground">
         {title}
       </CardTitle>
     </CardHeader>

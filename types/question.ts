@@ -15,14 +15,13 @@ export interface ConditionalRule {
     | "lessThan";
   value: string | number | boolean | string[];
   logic?: "and" | "or";
-  conditions?: ConditionalRule[];
 }
 
 export interface BaseQuestion {
   id: string;
   question: string;
   type: QuestionType;
-  conditional?: ConditionalRule;
+  conditional?: ConditionalRule[];
 }
 
 export enum TextSubType {

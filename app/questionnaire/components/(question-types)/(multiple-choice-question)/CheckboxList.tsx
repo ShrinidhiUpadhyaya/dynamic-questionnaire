@@ -1,7 +1,7 @@
 import { useMultipleChoiceChange } from "@/app/questionnaire/hooks/useMultipleChoiceChange";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { CheckboxListProps, CheckboxListProps } from "./types";
+import { CheckboxListProps } from "./types";
 
 const CheckboxList = ({
   options,

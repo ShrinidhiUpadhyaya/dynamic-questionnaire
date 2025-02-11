@@ -26,7 +26,7 @@ const QuestionPageContent = () => {
   }
 
   return (
-    <div className="h-full sm:h-3/4 md:w-3/4 lg:w-1/2 w-full">
+    <div className="h-full md:w-3/4 w-full">
       <QuestionCard />
     </div>
   );

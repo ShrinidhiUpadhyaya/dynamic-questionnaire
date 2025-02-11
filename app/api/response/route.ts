@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-// import { redis } from "@/lib/redis"; // Assuming Redis for persistence
+// import { redis } from "@/lib/redis";
 import { Answer } from "@/types/answer";
 
 let answers: Answer[] = [];
@@ -23,7 +23,6 @@ const upsertAnswer = (questionId: string, answer: string): void => {
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
 ) {
   try {
     const { searchParams } = new URL(request.url);
