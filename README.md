@@ -148,7 +148,9 @@ The schema is defined as a Questionnaire object with the following top-level pro
  - **Successfull Responses:**
    ```
    {
-     "questionnaires": [],
+     "questionnaires": [
+       // Array of questionnaire objects defined in QUESTIONNAIRE_LIST
+    ],
      "status": "success"
    }
    ```
