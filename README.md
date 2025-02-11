@@ -353,3 +353,10 @@ export const RatingsQuestion = QuestionComponent({
 
 export default RatingsQuestion;
 ```
+- In QuestionCard add RatingsQuestions
+```
+text: TextQuestion,
+  single_choice: SingleChoiceQuestion,
+  multiple_choice: MultipleChoiceQuestion,
+  ratings: RatingsQuestion,
+```
