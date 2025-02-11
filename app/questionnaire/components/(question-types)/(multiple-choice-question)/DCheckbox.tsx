@@ -3,8 +3,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { DCheckboxProps } from "./types";
 import { useState } from "react";
 
-const DCheckbox = ({ options, defaultValues, onChange }: DCheckboxProps) => {
-  const [values, setValues] = useState<string[]>(defaultValues);
+const DCheckbox = ({
+  options,
+  defaultValue = [],
+  onChange,
+}: DCheckboxProps) => {
+  const [values, setValues] = useState<string[]>(defaultValue);
 
   const handleValueChange = (value: string, checked: boolean) => {
     const newValues = checked

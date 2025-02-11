@@ -10,7 +10,7 @@ export interface MultipleChoiceQuestionProps {
 }
 
 export interface DCheckboxProps {
-  defaultValues: string[];
+  defaultValue: string[];
   options: MultipleChoiceOptionType[];
   onChange: (value: string[]) => void;
 }

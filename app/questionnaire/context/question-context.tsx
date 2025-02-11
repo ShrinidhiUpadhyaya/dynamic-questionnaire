@@ -32,7 +32,7 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({
     isLastQuestion,
   } = useQuestion(id as string);
 
-  const response = useResponse(id as string);
+  const response = useResponse(currentQuestion?.id as string);
   const answer = response?.answer;
   const saveAnswers = response?.saveAnswers;
 

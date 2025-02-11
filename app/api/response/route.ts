@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
     }
 
     // const answer = await redis.hGetAll(`answers:${questionId}`);
-    const result = findAnswer(id);
+    const result = findAnswer(id as string);
 
     return NextResponse.json({
       answer: result ? result.answer : null,

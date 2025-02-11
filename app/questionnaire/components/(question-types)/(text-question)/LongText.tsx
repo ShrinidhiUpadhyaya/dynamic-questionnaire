@@ -14,7 +14,7 @@ const LongText = ({
   const { value, handleChange } = useTextComponentChange({
     onChange,
     validate,
-    defaultValue: defaultValue,
+    defaultValue,
   });
 
   return (
