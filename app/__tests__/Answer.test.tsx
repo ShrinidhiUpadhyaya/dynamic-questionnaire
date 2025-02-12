@@ -1,6 +1,6 @@
 import { vi, describe, test, expect, beforeEach } from "vitest";
 import { useQuery } from "@tanstack/react-query";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import AnswersPage from "../answers/[id]/page";
 
 // Mocks
