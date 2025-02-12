@@ -1,6 +1,8 @@
+import DErrorBoundary from "@/components/DErrorBoundary";
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { ReactQueryProvider } from "./providers/ReactQueryProvider";
 
 const space_grostek = Space_Grotesk({ subsets: ["latin"] });
 
@@ -15,9 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${space_grostek.className} antialiased`}>
-        {children}
+        <DErrorBoundary>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </DErrorBoundary>
       </body>
     </html>
   );
