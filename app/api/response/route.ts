@@ -3,7 +3,6 @@ import { Answer } from "@/types/answer";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-const USE_REDIS = process.env.USE_REDIS === "true";
 let answers: Answer[] = [];
 
 const findAnswer = (id: string): Answer | undefined => {
@@ -33,7 +32,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (USE_REDIS) {
+    if (redis) {
       await redis.hset(`answers:${id}`, "answer", userAnswer);
     } else {
       upsertAnswer(id, userAnswer);
@@ -58,7 +57,7 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get("id");
 
     if (id === "all") {
-      if (USE_REDIS) {
+      if (redis) {
         const keys = await redis.keys("answers:*");
         const allAnswers = await Promise.all(
           keys.map(async (key) => ({
@@ -81,7 +80,7 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    if (USE_REDIS) {
+    if (redis) {
       const answer = await redis.hget(`answers:${id}`, "answer");
       return NextResponse.json({
         answer: answer || null,
@@ -105,7 +104,7 @@ export async function GET(request: NextRequest) {
 
 export async function DELETE() {
   try {
-    if (USE_REDIS) {
+    if (redis) {
       const keys = await redis.keys("answers:*");
       if (keys.length > 0) {
         await redis.del(...keys);

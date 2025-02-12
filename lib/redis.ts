@@ -1,9 +1,12 @@
 import Redis from "ioredis";
 
-const redis = new Redis({
-  host: process.env.REDIS_HOST || "localhost",
-  port: Number(process.env.REDIS_PORT) || 6379,
-});
+const USE_REDIS = process.env.USE_REDIS === "true";
 
-export { redis };
+export let redis: Redis | null = null;
 
+if (USE_REDIS) {
+  redis = new Redis({
+    host: process.env.REDIS_HOST || "127.0.0.1",
+    port: Number(process.env.REDIS_PORT) || 6379,
+  });
+}
