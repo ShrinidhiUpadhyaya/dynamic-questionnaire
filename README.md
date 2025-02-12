@@ -1,14 +1,14 @@
 # Dynamic Questionnaire
 
-A full stack Next.js application that allows you to create dynamic questionnaires based on a JSON schema, supports conditional logic and validation.
+A full stack Next.js application that allows you to create dynamic questionnaires based on a JSON schema, supports conditional logic and validation. The answers are by default stored temporarily on the server and if needed you could also enabled Redis
 
 ## Features
 
 - [x] Dynamic questionnaire based on a JSON schema
 - [x] Multiple question types
 - [x] Progress Tracking
-- [x] Partial Response Saving
-
+- [x] Response Saving
+- [x] Answers 
 
 ## Tech Stack
 
@@ -208,7 +208,7 @@ The schema is defined as a Questionnaire object with the following top-level pro
       "error": "Failed to fetch questionnaire"
     }
     ```
-### Adding a New Component Sub Component to a existing Component Type
+## Adding a New Component Sub Component to a existing Component Type
 Lets a Toggle Button Component in `multi-choice-question`
 - Install the toggle component from `shadcn\ui`
   ```
@@ -255,7 +255,7 @@ export type MultipleChoiceQuestionComponentProps =
   | ToggleButtonProps;
 ```
 
-### Adding a new Question Type
+## Adding a new Question Type
 Lets create a new question type called ratings
 -  add a new type called ratings in `QuestionType` in types
 ```
@@ -359,4 +359,13 @@ text: TextQuestion,
   single_choice: SingleChoiceQuestion,
   multiple_choice: MultipleChoiceQuestion,
   ratings: RatingsQuestion,
+```
+
+## Setup with Redis
+You can build the docker image for the app using the `Dockerfile` and connect with Redis to save the answers
+- create `.env` file and add the below variables. You can also find these variables in `.env.example`
+```
+USE_REDIS=true
+REDIS_HOST=localhost
+REDIS_PORT=6379
 ```
