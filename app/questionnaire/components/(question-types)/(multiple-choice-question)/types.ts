@@ -1,7 +1,4 @@
-import {
-  MultipleChoiceOptionType,
-  MultipleChoiceQuestionType,
-} from "@/types/question";
+import { MultipleChoiceQuestionType, QuestionOptionsType } from "@/types/question";
 
 export interface MultipleChoiceQuestionProps {
   question: MultipleChoiceQuestionType;
@@ -11,7 +8,7 @@ export interface MultipleChoiceQuestionProps {
 
 export interface CheckboxListProps {
   defaultValue: string[];
-  options: MultipleChoiceOptionType[];
+  options: QuestionOptionsType[];
   onChange: (value: string[]) => void;
 }
 

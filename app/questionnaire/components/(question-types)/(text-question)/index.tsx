@@ -1,5 +1,6 @@
 import { ComponentRegistry } from "@/types/components";
 import { TextSubType } from "@/types/question";
+
 import { QuestionComponent } from "../../QuestionComponent";
 import LongText from "./LongText";
 import NumberText from "./NumberText";

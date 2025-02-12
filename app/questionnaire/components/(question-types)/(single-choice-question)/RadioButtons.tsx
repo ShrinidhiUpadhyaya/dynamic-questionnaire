@@ -1,24 +1,17 @@
 import { useSingleChoiceChange } from "@/app/questionnaire/hooks/useSingleChoiceChange";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
 import { RadioButtonsProps } from "./types";
 
-const RadioButtons = ({
-  defaultValue,
-  options,
-  onChange,
-}: RadioButtonsProps) => {
+const RadioButtons = ({ defaultValue, options, onChange }: RadioButtonsProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
     defaultValue,
     onChange,
   });
 
   return (
-    <RadioGroup
-      defaultValue={defaultValue}
-      value={value}
-      onValueChange={handleValueChange}
-    >
+    <RadioGroup defaultValue={defaultValue} value={value} onValueChange={handleValueChange}>
       {options.map((option) => (
         <div className="flex items-center space-x-2" key={option.value}>
           <RadioGroupItem value={option.value} id={option.value} />

@@ -6,13 +6,7 @@ export enum QuestionType {
 
 export interface ConditionalRule {
   questionId: string;
-  operator:
-    | "equals"
-    | "notEquals"
-    | "contains"
-    | "notContains"
-    | "greaterThan"
-    | "lessThan";
+  operator: "equals" | "notEquals" | "contains" | "notContains" | "greaterThan" | "lessThan";
   value: string | number | boolean | string[];
   logic?: "and" | "or";
 }
@@ -57,17 +51,14 @@ export interface NumberQuestion extends TextQuestionBase {
   max: number;
 }
 
-export type TextQuestionType =
-  | NumberQuestion
-  | ShortTextQuestion
-  | LongTextQuestion;
+export type TextQuestionType = NumberQuestion | ShortTextQuestion | LongTextQuestion;
 
 export enum SingleChoiceSubType {
   RADIO = "radio",
   SELECT = "select",
 }
 
-export interface SingleChoiceOptionType {
+export interface QuestionOptionsType {
   id: string;
   label: string;
   value: string;
@@ -75,28 +66,19 @@ export interface SingleChoiceOptionType {
 
 export interface SingleChoiceQuestionType extends BaseQuestion {
   sub_type: SingleChoiceSubType;
-  options: SingleChoiceOptionType[];
+  options: QuestionOptionsType[];
 }
 
 export enum MultipleChoiceSubType {
   CHECKBOX = "checkbox",
 }
 
-export interface MultipleChoiceOptionType {
-  id: string;
-  label: string;
-  value: string;
-}
-
 export interface MultipleChoiceQuestionType extends BaseQuestion {
   sub_type: MultipleChoiceSubType;
-  options: MultipleChoiceOptionType[];
+  options: QuestionOptionsType[];
 }
 
-export type Question =
-  | TextQuestionType
-  | SingleChoiceQuestionType
-  | MultipleChoiceQuestionType;
+export type Question = TextQuestionType | SingleChoiceQuestionType | MultipleChoiceQuestionType;
 
 export interface Questionnaire {
   id: string;

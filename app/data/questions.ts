@@ -11,257 +11,264 @@ export const CYBER_SECURITY: Questionnaire = {
   title: "Cyber Security Questions",
   questions: [
     {
-      "id": "cyber-team",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.RADIO,
-      "question": "Does your company currently have a dedicated cyber security team?",
-      "options": [
-        { "id": "cyber-team-yes", "label": "Yes", "value": "yes" },
-        { "id": "cyber-team-no", "label": "No", "value": "no" }
-      ]
-    },
-    {
-      "id": "cyber-concerns",
-      "type": QuestionType.MULTIPLE_CHOICE,
-      "sub_type": MultipleChoiceSubType.CHECKBOX,
-      "question": "What are the main areas of concern regarding cyber security in your company?",
-      "options": [
-        { "id": "concern-phishing", "label": "Phishing Attacks", "value": "phishing" },
-        { "id": "concern-ransomware", "label": "Ransomware", "value": "ransomware" },
-        { "id": "concern-insider", "label": "Insider Threats", "value": "insider" },
-        { "id": "concern-databreach", "label": "Data Breaches", "value": "data-breaches" },
-        { "id": "concern-other", "label": "Other", "value": "other" }
-      ]
-    },
-    {
-      "id": "cyber-other-details",
-      "type": QuestionType.TEXT,
-      "sub_type": TextSubType.SHORT_TEXT,
-      "question": "Please specify your concerns if 'Other' was selected.",
-      "conditional": [
-        {
-          "questionId": "cyber-concerns",
-          "operator": "contains",
-          "value": "other"
-        }
-      ]
-    },
-    {
-      "id": "training-frequency",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.RADIO,
-      "question": "How often does your company conduct cyber security training for employees?",
-      "options": [
-        { "id": "training-monthly", "label": "Monthly", "value": "monthly" },
-        { "id": "training-quarterly", "label": "Quarterly", "value": "quarterly" },
-        { "id": "training-annually", "label": "Annually", "value": "annually" },
-        { "id": "training-never", "label": "Never", "value": "never" }
-      ]
-    },
-    {
-      "id": "incident-experience",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.RADIO,
-      "question": "Have you experienced a cyber security incident in the past year?",
-      "options": [
-        { "id": "incident-yes", "label": "Yes", "value": "yes" },
-        { "id": "incident-no", "label": "No", "value": "no" }
-      ]
-    },
-    {
-      "id": "incident-description",
-      "type": QuestionType.TEXT,
-      "sub_type": TextSubType.LONG_TEXT,
-      "question": "If yes, please describe the incident and its impact.",
-      "conditional": [
-        {
-          "questionId": "incident-experience",
-          "operator": "equals",
-          "value": "yes"
-        }
-      ]
-    },
-    {
-      "id": "security-posture",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.RADIO,
-      "question": "How would you rate your company’s current cyber security posture?",
-      "options": [
-        { "id": "posture-excellent", "label": "Excellent", "value": "excellent" },
-        { "id": "posture-good", "label": "Good", "value": "good" },
-        { "id": "posture-fair", "label": "Fair", "value": "fair" },
-        { "id": "posture-poor", "label": "Poor", "value": "poor" }
-      ]
-    },
-    {
-      "id": "security-measures",
-      "type": QuestionType.MULTIPLE_CHOICE,
-      "sub_type": MultipleChoiceSubType.CHECKBOX,
-      "question": "What cyber security measures are currently implemented in your company?",
-      "options": [
-        { "id": "measures-firewalls", "label": "Firewalls", "value": "firewalls" },
-        { "id": "measures-ids", "label": "Intrusion Detection Systems", "value": "ids" },
-        { "id": "measures-antivirus", "label": "Antivirus Software", "value": "antivirus" },
-        { "id": "measures-training", "label": "Employee Training", "value": "training" },
-        { "id": "measures-encryption", "label": "Encryption", "value": "encryption" },
-        { "id": "measures-mfa", "label": "Multi-factor Authentication", "value": "mfa" }
-      ]
-    },
-    {
-      "id": "future-investment",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.RADIO,
-      "question": "Does your company plan to invest in new cyber security technologies in the next 12 months?",
-      "options": [
-        { "id": "investment-yes", "label": "Yes", "value": "yes" },
-        { "id": "investment-no", "label": "No", "value": "no" },
-        { "id": "investment-not-sure", "label": "Not Sure", "value": "not_sure" }
-      ]
-    },
-    {
-      "id": "investment-areas",
-      "type": QuestionType.MULTIPLE_CHOICE,
-      "sub_type": MultipleChoiceSubType.CHECKBOX,
-      "question": "Which areas of cyber security do you intend to focus on for future investments? (Select all that apply)",
-      "options": [
-        { "id": "area-network", "label": "Network Security", "value": "network_security" },
-        { "id": "area-endpoint", "label": "Endpoint Security", "value": "endpoint_security" },
-        { "id": "area-cloud", "label": "Cloud Security", "value": "cloud_security" },
-        { "id": "area-iam", "label": "Identity and Access Management", "value": "iam" },
-        { "id": "area-incident", "label": "Incident Response", "value": "incident_response" },
-        { "id": "area-training", "label": "Security Awareness Training", "value": "security_training" }
+      id: "cyber-team",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "Does your company currently have a dedicated cyber security team?",
+      options: [
+        { id: "cyber-team-yes", label: "Yes", value: "yes" },
+        { id: "cyber-team-no", label: "No", value: "no" },
       ],
-      "conditional": [
+    },
+    {
+      id: "cyber-concerns",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
+      question: "What are the main areas of concern regarding cyber security in your company?",
+      options: [
+        { id: "concern-phishing", label: "Phishing Attacks", value: "phishing" },
+        { id: "concern-ransomware", label: "Ransomware", value: "ransomware" },
+        { id: "concern-insider", label: "Insider Threats", value: "insider" },
+        { id: "concern-databreach", label: "Data Breaches", value: "data-breaches" },
+        { id: "concern-other", label: "Other", value: "other" },
+      ],
+    },
+    {
+      id: "cyber-other-details",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT_TEXT,
+      question: "Please specify your concerns if 'Other' was selected.",
+      conditional: [
         {
-          "questionId": "future-investment",
-          "operator": "equals",
-          "value": "yes"
+          questionId: "cyber-concerns",
+          operator: "contains",
+          value: "other",
+        },
+      ],
+    },
+    {
+      id: "training-frequency",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "How often does your company conduct cyber security training for employees?",
+      options: [
+        { id: "training-monthly", label: "Monthly", value: "monthly" },
+        { id: "training-quarterly", label: "Quarterly", value: "quarterly" },
+        { id: "training-annually", label: "Annually", value: "annually" },
+        { id: "training-never", label: "Never", value: "never" },
+      ],
+    },
+    {
+      id: "incident-experience",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "Have you experienced a cyber security incident in the past year?",
+      options: [
+        { id: "incident-yes", label: "Yes", value: "yes" },
+        { id: "incident-no", label: "No", value: "no" },
+      ],
+    },
+    {
+      id: "incident-description",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.LONG_TEXT,
+      question: "If yes, please describe the incident and its impact.",
+      conditional: [
+        {
+          questionId: "incident-experience",
+          operator: "equals",
+          value: "yes",
+        },
+      ],
+    },
+    {
+      id: "security-posture",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "How would you rate your company’s current cyber security posture?",
+      options: [
+        { id: "posture-excellent", label: "Excellent", value: "excellent" },
+        { id: "posture-good", label: "Good", value: "good" },
+        { id: "posture-fair", label: "Fair", value: "fair" },
+        { id: "posture-poor", label: "Poor", value: "poor" },
+      ],
+    },
+    {
+      id: "security-measures",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
+      question: "What cyber security measures are currently implemented in your company?",
+      options: [
+        { id: "measures-firewalls", label: "Firewalls", value: "firewalls" },
+        { id: "measures-ids", label: "Intrusion Detection Systems", value: "ids" },
+        { id: "measures-antivirus", label: "Antivirus Software", value: "antivirus" },
+        { id: "measures-training", label: "Employee Training", value: "training" },
+        { id: "measures-encryption", label: "Encryption", value: "encryption" },
+        { id: "measures-mfa", label: "Multi-factor Authentication", value: "mfa" },
+      ],
+    },
+    {
+      id: "future-investment",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question:
+        "Does your company plan to invest in new cyber security technologies in the next 12 months?",
+      options: [
+        { id: "investment-yes", label: "Yes", value: "yes" },
+        { id: "investment-no", label: "No", value: "no" },
+        { id: "investment-not-sure", label: "Not Sure", value: "not_sure" },
+      ],
+    },
+    {
+      id: "investment-areas",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
+      question:
+        "Which areas of cyber security do you intend to focus on for future investments? (Select all that apply)",
+      options: [
+        { id: "area-network", label: "Network Security", value: "network_security" },
+        { id: "area-endpoint", label: "Endpoint Security", value: "endpoint_security" },
+        { id: "area-cloud", label: "Cloud Security", value: "cloud_security" },
+        { id: "area-iam", label: "Identity and Access Management", value: "iam" },
+        { id: "area-incident", label: "Incident Response", value: "incident_response" },
+        { id: "area-training", label: "Security Awareness Training", value: "security_training" },
+      ],
+      conditional: [
+        {
+          questionId: "future-investment",
+          operator: "equals",
+          value: "yes",
         },
         {
-          "questionId": "security-measures",
-          "operator": "notEquals",
-          "value": "firewalls",
-        }
-      ]
-    }
-  ]
-}
+          questionId: "security-measures",
+          operator: "notEquals",
+          value: "firewalls",
+        },
+      ],
+    },
+  ],
+};
 export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
   id: "hair-transplant",
   title: "Hair Transplant Experience and Expectations",
   questions: [
     {
-      "id": "reason-for-hair-loss",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.RADIO,
-      "question": "What is the primary reason for your hair loss?",
-      "options": [
-        { "id": "reason-1", "label": "Genetics", "value": "genetics" },
-        { "id": "reason-2", "label": "Stress", "value": "stress" },
-        { "id": "reason-3", "label": "Medical Condition", "value": "medical-condition" },
-        { "id": "reason-4", "label": "Other", "value": "other" }
-      ]
-    },
-    {
-      "id": "hair-loss-duration",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.SELECT,
-      "question": "How long have you been experiencing hair loss?",
-      "options": [
-        { "id": "duration-1", "label": "Less than a year", "value": "less-than-a-year" },
-        { "id": "duration-2", "label": "1-3 years", "value": "1-3-years" },
-        { "id": "duration-3", "label": "More than 3 years", "value": "more-than-3-years" }
-      ]
-    },
-    {
-      "id": "previous-hair-treatments",
-      "type": QuestionType.TEXT,
-      "sub_type": TextSubType.SHORT_TEXT,
-      "question": "Have you undergone any previous hair loss treatments? If yes, please specify.",
-      "conditional": [
-        {
-          "questionId": "reason-for-hair-loss",
-          "operator": "equals",
-          "value": "medical-condition"
-      }]
-    },
-    {
-      "id": "transplant-expectations",
-      "type": QuestionType.MULTIPLE_CHOICE,
-      "sub_type": MultipleChoiceSubType.CHECKBOX,
-      "question": "What are your expectations from a hair transplant?",
-      "options": [
-        { "id": "expectation-1", "label": "Full Hair Restoration", "value": "full-restoration" },
-        { "id": "expectation-2", "label": "Improved Hairline", "value": "improved-hairline" },
-        { "id": "expectation-3", "label": "Thicker Hair", "value": "thicker-hair" }
-      ]
-    },
-    {
-      "id": "surgery-concerns",
-      "type": QuestionType.MULTIPLE_CHOICE,
-      "sub_type": MultipleChoiceSubType.CHECKBOX,
-      "question": "What concerns do you have about the procedure?",
-      "options": [
-        { "id": "concern-1", "label": "Cost", "value": "cost" },
-        { "id": "concern-2", "label": "Side Effects", "value": "side-effects" },
-        { "id": "concern-3", "label": "Recovery Time", "value": "recovery-time" }
-      ]
-    },
-    {
-      "id": "preferred-technique",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.RADIO,
-      "question": "Which hair transplant technique are you interested in?",
-      "options": [
-        { "id": "technique-1", "label": "FUE (Follicular Unit Extraction)", "value": "fue" },
-        { "id": "technique-2", "label": "FUT (Follicular Unit Transplant)", "value": "fut" }
-      ]
-    },
-    {
-      "id": "desired-hair-density",
-      "type": QuestionType.TEXT,
-      "sub_type": TextSubType.SHORT_TEXT,
-      "question": "What is your desired hair density after the procedure?",
-      "conditional": {
-        "questionId": "transplant-expectations",
-        "operator": "contains",
-        "value": "full-restoration"
-      }
-    },
-    {
-      "id": "pain-threshold",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.RADIO,
-      "question": "How comfortable are you with minor surgical pain?",
-      "options": [
-        { "id": "pain-1", "label": "Not comfortable at all", "value": "not-comfortable" },
-        { "id": "pain-2", "label": "Moderately comfortable", "value": "moderately-comfortable" },
-        { "id": "pain-3", "label": "Very comfortable", "value": "very-comfortable" }
+      id: "reason-for-hair-loss",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "What is the primary reason for your hair loss?",
+      options: [
+        { id: "reason-1", label: "Genetics", value: "genetics" },
+        { id: "reason-2", label: "Stress", value: "stress" },
+        { id: "reason-3", label: "Medical Condition", value: "medical-condition" },
+        { id: "reason-4", label: "Other", value: "other" },
       ],
-      "conditional": {
-        "questionId": "preferred-technique",
-        "operator": "equals",
-        "value": "fut"
-      }
     },
     {
-      "id": "post-surgery-care",
-      "type": QuestionType.TEXT,
-      "sub_type": TextSubType.LONG_TEXT,
-      "question": "Do you have any concerns about post-surgery care?",
+      id: "hair-loss-duration",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.SELECT,
+      question: "How long have you been experiencing hair loss?",
+      options: [
+        { id: "duration-1", label: "Less than a year", value: "less-than-a-year" },
+        { id: "duration-2", label: "1-3 years", value: "1-3-years" },
+        { id: "duration-3", label: "More than 3 years", value: "more-than-3-years" },
+      ],
     },
     {
-      "id": "final-decision-timeline",
-      "type": QuestionType.SINGLE_CHOICE,
-      "sub_type": SingleChoiceSubType.RADIO,
-      "question": "When do you plan to make a decision regarding the transplant?",
-      "options": [
-        { "id": "timeline-1", "label": "Within a month", "value": "within-a-month" },
-        { "id": "timeline-2", "label": "In 3-6 months", "value": "3-6-months" },
-        { "id": "timeline-3", "label": "In a year", "value": "in-a-year" }
-      ]
-    }
-  ]  
+      id: "previous-hair-treatments",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT_TEXT,
+      question: "Have you undergone any previous hair loss treatments? If yes, please specify.",
+      conditional: [
+        {
+          questionId: "reason-for-hair-loss",
+          operator: "equals",
+          value: "medical-condition",
+        },
+      ],
+    },
+    {
+      id: "transplant-expectations",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
+      question: "What are your expectations from a hair transplant?",
+      options: [
+        { id: "expectation-1", label: "Full Hair Restoration", value: "full-restoration" },
+        { id: "expectation-2", label: "Improved Hairline", value: "improved-hairline" },
+        { id: "expectation-3", label: "Thicker Hair", value: "thicker-hair" },
+      ],
+    },
+    {
+      id: "surgery-concerns",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
+      question: "What concerns do you have about the procedure?",
+      options: [
+        { id: "concern-1", label: "Cost", value: "cost" },
+        { id: "concern-2", label: "Side Effects", value: "side-effects" },
+        { id: "concern-3", label: "Recovery Time", value: "recovery-time" },
+      ],
+    },
+    {
+      id: "preferred-technique",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "Which hair transplant technique are you interested in?",
+      options: [
+        { id: "technique-1", label: "FUE (Follicular Unit Extraction)", value: "fue" },
+        { id: "technique-2", label: "FUT (Follicular Unit Transplant)", value: "fut" },
+      ],
+    },
+    {
+      id: "desired-hair-density",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT_TEXT,
+      question: "What is your desired hair density after the procedure?",
+      conditional: [
+        {
+          questionId: "transplant-expectations",
+          operator: "contains",
+          value: "full-restoration",
+        },
+      ],
+    },
+    {
+      id: "pain-threshold",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "How comfortable are you with minor surgical pain?",
+      options: [
+        { id: "pain-1", label: "Not comfortable at all", value: "not-comfortable" },
+        { id: "pain-2", label: "Moderately comfortable", value: "moderately-comfortable" },
+        { id: "pain-3", label: "Very comfortable", value: "very-comfortable" },
+      ],
+      conditional: [
+        {
+          questionId: "preferred-technique",
+          operator: "equals",
+          value: "fut",
+        },
+      ],
+    },
+    {
+      id: "post-surgery-care",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.LONG_TEXT,
+      question: "Do you have any concerns about post-surgery care?",
+    },
+    {
+      id: "final-decision-timeline",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "When do you plan to make a decision regarding the transplant?",
+      options: [
+        { id: "timeline-1", label: "Within a month", value: "within-a-month" },
+        { id: "timeline-2", label: "In 3-6 months", value: "3-6-months" },
+        { id: "timeline-3", label: "In a year", value: "in-a-year" },
+      ],
+    },
+  ],
 };
 
 export const PLASTIC_SURGERY_QUESTIONNAIRE: Questionnaire = {
@@ -357,8 +364,7 @@ export const QUESTIONS_FOR_DOCTORS_QUESTIONNAIRE: Questionnaire = {
       id: "medications",
       type: QuestionType.TEXT,
       sub_type: TextSubType.LONG_TEXT,
-      question:
-        "Are you currently taking any medications or supplements? If so, please list them.",
+      question: "Are you currently taking any medications or supplements? If so, please list them.",
     },
     {
       id: "symptom-duration",

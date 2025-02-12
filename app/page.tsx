@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+
 import { t } from "./locales/translation";
 
 export default function HomePage() {

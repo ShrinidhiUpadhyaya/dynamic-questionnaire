@@ -5,9 +5,14 @@
   "printWidth": 100,
   "useTabs": false,
   "singleQuote": false,
-  "bracketSpacing": false,
+  "bracketSpacing": true,
+  "bracketSameLine": true,
+  "jsxSingleQuote": false,
   "endOfLine": "auto",
   "arrowParens": "always",
   "trailingComma": "all",
-  "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"]
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

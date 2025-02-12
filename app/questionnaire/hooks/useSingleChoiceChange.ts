@@ -6,10 +6,7 @@ interface UseSingleChoiceChangeProps {
   onChange: (newValue: string) => void;
 }
 
-export const useSingleChoiceChange = ({
-  defaultValue,
-  onChange,
-}: UseSingleChoiceChangeProps) => {
+export const useSingleChoiceChange = ({ defaultValue, onChange }: UseSingleChoiceChangeProps) => {
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {

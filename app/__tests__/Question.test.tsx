@@ -1,8 +1,9 @@
-import { describe, test, expect, vi, beforeEach } from "vitest";
-import { render, screen, cleanup } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
+import type { ReactNode } from "react";
+import { Mock, beforeEach, describe, expect, test, vi } from "vitest";
+
 import QuestionPage from "../questionnaire/[id]/page";
 import { QuestionProvider } from "../questionnaire/context/question-context";
-import type { ReactNode } from "react";
 import { useQuestion } from "../questionnaire/hooks/useQuestion";
 
 const mockRouter = { push: vi.fn() };
@@ -24,9 +25,7 @@ vi.mock("@/app/questionnaire/hooks/useConditionalLogic", () => ({
 vi.mock("@/app/questionnaire/hooks/useQuestion");
 vi.mock("@/app/questionnaire/hooks/useResponse");
 
-const createMockQuestionHook = (
-  overrides = {}
-) => ({
+const createMockQuestionHook = (overrides = {}) => ({
   isLoading: false,
   error: null,
   currentQuestion: null,
@@ -49,7 +48,7 @@ describe("QuestionPage", () => {
 
   test("renders loading state when fetching question", () => {
     const mockHook = createMockQuestionHook({ isLoading: true });
-    (useQuestion as vi.Mock).mockReturnValue(mockHook);
+    (useQuestion as Mock).mockReturnValue(mockHook);
 
     renderWithProvider(<QuestionPage />);
     expect(screen.getByTestId("question-loading-card")).toBeInTheDocument();
@@ -60,7 +59,7 @@ describe("QuestionPage", () => {
     const mockHook = createMockQuestionHook({
       error: new Error(errorMessage),
     });
-    (useQuestion as vi.Mock).mockReturnValue(mockHook);
+    (useQuestion as Mock).mockReturnValue(mockHook);
 
     renderWithProvider(<QuestionPage />);
     expect(screen.getByText(new RegExp(`Error:\\s*${errorMessage}`, "i"))).toBeInTheDocument();
@@ -77,7 +76,7 @@ describe("QuestionPage", () => {
     const mockHook = createMockQuestionHook({
       currentQuestion: mockQuestion,
     });
-    (useQuestion as vi.Mock).mockReturnValue(mockHook);
+    (useQuestion as Mock).mockReturnValue(mockHook);
 
     renderWithProvider(<QuestionPage />);
     expect(screen.getByText(mockQuestion.question)).toBeInTheDocument();
@@ -94,7 +93,7 @@ describe("QuestionPage", () => {
       isFirstQuestion: true,
       isLastQuestion: false,
     });
-    (useQuestion as vi.Mock).mockReturnValue(mockFirstQuestion);
+    (useQuestion as Mock).mockReturnValue(mockFirstQuestion);
 
     const { rerender } = renderWithProvider(<QuestionPage />);
     expect(screen.queryByText("previous")).not.toBeInTheDocument();
@@ -110,9 +109,13 @@ describe("QuestionPage", () => {
       isFirstQuestion: false,
       isLastQuestion: true,
     });
-    (useQuestion as vi.Mock).mockReturnValue(mockLastQuestion);
+    (useQuestion as Mock).mockReturnValue(mockLastQuestion);
 
-    rerender(<QuestionProvider><QuestionPage /></QuestionProvider>);
+    rerender(
+      <QuestionProvider>
+        <QuestionPage />
+      </QuestionProvider>,
+    );
     expect(screen.getByText("previous")).toBeInTheDocument();
     expect(screen.getByText("submit")).toBeInTheDocument();
   });
@@ -126,7 +129,7 @@ describe("QuestionPage", () => {
         sub_type: "short_text",
       },
     });
-    (useQuestion as vi.Mock).mockReturnValue(mockHook);
+    (useQuestion as Mock).mockReturnValue(mockHook);
 
     renderWithProvider(<QuestionPage />);
     expect(screen.getByText("Oops, something went wrong!")).toBeInTheDocument();

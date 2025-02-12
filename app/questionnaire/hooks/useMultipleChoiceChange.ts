@@ -27,9 +27,7 @@ export const useMultipleChoiceChange = ({
   });
 
   const handleValueChange = (value: string, checked: boolean) => {
-    const newValues = checked
-      ? [...values, value]
-      : values.filter((v) => v !== value);
+    const newValues = checked ? [...values, value] : values.filter((v) => v !== value);
     setValues(newValues);
     debouncedSave(newValues);
   };

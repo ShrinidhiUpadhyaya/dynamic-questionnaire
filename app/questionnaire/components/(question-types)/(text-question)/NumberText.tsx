@@ -1,24 +1,15 @@
 import { useTextComponentChange } from "@/app/questionnaire/hooks/useTextComponentChange";
 import DBaseInput from "@/components/DBaseInput";
+
 import { NumberInputProps } from "./types";
 
-const NumberText = ({
-  placeholder,
-  defaultValue,
-  min,
-  max,
-  onChange,
-}: NumberInputProps) => {
-  const validate = (validateValue: string | number) => {
+const NumberText = ({ placeholder, defaultValue, min, max, onChange }: NumberInputProps) => {
+  const validate = (validateValue: number) => {
     const num = Number(validateValue);
-    return (
-      !isNaN(num) &&
-      (min === undefined || num >= min) &&
-      (max === undefined || num <= max)
-    );
+    return !isNaN(num) && (min === undefined || num >= min) && (max === undefined || num <= max);
   };
 
-  const { value, handleChange } = useTextComponentChange({
+  const { value, handleChange } = useTextComponentChange<number>({
     onChange,
     validate,
     defaultValue: defaultValue,
@@ -30,8 +21,8 @@ const NumberText = ({
       placeholder={placeholder}
       min={min}
       max={max}
-      onChange={handleChange}
-      value={value || ""}
+      onChange={(value) => handleChange(Number(value))}
+      value={value}
     />
   );
 };

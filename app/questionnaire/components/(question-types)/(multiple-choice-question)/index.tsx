@@ -1,5 +1,6 @@
 import { ComponentRegistry } from "@/types/components";
 import { MultipleChoiceSubType } from "@/types/question";
+
 import { QuestionComponent } from "../../QuestionComponent";
 import CheckboxList from "./CheckboxList";
 

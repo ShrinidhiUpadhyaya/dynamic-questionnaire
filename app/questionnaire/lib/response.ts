@@ -22,12 +22,9 @@ export const getResponse = async (questionId: string) => {
  * @param answers - An array of user answers.
  * @returns A promise resolving with the result of the submission.
  */
-export const sendResponse = async (
-  questionId: string,
-  answers: UserAnswer[]
-) => {
+export const sendResponse = async (questionId: string, answers: UserAnswer | UserAnswer[]) => {
   if (!questionId) throw new Error("Question ID is required");
-  if (!answers?.length) throw new Error("Answers are required");
+  if (!answers) throw new Error("Answers are required");
 
   return requestHandler(`${API_URL.RESPONSE}${questionId}`, {
     method: "POST",

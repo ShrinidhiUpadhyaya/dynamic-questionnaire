@@ -1,26 +1,28 @@
 import { useQuestion } from "@/app/questionnaire/hooks/useQuestion";
 import { useResponse } from "@/app/questionnaire/hooks/useResponse";
+import { UserAnswer } from "@/types/answer";
 import { Question } from "@/types/question";
+import { UseMutateFunction } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { createContext, useContext, useMemo } from "react";
 
 interface QuestionContextType {
   currentQuestion: Question;
   answer: string | string[];
-  saveAnswer: (value: string | string[]) => Promise<void>;
+  saveAnswer:
+    | UseMutateFunction<any, Error, UserAnswer | UserAnswer[], { previousAnswers: unknown }>
+    | undefined;
   goToNext: () => void;
   goToPrevious: () => void;
   isFirstQuestion: boolean;
   isLastQuestion: boolean;
   isLoading: boolean;
-  error: Error;
+  error: Error | null;
 }
 
 const QuestionContext = createContext<QuestionContextType | null>(null);
 
-export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { id } = useParams();
   const {
     isLoading,
@@ -58,14 +60,10 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({
       isLastQuestion,
       isLoading,
       error,
-    ]
+    ],
   );
 
-  return (
-    <QuestionContext.Provider value={contextValue}>
-      {children}
-    </QuestionContext.Provider>
-  );
+  return <QuestionContext.Provider value={contextValue}>{children}</QuestionContext.Provider>;
 };
 
 export const useQuestionContext = () => {

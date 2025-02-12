@@ -10,6 +10,7 @@ import { QuestionType } from "@/types/question";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
+
 import { t } from "../../locales/translation";
 
 interface Question {
@@ -44,9 +45,7 @@ const AnswersPage = () => {
     if (!questions || !answersData?.answers) return [];
 
     return questions.map((question: Question) => {
-      const answer = answersData.answers.find(
-        (ans: Answer) => ans.id === question.id
-      );
+      const answer = answersData.answers.find((ans: Answer) => ans.id === question.id);
 
       return {
         id: question.id,
@@ -80,18 +79,13 @@ const AnswersPage = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center p-16">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center p-16">
       <div className="w-full max-w-7xl space-y-16">
         <div className="flex flex-wrap justify-center gap-8">
           {combinedData.map((item: CombinedData) => (
-            <Card
-              key={item.id}
-              className="w-full max-w-sm hover:shadow-lg transition-shadow"
-            >
+            <Card key={item.id} className="w-full max-w-sm transition-shadow hover:shadow-lg">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold">
-                  {item.question}
-                </CardTitle>
+                <CardTitle className="text-lg font-semibold">{item.question}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="mt-2">
@@ -99,26 +93,22 @@ const AnswersPage = () => {
                   <p className="mt-1 text-base">{formatAnswer(item.answer)}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400">
-                    Question Type: {item.type}
-                  </p>
+                  <p className="text-xs text-gray-400">Question Type: {item.type}</p>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-8 flex-col md:flex-row">
+        <div className="flex flex-col flex-wrap items-center justify-center gap-8 md:flex-row">
           <Button
             variant="outline"
             onClick={() => handleTakeAnotherQuestionnaire()}
-            className="w-full max-w-sm hover:shadow-lg transition-shadow"
-          >
+            className="w-full max-w-sm transition-shadow hover:shadow-lg">
             Take Another Questionnaire
           </Button>
           <Button
             onClick={() => handleRestartQuiz()}
-            className="w-full max-w-sm hover:shadow-lg transition-shadow"
-          >
+            className="w-full max-w-sm transition-shadow hover:shadow-lg">
             {t("restart")}
           </Button>
         </div>

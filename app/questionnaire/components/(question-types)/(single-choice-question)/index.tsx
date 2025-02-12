@@ -1,5 +1,6 @@
 import { ComponentRegistry } from "@/types/components";
 import { SingleChoiceSubType } from "@/types/question";
+
 import { QuestionComponent } from "../../QuestionComponent";
 import CustomSelect from "./CustomSelect";
 import RadioButtons from "./RadioButtons";

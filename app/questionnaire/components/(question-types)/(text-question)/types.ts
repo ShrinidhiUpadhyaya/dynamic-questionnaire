@@ -1,13 +1,6 @@
-import {
-  LongTextQuestion,
-  NumberQuestion,
-  ShortTextQuestion,
-} from "@/types/question";
+import { LongTextQuestion, NumberQuestion, ShortTextQuestion } from "@/types/question";
 
-export type TextQuestion =
-  | NumberQuestion
-  | ShortTextQuestion
-  | LongTextQuestion;
+export type TextQuestion = NumberQuestion | ShortTextQuestion | LongTextQuestion;
 
 export interface TextQuestionProps {
   question: TextQuestion;
@@ -15,13 +8,18 @@ export interface TextQuestionProps {
   onChange: (value: string) => void;
 }
 
-export interface BaseInputProps {
-  value?: string;
-  placeholder?: string;
+export interface BaseInputProps
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    "onChange" | "value" | "defaultValue" | "disabled" | "error" | "type" | "placeholder"
+  > {
+  value?: string | number;
   defaultValue?: string;
-  disabled?: boolean;
-  onChange?: (value: string) => void;
   error?: string;
+  disabled?: boolean;
+  placeholder?: string;
+  type?: "text" | "number" | "email" | "password" | "tel" | "url";
+  onChange?: (value: string | number) => void;
 }
 
 export interface ShortTextInputProps extends BaseInputProps {

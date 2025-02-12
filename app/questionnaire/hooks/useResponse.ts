@@ -1,5 +1,6 @@
 import { UserAnswer } from "@/types/answer";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { getResponse, sendResponse } from "../lib/response";
 
 export const useResponse = (questionId: string) => {
@@ -21,7 +22,7 @@ export const useResponse = (questionId: string) => {
   });
 
   const { mutate: saveAnswers, isPending: isSaving } = useMutation({
-    mutationFn: async (answers: UserAnswer[]) => {
+    mutationFn: async (answers: UserAnswer | UserAnswer[]) => {
       const response = await sendResponse(questionId, answers);
       return response;
     },
@@ -47,7 +48,7 @@ export const useResponse = (questionId: string) => {
   }
 
   return {
-    answer: answerData?.answer || [],
+    answer: answerData?.answer?.answer,
     isLoading,
     error,
     saveAnswers,

@@ -3,6 +3,4 @@ export interface Answer {
   answer: string | string[];
 }
 
-export type UserAnswer = {
-  value: string | number | null;
-};
+export type UserAnswer = string | string[] | number | null;

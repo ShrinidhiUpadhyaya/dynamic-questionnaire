@@ -1,7 +1,4 @@
-import {
-  SingleChoiceOptionType,
-  SingleChoiceQuestionType,
-} from "@/types/question";
+import { QuestionOptionsType, SingleChoiceQuestionType } from "@/types/question";
 
 export interface SingleChoiceQuestionProps {
   question: SingleChoiceQuestionType;
@@ -12,16 +9,14 @@ export interface SingleChoiceQuestionProps {
 export interface CustomSelectProps {
   defaultValue: string;
   answer: string;
-  options: SingleChoiceOptionType[];
+  options: QuestionOptionsType[];
   onChange: (value: string) => void;
 }
 
 export interface RadioButtonsProps {
   defaultValue: string;
-  options: SingleChoiceOptionType[];
+  options: QuestionOptionsType[];
   onChange: (value: string) => void;
 }
 
-export type SingleChoiceQuestionComponentProps =
-  | CustomSelectProps
-  | RadioButtonsProps;
+export type SingleChoiceQuestionComponentProps = CustomSelectProps | RadioButtonsProps;

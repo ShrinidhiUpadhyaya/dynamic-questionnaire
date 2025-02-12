@@ -1,17 +1,17 @@
 import { useDebounce } from "@/app/hooks/useDebounce";
 import { useCallback, useEffect, useState } from "react";
 
-interface UseTextInputProps {
-  defaultValue?: string;
-  validate?: (value: string) => boolean;
-  onChange?: (value: string) => void;
+interface UseTextInputProps<T> {
+  defaultValue?: string | number;
+  validate?: (value: T) => boolean;
+  onChange?: (newValue: T) => void;
 }
 
-export const useTextComponentChange = ({
+export const useTextComponentChange = <T extends string | number>({
   onChange,
-  defaultValue = "",
+  defaultValue = "" as T,
   validate,
-}: UseTextInputProps = {}) => {
+}: UseTextInputProps<T> = {}) => {
   const [value, setValue] = useState(defaultValue);
   const [error, setError] = useState(false);
 
@@ -23,7 +23,7 @@ export const useTextComponentChange = ({
 
   const { debouncedSave } = useDebounce({
     onSave: useCallback(
-      async (newValue: string) => {
+      async (newValue: T) => {
         if (validate && !validate(newValue)) {
           setError(true);
           return;
@@ -31,21 +31,16 @@ export const useTextComponentChange = ({
         setError(false);
         onChange?.(newValue);
       },
-      [onChange, validate]
+      [onChange, validate],
     ),
   });
 
   const handleChange = useCallback(
-    (
-      e:
-        | React.ChangeEvent<HTMLInputElement>
-        | React.ChangeEvent<HTMLTextAreaElement>
-    ) => {
-      const newValue = e.target.value;
+    (newValue: T) => {
       setValue(newValue);
       debouncedSave(newValue);
     },
-    [debouncedSave]
+    [debouncedSave],
   );
 
   return {

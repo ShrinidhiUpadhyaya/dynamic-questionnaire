@@ -1,5 +1,6 @@
 import { useTextComponentChange } from "@/app/questionnaire/hooks/useTextComponentChange";
 import { Textarea } from "@/components/ui/textarea";
+
 import { LongTextInputProps } from "./types";
 
 const LongText = ({
@@ -11,7 +12,7 @@ const LongText = ({
 }: LongTextInputProps) => {
   const validate = (value: string) => !maxLength || value.length <= maxLength;
 
-  const { value, handleChange } = useTextComponentChange({
+  const { value, handleChange } = useTextComponentChange<string>({
     onChange,
     validate,
     defaultValue,
@@ -22,7 +23,7 @@ const LongText = ({
       placeholder={placeholder}
       minLength={minLength}
       maxLength={maxLength}
-      onChange={handleChange}
+      onChange={(e) => handleChange(e.target.value)}
       value={value}
     />
   );

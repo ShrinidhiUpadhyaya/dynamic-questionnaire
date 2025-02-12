@@ -1,4 +1,5 @@
 import { BaseQuestionProps, ComponentRegistry } from "@/types/components";
+
 import InvalidComponent from "./InvalidComponent";
 
 export function QuestionComponent<T extends string>({
@@ -6,7 +7,7 @@ export function QuestionComponent<T extends string>({
 }: {
   components: ComponentRegistry<T>;
 }) {
-  return function QuestionComponent({
+  return function WrappedQuestionComponent({
     question,
     answer,
     onChange,
@@ -15,21 +16,11 @@ export function QuestionComponent<T extends string>({
     const Component = components[question.sub_type];
 
     if (!Component) {
-      return (
-        <InvalidComponent
-          type={question.sub_type}
-          supportedTypes={Object.keys(components)}
-        />
-      );
+      return <InvalidComponent type={question.sub_type} supportedTypes={Object.keys(components)} />;
     }
 
     return (
-      <Component
-        options={question.options}
-        defaultValue={answer}
-        onChange={onChange}
-        {...props}
-      />
+      <Component options={question.options} defaultValue={answer} onChange={onChange} {...props} />
     );
   };
 }

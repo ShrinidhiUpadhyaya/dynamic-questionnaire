@@ -1,16 +1,11 @@
 import { t } from "@/app/locales/translation";
 import { useConditionalLogic } from "@/app/questionnaire/hooks/useConditionalLogic";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { QuestionType } from "@/types/question";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback } from "react";
+
 import { useQuestionContext } from "../context/question-context";
 import MultipleChoiceQuestion from "./(question-types)/(multiple-choice-question)";
 import SingleChoiceQuestion from "./(question-types)/(single-choice-question)";
@@ -18,12 +13,7 @@ import TextQuestion from "./(question-types)/(text-question)";
 import InvalidComponent from "./InvalidComponent";
 import SubmitAlert from "./SubmitAlert";
 
-const QUESTION_COMPONENTS: Record<
-  QuestionType,
-  | typeof TextQuestion
-  | typeof SingleChoiceQuestion
-  | typeof MultipleChoiceQuestion
-> = {
+const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
   multiple_choice: MultipleChoiceQuestion,
@@ -42,9 +32,11 @@ const QuestionCard = () => {
 
   const handleChange = useCallback(
     (value: string | string[]) => {
-      saveAnswer(value);
+      if (saveAnswer) {
+        saveAnswer(value);
+      }
     },
-    [saveAnswer]
+    [saveAnswer],
   );
 
   const showQuestion = useConditionalLogic(currentQuestion);
@@ -69,16 +61,10 @@ const QuestionCard = () => {
   }
 
   return (
-    <Card className="w-full h-full flex flex-col justify-between">
+    <Card className="flex h-full w-full flex-col justify-between">
       <QuestionCardHeader title={currentQuestion.question} />
-      <CardContent
-        className={`${!showQuestion && "opacity-50 pointer-events-none"}`}
-      >
-        <QuestionComponent
-          question={currentQuestion}
-          answer={answer}
-          onChange={handleChange}
-        />
+      <CardContent className={`${!showQuestion && "pointer-events-none opacity-50"}`}>
+        <QuestionComponent question={currentQuestion} answer={answer} onChange={handleChange} />
       </CardContent>
       <QuestionCardFooter
         isFirstQuestion={isFirstQuestion}
@@ -97,9 +83,7 @@ type QuestionCardHeaderProps = {
 const QuestionCardHeader = ({ title }: QuestionCardHeaderProps) => {
   return (
     <CardHeader className="h-1/4">
-      <CardTitle className="font-extrabold text-3xl text-primary-foreground">
-        {title}
-      </CardTitle>
+      <CardTitle className="text-3xl font-extrabold text-primary-foreground">{title}</CardTitle>
     </CardHeader>
   );
 };
@@ -125,11 +109,7 @@ export const QuestionCardFooter = ({
   };
 
   return (
-    <CardFooter
-      className={`justify-between items-end h-1/4 ${
-        isFirstQuestion && "justify-end"
-      }`}
-    >
+    <CardFooter className={`h-1/4 items-end justify-between ${isFirstQuestion && "justify-end"}`}>
       {!isFirstQuestion && (
         <Button variant="outline" onClick={goToPrevious} className="w-24">
           {t("previous")}

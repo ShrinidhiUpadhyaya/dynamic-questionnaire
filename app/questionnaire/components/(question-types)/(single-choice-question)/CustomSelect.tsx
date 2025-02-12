@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import { CustomSelectProps } from "./types";
 
 const CustomSelect = ({ defaultValue, options, onChange }: CustomSelectProps) => {
@@ -26,8 +27,7 @@ const CustomSelect = ({ defaultValue, options, onChange }: CustomSelectProps) =>
           <SelectItem
             key={option.value}
             value={option.value}
-            className="text-base text-primary-foreground"
-          >
+            className="text-base text-primary-foreground">
             {option.label}
           </SelectItem>
         ))}
