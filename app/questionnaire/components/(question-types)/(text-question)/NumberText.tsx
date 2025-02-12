@@ -1,9 +1,9 @@
 import { useTextComponentChange } from "@/app/questionnaire/hooks/useTextComponentChange";
 import DBaseInput from "@/components/DBaseInput";
 
-import { NumberInputProps } from "./types";
+import { NumberTextInputProps } from "./types";
 
-const NumberText = ({ placeholder, defaultValue, min, max, onChange }: NumberInputProps) => {
+const NumberText = ({ placeholder, defaultValue, min, max, onChange }: NumberTextInputProps) => {
   const validate = (validateValue: number) => {
     const num = Number(validateValue);
     return !isNaN(num) && (min === undefined || num >= min) && (max === undefined || num <= max);

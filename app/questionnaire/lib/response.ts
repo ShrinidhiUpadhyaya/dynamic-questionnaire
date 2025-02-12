@@ -1,6 +1,6 @@
 import { API_URL } from "@/app/config/apiUrls";
 import requestHandler from "@/lib/requestHandler";
-import { UserAnswer } from "@/types/answer";
+import { UserAnswer } from "@/types/common";
 
 /**
  * Fetches the response for a specific question.

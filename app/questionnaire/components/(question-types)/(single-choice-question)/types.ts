@@ -1,22 +1,33 @@
-import { QuestionOptionsType, SingleChoiceQuestionType } from "@/types/question";
+import {
+  BaseQuestion,
+  BaseQuestionProps,
+  HandleChange,
+  QuestionOption,
+  QuestionType,
+  UserAnswer,
+} from "@/types/common";
 
-export interface SingleChoiceQuestionProps {
-  question: SingleChoiceQuestionType;
+export const SingleChoiceSubType = {
+  RADIO: "radio",
+  SELECT: "select",
+} as const;
+
+export type SingleChoiceSubTypeKeys = keyof typeof SingleChoiceSubType;
+export type SingleChoiceSubTypeValues = (typeof SingleChoiceSubType)[SingleChoiceSubTypeKeys];
+
+export interface SingleChoiceQuestion extends BaseQuestion {
+  type: typeof QuestionType.SINGLE_CHOICE;
+  sub_type: SingleChoiceSubTypeValues;
+  options: QuestionOption[];
+}
+
+export interface SingleChoiceQuestionProps extends BaseQuestionProps<SingleChoiceQuestion> {
   answer: string;
-  onChange: (value: string) => void;
+  onChange: HandleChange<UserAnswer>;
 }
 
-export interface CustomSelectProps {
+export interface SingleChoiceComponentProps {
+  options: QuestionOption[];
   defaultValue: string;
-  answer: string;
-  options: QuestionOptionsType[];
-  onChange: (value: string) => void;
+  onChange: HandleChange<UserAnswer>;
 }
-
-export interface RadioButtonsProps {
-  defaultValue: string;
-  options: QuestionOptionsType[];
-  onChange: (value: string) => void;
-}
-
-export type SingleChoiceQuestionComponentProps = CustomSelectProps | RadioButtonsProps;

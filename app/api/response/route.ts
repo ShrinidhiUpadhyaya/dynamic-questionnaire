@@ -1,5 +1,5 @@
 import { redis } from "@/lib/redis";
-import { Answer } from "@/types/answer";
+import type { Answer } from "@/types/common";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 

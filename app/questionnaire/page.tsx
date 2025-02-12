@@ -1,7 +1,7 @@
 "use client";
 
 import useQuestionnaires from "@/app/questionnaire/hooks/useQuestionnaires";
-import { Questionnaire } from "@/types/question";
+import { Questionnaire } from "@/types/common";
 import { useRouter } from "next/navigation";
 
 import DLoadingComponent from "../../components/DLoadingComponent";

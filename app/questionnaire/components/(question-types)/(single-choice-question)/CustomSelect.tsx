@@ -7,9 +7,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { CustomSelectProps } from "./types";
+import { SingleChoiceComponentProps } from "./types";
 
-const CustomSelect = ({ defaultValue, options, onChange }: CustomSelectProps) => {
+const CustomSelect = ({ defaultValue, options, onChange }: SingleChoiceComponentProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
     defaultValue,
     onChange,

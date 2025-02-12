@@ -1,10 +1,7 @@
-import {
-  MultipleChoiceSubType,
-  QuestionType,
-  Questionnaire,
-  SingleChoiceSubType,
-  TextSubType,
-} from "@/types/question";
+import { MultipleChoiceSubType } from "@/app/questionnaire/components/(question-types)/(multiple-choice-question)/types";
+import { SingleChoiceSubType } from "@/app/questionnaire/components/(question-types)/(single-choice-question)/types";
+import { TextSubType } from "@/app/questionnaire/components/(question-types)/(text-question)/types";
+import { QuestionType, Questionnaire } from "@/types/common";
 
 export const CYBER_SECURITY: Questionnaire = {
   id: "cyber-security",
@@ -36,7 +33,7 @@ export const CYBER_SECURITY: Questionnaire = {
     {
       id: "cyber-other-details",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "Please specify your concerns if 'Other' was selected.",
       conditional: [
         {
@@ -71,7 +68,7 @@ export const CYBER_SECURITY: Questionnaire = {
     {
       id: "incident-description",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "If yes, please describe the incident and its impact.",
       conditional: [
         {
@@ -178,7 +175,7 @@ export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
     {
       id: "previous-hair-treatments",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "Have you undergone any previous hair loss treatments? If yes, please specify.",
       conditional: [
         {
@@ -223,7 +220,7 @@ export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
     {
       id: "desired-hair-density",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "What is your desired hair density after the procedure?",
       conditional: [
         {
@@ -254,7 +251,7 @@ export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
     {
       id: "post-surgery-care",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "Do you have any concerns about post-surgery care?",
     },
     {
@@ -294,7 +291,7 @@ export const PLASTIC_SURGERY_QUESTIONNAIRE: Questionnaire = {
     {
       id: "motivation-for-surgery",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "What is your main motivation for considering surgery?",
     },
     {
@@ -310,7 +307,7 @@ export const PLASTIC_SURGERY_QUESTIONNAIRE: Questionnaire = {
     {
       id: "expected-recovery-time",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "What is your expected recovery time?",
     },
     {
@@ -327,13 +324,13 @@ export const PLASTIC_SURGERY_QUESTIONNAIRE: Questionnaire = {
     {
       id: "past-surgeries",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "Have you undergone any previous cosmetic surgeries?",
     },
     {
       id: "realistic-outcomes",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "What are your realistic expectations for the outcome?",
     },
   ],
@@ -346,7 +343,7 @@ export const QUESTIONS_FOR_DOCTORS_QUESTIONNAIRE: Questionnaire = {
     {
       id: "health-concern",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "What is the primary health concern you want to discuss?",
     },
     {
@@ -363,7 +360,7 @@ export const QUESTIONS_FOR_DOCTORS_QUESTIONNAIRE: Questionnaire = {
     {
       id: "medications",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "Are you currently taking any medications or supplements? If so, please list them.",
     },
     {
@@ -424,7 +421,7 @@ export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
     {
       id: "career-goals",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "What are your long-term career goals?",
     },
     {

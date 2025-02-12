@@ -1,4 +1,4 @@
-import { ConditionalRule, Question } from "@/types/question";
+import { ConditionalRule, Question } from "@/types/common";
 import { useEffect, useState } from "react";
 
 import { useQuestionContext } from "../context/question-context";

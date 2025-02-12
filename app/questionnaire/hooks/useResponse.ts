@@ -1,4 +1,4 @@
-import { UserAnswer } from "@/types/answer";
+import { UserAnswer } from "@/types/common";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getResponse, sendResponse } from "../lib/response";

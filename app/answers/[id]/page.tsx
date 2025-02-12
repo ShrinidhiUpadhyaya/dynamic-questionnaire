@@ -5,25 +5,18 @@ import { getAllResponses } from "@/app/questionnaire/lib/response";
 import DLoadingComponent from "@/components/DLoadingComponent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Answer } from "@/types/answer";
-import { QuestionType } from "@/types/question";
+import { Answer, Question, QuestionTypeValues } from "@/types/common";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import { t } from "../../locales/translation";
 
-interface Question {
-  id: string;
-  question: string;
-  type: QuestionType;
-}
-
 interface CombinedData {
   id: string;
   question: string;
   answer: string | string[] | null;
-  type: QuestionType;
+  type: QuestionTypeValues;
 }
 
 const AnswersPage = () => {

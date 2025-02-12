@@ -1,4 +1,4 @@
-import { BaseQuestionProps, ComponentRegistry } from "@/types/components";
+import { BaseQuestionProps, ComponentRegistry } from "@/types/common";
 
 import InvalidComponent from "./InvalidComponent";
 

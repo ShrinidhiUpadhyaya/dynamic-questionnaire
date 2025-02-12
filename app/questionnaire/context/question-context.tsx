@@ -1,7 +1,7 @@
 import { useQuestion } from "@/app/questionnaire/hooks/useQuestion";
 import { useResponse } from "@/app/questionnaire/hooks/useResponse";
-import { UserAnswer } from "@/types/answer";
-import { Question } from "@/types/question";
+import { UserAnswer } from "@/types/common";
+import { Question } from "@/types/common";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { createContext, useContext, useMemo } from "react";

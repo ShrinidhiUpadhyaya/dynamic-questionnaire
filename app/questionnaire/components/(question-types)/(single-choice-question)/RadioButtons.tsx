@@ -2,9 +2,9 @@ import { useSingleChoiceChange } from "@/app/questionnaire/hooks/useSingleChoice
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { RadioButtonsProps } from "./types";
+import { SingleChoiceComponentProps } from "./types";
 
-const RadioButtons = ({ defaultValue, options, onChange }: RadioButtonsProps) => {
+const RadioButtons = ({ defaultValue, options, onChange }: SingleChoiceComponentProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
     defaultValue,
     onChange,

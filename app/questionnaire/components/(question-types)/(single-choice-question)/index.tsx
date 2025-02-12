@@ -1,11 +1,14 @@
-import { ComponentRegistry } from "@/types/components";
-import { SingleChoiceSubType } from "@/types/question";
+import {
+  SingleChoiceSubType,
+  SingleChoiceSubTypeValues,
+} from "@/app/questionnaire/components/(question-types)/(single-choice-question)/types";
+import { ComponentRegistry } from "@/types/common";
 
 import { QuestionComponent } from "../../QuestionComponent";
 import CustomSelect from "./CustomSelect";
 import RadioButtons from "./RadioButtons";
 
-const SINGLE_CHOICE_COMPONENTS: ComponentRegistry<SingleChoiceSubType> = {
+const SINGLE_CHOICE_COMPONENTS: ComponentRegistry<SingleChoiceSubTypeValues> = {
   [SingleChoiceSubType.RADIO]: RadioButtons,
   [SingleChoiceSubType.SELECT]: CustomSelect,
 };

@@ -1,6 +1,6 @@
-import { BaseInputProps } from "@/app/questionnaire/components/(question-types)/(text-question)/types";
 import DErrorMessage from "@/components/DErrorMessage";
 import { Input } from "@/components/ui/input";
+import { BaseInputProps } from "@/types/common";
 import { ChangeEvent } from "react";
 
 const DBaseInput = ({

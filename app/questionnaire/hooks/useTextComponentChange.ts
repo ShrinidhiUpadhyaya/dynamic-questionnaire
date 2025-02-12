@@ -16,7 +16,7 @@ export const useTextComponentChange = <T extends string | number>({
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (defaultValue !== undefined) {
+    if (defaultValue !== undefined && defaultValue !== value) {
       setValue(defaultValue);
     }
   }, [defaultValue]);

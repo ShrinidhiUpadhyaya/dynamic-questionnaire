@@ -1,5 +1,5 @@
 import { QUESTIONNAIRE_LIST } from "@/app/data/questions";
-import { Question, Questionnaire } from "@/types/question";
+import { Question, Questionnaire } from "@/types/common";
 import { NextRequest, NextResponse } from "next/server";
 import { cache } from "react";
 

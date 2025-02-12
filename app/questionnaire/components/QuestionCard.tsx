@@ -2,7 +2,7 @@ import { t } from "@/app/locales/translation";
 import { useConditionalLogic } from "@/app/questionnaire/hooks/useConditionalLogic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { QuestionType } from "@/types/question";
+import { QuestionTypeValues } from "@/types/common";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback } from "react";
 
@@ -13,7 +13,7 @@ import TextQuestion from "./(question-types)/(text-question)";
 import InvalidComponent from "./InvalidComponent";
 import SubmitAlert from "./SubmitAlert";
 
-const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
+const QUESTION_COMPONENTS: Record<QuestionTypeValues, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
   multiple_choice: MultipleChoiceQuestion,
