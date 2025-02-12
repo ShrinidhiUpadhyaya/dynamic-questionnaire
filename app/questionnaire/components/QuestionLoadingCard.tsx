@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const QuestionLoadingCard = () => {
   return (
-    <Card className="w-full">
+    <Card className="w-full" data-testid="question-loading-card">
       <CardHeaderSkeleton />
       <CardContentSkeleton />
       <CardFooterSkeleton />

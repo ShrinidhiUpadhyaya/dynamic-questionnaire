@@ -10,6 +10,7 @@ import { QuestionType } from "@/types/question";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
+import { t } from "../../locales/translation";
 
 interface Question {
   id: string;
@@ -118,7 +119,7 @@ const AnswersPage = () => {
             onClick={() => handleRestartQuiz()}
             className="w-full max-w-sm hover:shadow-lg transition-shadow"
           >
-            Restart Quiz
+            {t("restart")}
           </Button>
         </div>
       </div>
