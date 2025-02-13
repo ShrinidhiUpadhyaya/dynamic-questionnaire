@@ -6,7 +6,7 @@ import { MultipleChoiceComponentProps } from "./types";
 
 const CheckboxList = ({ options, defaultValue = [], onChange }: MultipleChoiceComponentProps) => {
   const { values, handleValueChange } = useMultipleChoiceChange({
-    defaultValue,
+    defaultValue: defaultValue || [],
     onChange,
   });
 

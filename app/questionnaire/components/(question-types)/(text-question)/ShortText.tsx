@@ -24,7 +24,7 @@ const ShortText = ({
       minLength={minLength}
       maxLength={maxLength}
       onChange={(value) => handleChange(String(value))}
-      value={value}
+      value={value || ""}
     />
   );
 };

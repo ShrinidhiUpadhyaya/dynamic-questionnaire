@@ -6,7 +6,7 @@ import { SingleChoiceComponentProps } from "./types";
 
 const RadioButtons = ({ defaultValue, options, onChange }: SingleChoiceComponentProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
-    defaultValue,
+    defaultValue: defaultValue || "",
     onChange,
   });
 

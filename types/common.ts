@@ -1,6 +1,7 @@
 import { MultipleChoiceQuestion } from "@/app/questionnaire/components/(question-types)/(multiple-choice-question)/types";
 import { SingleChoiceQuestion } from "@/app/questionnaire/components/(question-types)/(single-choice-question)/types";
 import {
+  BaseValidation,
   LongTextQuestion,
   NumberQuestion,
   ShortTextQuestion,
@@ -11,11 +12,6 @@ export type ValidationMessage = string;
 
 export type ComponentProps<P = {}> = React.FC<P>;
 export type HandleChange<T> = (value: T) => void;
-
-export interface ValidationRule {
-  pattern?: RegExp | string;
-  message: ValidationMessage;
-}
 
 export type Operator =
   | "equals"
@@ -60,6 +56,7 @@ export interface BaseQuestionProps<T> {
   question: {
     sub_type: T;
     options?: QuestionOption[];
+    validation?: BaseValidation;
   };
   answer?: UserAnswer;
   onChange: HandleChange<UserAnswer>;
@@ -79,6 +76,7 @@ export interface BaseInputProps {
   step?: number;
   maxLength?: number;
   minLength?: number;
+  validation?: BaseValidation;
 }
 
 export type ComponentRegistry<T extends string> = {

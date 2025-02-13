@@ -11,7 +11,7 @@ import { SingleChoiceComponentProps } from "./types";
 
 const CustomSelect = ({ defaultValue, options, onChange }: SingleChoiceComponentProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
-    defaultValue,
+    defaultValue: defaultValue || "",
     onChange,
   });
 

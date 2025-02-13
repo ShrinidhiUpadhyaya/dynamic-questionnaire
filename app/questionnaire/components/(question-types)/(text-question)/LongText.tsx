@@ -24,7 +24,7 @@ const LongText = ({
       minLength={minLength}
       maxLength={maxLength}
       onChange={(e) => handleChange(e.target.value)}
-      value={value}
+      value={value || ""}
     />
   );
 };

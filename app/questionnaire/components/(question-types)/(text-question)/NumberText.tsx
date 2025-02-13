@@ -3,13 +3,30 @@ import DBaseInput from "@/components/DBaseInput";
 
 import { NumberTextInputProps } from "./types";
 
-const NumberText = ({ placeholder, defaultValue, min, max, onChange }: NumberTextInputProps) => {
+const NumberText = ({
+  placeholder,
+  defaultValue,
+  min,
+  max,
+  validation,
+  onChange,
+}: NumberTextInputProps) => {
   const validate = (validateValue: number) => {
     const num = Number(validateValue);
-    return !isNaN(num) && (min === undefined || num >= min) && (max === undefined || num <= max);
+
+    if (isNaN(num) || (min !== undefined && num < min) || (max !== undefined && num > max)) {
+      return false;
+    }
+
+    if (validation?.pattern) {
+      const regex = new RegExp(validation.pattern);
+      return regex.test(validateValue.toString());
+    }
+
+    return true;
   };
 
-  const { value, handleChange } = useTextComponentChange<number>({
+  const { value, handleChange, error } = useTextComponentChange<number>({
     onChange,
     validate,
     defaultValue: defaultValue,
@@ -21,8 +38,9 @@ const NumberText = ({ placeholder, defaultValue, min, max, onChange }: NumberTex
       placeholder={placeholder}
       min={min}
       max={max}
-      onChange={(value) => handleChange(Number(value))}
-      value={value}
+      onChange={(value) => handleChange(value as number)}
+      value={value || ""}
+      error={error ? validation?.message : ""}
     />
   );
 };
