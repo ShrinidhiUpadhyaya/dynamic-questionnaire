@@ -28,7 +28,7 @@ export interface RatingsQuestionProps extends BaseQuestionProps<RatingsQuestion>
   onChange: HandleChange<UserAnswer>;
 }
 
-export interface DSliderProps {
+export interface CustomSliderProps {
   min?: number;
   max?: number;
   step?: number;
@@ -36,4 +36,4 @@ export interface DSliderProps {
   onChange?: (value: number) => void;
 }
 
-export type RatingsQuestionComponentProps = DSliderProps;
+export type RatingsQuestionComponentProps = CustomSliderProps;

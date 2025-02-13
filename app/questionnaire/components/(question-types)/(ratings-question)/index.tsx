@@ -1,11 +1,11 @@
 import { ComponentRegistry } from "@/types/common";
 
 import { QuestionComponent } from "../../QuestionComponent";
-import DSlider from "./DSlider";
+import CustomSlider from "./CustomSlider";
 import { RatingsSubType, RatingsSubTypeValues } from "./types";
 
 const RATINGS_COMPONENTS: ComponentRegistry<RatingsSubTypeValues> = {
-  [RatingsSubType.SLIDER]: DSlider,
+  [RatingsSubType.SLIDER]: CustomSlider,
 };
 
 export const RatingsQuestion = QuestionComponent({
