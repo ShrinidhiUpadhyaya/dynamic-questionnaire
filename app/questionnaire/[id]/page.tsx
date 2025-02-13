@@ -2,10 +2,7 @@
 
 import QuestionCard from "../components/QuestionCard";
 import QuestionLoadingCard from "../components/QuestionLoadingCard";
-import {
-  QuestionProvider,
-  useQuestionContext,
-} from "../context/question-context";
+import { QuestionProvider, useQuestionContext } from "../context/question-context";
 
 const QuestionPage = () => {
   return (
@@ -27,7 +24,7 @@ const QuestionPageContent = () => {
   }
 
   return (
-    <div className="h-full md:w-3/4 w-full">
+    <div className="h-full w-full md:w-3/4">
       <QuestionCard />
     </div>
   );

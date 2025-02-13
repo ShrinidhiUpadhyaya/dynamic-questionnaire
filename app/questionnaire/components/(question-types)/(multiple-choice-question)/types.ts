@@ -1,18 +1,31 @@
 import {
-  MultipleChoiceOptionType,
-  MultipleChoiceQuestionType,
-} from "@/types/question";
+  BaseQuestion,
+  BaseQuestionProps,
+  HandleChange,
+  QuestionOption,
+  QuestionType,
+  UserAnswer,
+} from "@/types/common";
 
-export interface MultipleChoiceQuestionProps {
-  question: MultipleChoiceQuestionType;
+export const MultipleChoiceSubType = {
+  CHECKBOX: "checkbox",
+} as const;
+
+export type MultipleChoiceSubTypeKeys = keyof typeof MultipleChoiceSubType;
+export type MultipleChoiceSubTypeValues = (typeof MultipleChoiceSubType)[MultipleChoiceSubTypeKeys];
+
+export interface MultipleChoiceQuestion extends BaseQuestion {
+  type: typeof QuestionType.MULTIPLE_CHOICE;
+  sub_type: MultipleChoiceSubTypeValues;
+  options: QuestionOption[];
+}
+export interface MultipleChoiceQuestionProps extends BaseQuestionProps<MultipleChoiceQuestion> {
   answer: string[];
-  onChange: (value: string[]) => void;
+  onChange: HandleChange<UserAnswer>;
 }
 
-export interface CheckboxListProps {
+export interface MultipleChoiceComponentProps {
+  options: QuestionOption[];
   defaultValue: string[];
-  options: MultipleChoiceOptionType[];
-  onChange: (value: string[]) => void;
+  onChange: HandleChange<UserAnswer>;
 }
-
-export type MultipleChoiceQuestionComponentProps = CheckboxListProps;

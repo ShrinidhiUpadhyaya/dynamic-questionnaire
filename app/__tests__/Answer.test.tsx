@@ -1,9 +1,9 @@
-import { vi, describe, test, expect, beforeEach } from "vitest";
 import { useQuery } from "@tanstack/react-query";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { Mock, beforeEach, describe, expect, test, vi } from "vitest";
+
 import AnswersPage from "../answers/[id]/page";
 
-// Mocks
 const mockPush = vi.fn();
 const mockParams = { id: "test-id" };
 
@@ -18,7 +18,6 @@ vi.mock("next/navigation", () => ({
   useParams: () => mockParams,
 }));
 
-// Test data
 const mockQuestions = [
   { id: "1", question: "What is your name?", type: "text" },
   { id: "2", question: "Select your hobbies", type: "multiple" },
@@ -31,7 +30,6 @@ const mockAnswers = [
   { id: "3", answer: "I am a software developer" },
 ];
 
-// Test utilities
 const setupMockQuery = (overrides = {}) => {
   const defaultResponse = {
     isLoading: false,
@@ -39,9 +37,9 @@ const setupMockQuery = (overrides = {}) => {
     ...overrides,
   };
 
-  return (useQuery as vi.Mock).mockImplementation((options: { queryKey: string[] }) => {
+  return (useQuery as Mock).mockImplementation((options: { queryKey: string[] }) => {
     const [queryType] = options.queryKey;
-    
+
     if (queryType === "questions") {
       return { ...defaultResponse, data: { questions: mockQuestions } };
     }

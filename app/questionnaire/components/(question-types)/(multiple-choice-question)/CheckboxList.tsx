@@ -1,13 +1,10 @@
 import { useMultipleChoiceChange } from "@/app/questionnaire/hooks/useMultipleChoiceChange";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { CheckboxListProps } from "./types";
 
-const CheckboxList = ({
-  options,
-  defaultValue = [],
-  onChange,
-}: CheckboxListProps) => {
+import { MultipleChoiceComponentProps } from "./types";
+
+const CheckboxList = ({ options, defaultValue = [], onChange }: MultipleChoiceComponentProps) => {
   const { values, handleValueChange } = useMultipleChoiceChange({
     defaultValue,
     onChange,
@@ -20,9 +17,7 @@ const CheckboxList = ({
           <Checkbox
             id={option.value}
             checked={values?.includes(option.value)}
-            onCheckedChange={(checked) =>
-              handleValueChange(option.value, Boolean(checked))
-            }
+            onCheckedChange={(checked) => handleValueChange(option.value, Boolean(checked))}
           />
           <Label htmlFor={option.value}>{option.label}</Label>
         </div>

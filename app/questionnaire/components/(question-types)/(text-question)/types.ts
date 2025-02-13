@@ -1,32 +1,61 @@
 import {
-  LongTextQuestion,
-  NumberQuestion,
-  ShortTextQuestion,
-} from "@/types/question";
+  BaseInputProps,
+  BaseQuestion,
+  BaseQuestionProps,
+  HandleChange,
+  QuestionType,
+  UserAnswer,
+  ValidationMessage,
+} from "@/types/common";
 
-export type TextQuestion =
-  | NumberQuestion
-  | ShortTextQuestion
-  | LongTextQuestion;
+export const TextSubType = {
+  NUMBER: "number_text",
+  SHORT: "short_text",
+  LONG: "long_text",
+} as const;
 
-export interface TextQuestionProps {
-  question: TextQuestion;
-  answer: string;
-  onChange: (value: string) => void;
+export interface NumberValidation {
+  min?: number;
+  max?: number;
+  message?: ValidationMessage;
 }
 
-export interface BaseInputProps {
-  value?: string;
-  placeholder?: string;
-  defaultValue?: string;
-  disabled?: boolean;
-  onChange?: (value: string) => void;
-  error?: string;
+export interface BaseValidation {
+  message?: ValidationMessage;
+  pattern?: RegExp | string;
 }
 
-export interface ShortTextInputProps extends BaseInputProps {
+export interface TextValidation extends BaseValidation {
   minLength?: number;
   maxLength?: number;
+}
+
+export type TextSubTypeKeys = keyof typeof TextSubType;
+export type TextSubTypeValues = (typeof TextSubType)[TextSubTypeKeys];
+
+export interface TextQuestionBase extends BaseQuestion {
+  type: typeof QuestionType.TEXT;
+  sub_type: TextSubTypeValues;
+}
+
+export interface NumberQuestion extends TextQuestionBase {
+  sub_type: typeof TextSubType.NUMBER;
+  validation?: NumberValidation;
+}
+
+export interface ShortTextQuestion extends TextQuestionBase {
+  sub_type: typeof TextSubType.SHORT;
+  validation?: TextValidation;
+}
+
+export interface LongTextQuestion extends TextQuestionBase {
+  sub_type: typeof TextSubType.LONG;
+  validation?: TextValidation;
+}
+
+export interface TextQuestionProps extends BaseQuestionProps<TextQuestionBase> {
+  answer: string;
+  onChange: HandleChange<UserAnswer>;
 }
 
 export interface LongTextInputProps extends BaseInputProps {
@@ -34,12 +63,12 @@ export interface LongTextInputProps extends BaseInputProps {
   maxLength?: number;
 }
 
-export interface NumberInputProps extends BaseInputProps {
+export interface ShortTextInputProps extends BaseInputProps {
+  minLength?: number;
+  maxLength?: number;
+}
+
+export interface NumberTextInputProps extends BaseInputProps {
   min?: number;
   max?: number;
 }
-
-export type TextQuestionComponentProps =
-  | ShortTextInputProps
-  | LongTextInputProps
-  | NumberInputProps;

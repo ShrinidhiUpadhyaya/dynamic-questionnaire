@@ -8,10 +8,7 @@ export async function GET() {
       status: "success",
     });
   } catch (error) {
-    console.error("Error fetching questionnaires:", error); 
-    return NextResponse.json(
-      { error: "Failed to fetch questionnaires" },
-      { status: 500 }
-    );
+    console.error("Error fetching questionnaires:", error);
+    return NextResponse.json({ error: "Failed to fetch questionnaires" }, { status: 500 });
   }
 }

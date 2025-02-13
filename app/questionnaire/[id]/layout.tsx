@@ -1,15 +1,14 @@
 "use client";
 
 import React from "react";
+
 import QuestionProgress from "../components/QuestionProgress";
 
 const QuestionsLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-svh flex flex-col items-center p-16 space-y-16">
+    <div className="flex h-svh flex-col items-center space-y-16 p-16">
       <QuestionProgress />
-      <div className="flex flex-1 justify-center items-center w-full">
-        {children}
-      </div>
+      <div className="flex w-full flex-1 items-center justify-center">{children}</div>
     </div>
   );
 };

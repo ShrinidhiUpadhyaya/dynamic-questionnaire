@@ -13,7 +13,7 @@ export const useMultipleChoiceChange = ({
   const [values, setValues] = useState<string[]>(defaultValue);
 
   useEffect(() => {
-    if (defaultValue !== undefined) {
+    if (defaultValue !== undefined && JSON.stringify(defaultValue) !== JSON.stringify(values)) {
       setValues(defaultValue);
     }
   }, [defaultValue]);
@@ -27,9 +27,7 @@ export const useMultipleChoiceChange = ({
   });
 
   const handleValueChange = (value: string, checked: boolean) => {
-    const newValues = checked
-      ? [...values, value]
-      : values.filter((v) => v !== value);
+    const newValues = checked ? [...values, value] : values.filter((v) => v !== value);
     setValues(newValues);
     debouncedSave(newValues);
   };

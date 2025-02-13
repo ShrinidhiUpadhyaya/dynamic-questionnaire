@@ -1,5 +1,5 @@
 import { redis } from "@/lib/redis";
-import { Answer } from "@/types/answer";
+import type { Answer } from "@/types/common";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
@@ -19,6 +19,59 @@ const upsertAnswer = (id: string, answer: string): void => {
   }
 };
 
+const getRedisAllAnswers = async () => {
+  if (!redis) {
+    return null;
+  }
+  try {
+    const keys = await redis.keys("answers:*");
+    if (!keys.length) return [];
+
+    const allAnswers = await Promise.all(
+      keys.map(async (key) => {
+        const answer = await redis?.hget(key, "answer");
+        return {
+          id: key.replace("answers:", ""),
+          answer,
+        };
+      }),
+    );
+    return allAnswers;
+  } catch (error) {
+    console.error("Error fetching all answers from Redis:", error);
+    return null;
+  }
+};
+
+const getRedisAnswer = async (id: string): Promise<Answer | null> => {
+  if (!redis) {
+    return null;
+  }
+  try {
+    const answer = await redis.hget(`answers:${id}`, "answer");
+    return { id, answer };
+  } catch (error) {
+    console.error(`Error fetching answer from Redis: ${id}`, error);
+    return null;
+  }
+};
+
+const deleteRedisAnswers = async () => {
+  if (!redis) {
+    return null;
+  }
+  try {
+    const keys = await redis.keys("answers:*");
+    if (keys.length > 0) {
+      await redis.del(...keys);
+    }
+    return true;
+  } catch (error) {
+    console.error(`Error deleting answers from Redis`, error);
+    return false;
+  }
+};
+
 export async function POST(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -26,10 +79,7 @@ export async function POST(request: NextRequest) {
     const { answers: userAnswer } = await request.json();
 
     if (!id || !userAnswer) {
-      return NextResponse.json(
-        { error: "Question ID and answer are required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Question ID and answer are required" }, { status: 400 });
     }
 
     if (redis) {
@@ -40,14 +90,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { message: "Answer saved successfully", status: "success" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error saving answer:", error);
-    return NextResponse.json(
-      { error: "Failed to save answer" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to save answer" }, { status: 500 });
   }
 }
 
@@ -56,72 +103,46 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
+    if (!id) {
+      return NextResponse.json({ error: "Question ID is required" }, { status: 400 });
+    }
+
     if (id === "all") {
-      if (redis) {
-        const keys = await redis.keys("answers:*");
-        const allAnswers = await Promise.all(
-          keys.map(async (key) => ({
-            id: key.replace("answers:", ""),
-            answer: await redis.hget(key, "answer"),
-          }))
-        );
-
-        return NextResponse.json({
-          answers: allAnswers,
-          total: allAnswers.length,
-          status: "success",
-        });
-      }
+      const allAnswers = redis ? await getRedisAllAnswers() : answers;
 
       return NextResponse.json({
-        answers,
-        total: answers.length,
+        answers: allAnswers,
+        total: allAnswers?.length,
         status: "success",
       });
     }
 
-    if (redis) {
-      const answer = await redis.hget(`answers:${id}`, "answer");
-      return NextResponse.json({
-        answer: answer || null,
-        status: "success",
-      });
-    }
+    const answer = redis ? await getRedisAnswer(id) : findAnswer(id);
 
-    const result = findAnswer(id);
     return NextResponse.json({
-      answer: result ? result.answer : null,
+      answer: answer ? answer?.answer : null,
       status: "success",
     });
   } catch (error) {
     console.error("Error fetching answers:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch answers" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch answers" }, { status: 500 });
   }
 }
 
 export async function DELETE() {
   try {
     if (redis) {
-      const keys = await redis.keys("answers:*");
-      if (keys.length > 0) {
-        await redis.del(...keys);
-      }
+      await deleteRedisAnswers();
     } else {
       answers = [];
     }
 
     return NextResponse.json(
       { message: "All answers cleared successfully", status: "success" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error clearing answers:", error);
-    return NextResponse.json(
-      { error: "Failed to clear answers" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to clear answers" }, { status: 500 });
   }
 }
