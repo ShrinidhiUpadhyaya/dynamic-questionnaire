@@ -10,7 +10,7 @@ export const useSingleChoiceChange = ({ defaultValue, onChange }: UseSingleChoic
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
-    if (defaultValue !== undefined && defaultValue !== value) {
+    if (defaultValue && defaultValue !== value) {
       setValue(defaultValue);
     }
   }, [defaultValue]);

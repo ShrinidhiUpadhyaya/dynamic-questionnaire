@@ -1,12 +1,13 @@
 "use client";
 
 import { getAllQuestions } from "@/app/questionnaire/lib/questions";
-import { getAllResponses } from "@/app/questionnaire/lib/response";
+import { deleteResponses, getAllResponses } from "@/app/questionnaire/lib/response";
 import DLoadingComponent from "@/components/DLoadingComponent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Answer, Question, QuestionTypeValues } from "@/types/common";
 import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
 
@@ -31,6 +32,8 @@ const AnswersPage = () => {
     queryKey: ["answers"],
     queryFn: () => getAllResponses(),
   });
+
+  const queryClient = useQueryClient();
 
   const { questions } = questionsData?.questions ?? {};
 
@@ -63,7 +66,9 @@ const AnswersPage = () => {
     return <DLoadingComponent />;
   }
 
-  const handleRestartQuiz = () => {
+  const handleRestartQuiz = async () => {
+    await deleteResponses();
+    queryClient.removeQueries({ queryKey: ["response"] });
     router.push(`/questionnaire/${id}`);
   };
 
