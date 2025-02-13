@@ -2,7 +2,7 @@ import { MultipleChoiceSubType } from "@/app/questionnaire/components/(question-
 import { SingleChoiceSubType } from "@/app/questionnaire/components/(question-types)/(single-choice-question)/types";
 import { TextSubType } from "@/app/questionnaire/components/(question-types)/(text-question)/types";
 import { QuestionType, Questionnaire } from "@/types/common";
-
+import { RatingsSubType } from "@/app/questionnaire/components/(question-types)/(ratings-question)/types";
 export const CYBER_SECURITY: Questionnaire = {
   id: "cyber-security",
   title: "Cyber Security Questions",
@@ -389,6 +389,16 @@ export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
   id: "job-seekers-values",
   title: "Work Values and Career Priorities",
   questions: [
+    {
+      id: "new-slider-type",
+      type: QuestionType.RATINGS,
+      sub_type: RatingsSubType.SLIDER,
+      question: "How important is work-life balance to you?",
+      min: 1,
+      max: 10,
+      step: 1,
+      defaultValue: 5,
+    },
     {
       id: "important-work-values",
       type: QuestionType.MULTIPLE_CHOICE,

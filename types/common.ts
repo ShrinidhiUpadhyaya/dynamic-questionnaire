@@ -6,6 +6,7 @@ import {
   NumberQuestion,
   ShortTextQuestion,
 } from "@/app/questionnaire/components/(question-types)/(text-question)/types";
+import { RatingsQuestion } from "@/app/questionnaire/components/(question-types)/(ratings-question)/types";
 
 export type ID = string;
 export type ValidationMessage = string;
@@ -34,6 +35,7 @@ export const QuestionType = {
   TEXT: "text",
   SINGLE_CHOICE: "single_choice",
   MULTIPLE_CHOICE: "multiple_choice",
+  RATINGS: "ratings",
 } as const;
 
 export type QuestionTypeKeys = keyof typeof QuestionType;
@@ -88,7 +90,8 @@ export type Question =
   | ShortTextQuestion
   | LongTextQuestion
   | SingleChoiceQuestion
-  | MultipleChoiceQuestion;
+  | MultipleChoiceQuestion
+  | RatingsQuestion;
 
 export interface Questionnaire {
   id: ID;
