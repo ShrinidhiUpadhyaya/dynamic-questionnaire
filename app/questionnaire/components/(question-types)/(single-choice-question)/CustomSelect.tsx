@@ -1,3 +1,4 @@
+import { useSingleChoiceChange } from "@/app/questionnaire/hooks/useSingleChoiceChange";
 import {
   Select,
   SelectContent,
@@ -5,11 +6,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSingleChoiceChange } from "@/app/questionnaire/hooks/useSingleChoiceChange";
-import { DSelectProps } from "./types";
-const DSelect = ({ defaultValue, options, onChange }: DSelectProps) => {
+
+import { SingleChoiceComponentProps } from "./types";
+
+const CustomSelect = ({ defaultValue, options, onChange }: SingleChoiceComponentProps) => {
   const { value, handleValueChange } = useSingleChoiceChange({
-    defaultValue,
+    defaultValue: defaultValue || "",
     onChange,
   });
 
@@ -25,8 +27,7 @@ const DSelect = ({ defaultValue, options, onChange }: DSelectProps) => {
           <SelectItem
             key={option.value}
             value={option.value}
-            className="text-base text-primary-foreground"
-          >
+            className="text-base text-primary-foreground">
             {option.label}
           </SelectItem>
         ))}
@@ -35,4 +36,4 @@ const DSelect = ({ defaultValue, options, onChange }: DSelectProps) => {
   );
 };
 
-export default DSelect;
+export default CustomSelect;

@@ -6,10 +6,7 @@ interface UseDebounceProps<T> {
   delay?: number;
 }
 
-export const useDebounce = <T>({
-  onSave,
-  delay = 1000,
-}: UseDebounceProps<T>) => {
+export const useDebounce = <T>({ onSave, delay = 300 }: UseDebounceProps<T>) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

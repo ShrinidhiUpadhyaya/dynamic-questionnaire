@@ -1,11 +1,11 @@
-import { MultipleChoiceSubType } from "@/types/question";
-import DCheckbox from "./DCheckbox";
-import { ComponentRegistry } from "@/types/components";
-import { QuestionComponent } from "../../QuestionComponent";
-import ToggleButton from "./ToggleButton";
+import { ComponentRegistry } from "@/types/common";
 
-const MULTI_CHOICE_COMPONENTS: ComponentRegistry<MultipleChoiceSubType> = {
-  [MultipleChoiceSubType.CHECKBOX]: DCheckbox,
+import { QuestionComponent } from "../../QuestionComponent";
+import CheckboxList from "./CheckboxList";
+import { MultipleChoiceSubType, MultipleChoiceSubTypeValues } from "./types";
+import ToggleButton from "./ToggleButton";
+const MULTI_CHOICE_COMPONENTS: ComponentRegistry<MultipleChoiceSubTypeValues> = {
+  [MultipleChoiceSubType.CHECKBOX]: CheckboxList,
   [MultipleChoiceSubType.TOGGLE]: ToggleButton,
 };
 

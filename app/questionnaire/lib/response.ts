@@ -1,6 +1,6 @@
 import { API_URL } from "@/app/config/apiUrls";
 import requestHandler from "@/lib/requestHandler";
-import { UserAnswer } from "@/types/answer";
+import { UserAnswer } from "@/types/common";
 
 /**
  * Fetches the response for a specific question.
@@ -22,12 +22,9 @@ export const getResponse = async (questionId: string) => {
  * @param answers - An array of user answers.
  * @returns A promise resolving with the result of the submission.
  */
-export const sendResponse = async (
-  questionId: string,
-  answers: UserAnswer[]
-) => {
+export const sendResponse = async (questionId: string, answers: UserAnswer | UserAnswer[]) => {
   if (!questionId) throw new Error("Question ID is required");
-  if (!answers?.length) throw new Error("Answers are required");
+  if (!answers) throw new Error("Answers are required");
 
   return requestHandler(`${API_URL.RESPONSE}${questionId}`, {
     method: "POST",
@@ -42,4 +39,15 @@ export const sendResponse = async (
  */
 export const getAllResponses = async () => {
   return requestHandler(API_URL.ALL_RESPONSES);
+};
+
+/**
+ * Deletes all user responses.
+ *
+ * @returns A promise resolving with the result of the deletion.
+ */
+export const deleteResponses = async () => {
+  return requestHandler(API_URL.RESPONSE, {
+    method: "DELETE",
+  });
 };

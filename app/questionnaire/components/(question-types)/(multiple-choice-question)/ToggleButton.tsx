@@ -1,12 +1,8 @@
 import { Toggle } from "@/components/ui/toggle";
 import { useMultipleChoiceChange } from "@/app/questionnaire/hooks/useMultipleChoiceChange";
-import { ToggleButtonProps } from "./types";
+import { MultipleChoiceComponentProps } from "./types";
 
-const ToggleButton = ({
-  options,
-  defaultValue = [],
-  onChange,
-}: ToggleButtonProps) => {
+const ToggleButton = ({ options, defaultValue = [], onChange }: MultipleChoiceComponentProps) => {
   const { values, handleValueChange } = useMultipleChoiceChange({
     defaultValue: defaultValue,
     onChange: onChange,
@@ -19,10 +15,7 @@ const ToggleButton = ({
           key={option.value}
           aria-label={option.label}
           pressed={values.includes(option.value)}
-          onPressedChange={(pressed) =>
-            handleValueChange(option.value, pressed)
-          }
-        >
+          onPressedChange={(pressed) => handleValueChange(option.value, pressed)}>
           {option.label}
         </Toggle>
       ))}

@@ -1,28 +1,24 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useMemo } from "react";
-import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { Answer } from "@/types/answer";
-import { QuestionType } from "@/types/question";
-import DLoadingComponent from "@/components/DLoadingComponent";
 import { getAllQuestions } from "@/app/questionnaire/lib/questions";
-import { getAllResponses } from "@/app/questionnaire/lib/response";
+import { deleteResponses, getAllResponses } from "@/app/questionnaire/lib/response";
+import DLoadingComponent from "@/components/DLoadingComponent";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Answer, Question, QuestionTypeValues } from "@/types/common";
+import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
+import { useMemo } from "react";
 
-interface Question {
-  id: string;
-  question: string;
-  type: QuestionType;
-}
+import { t } from "../../locales/translation";
 
 interface CombinedData {
   id: string;
   question: string;
   answer: string | string[] | null;
-  type: QuestionType;
+  type: QuestionTypeValues;
 }
 
 const AnswersPage = () => {
@@ -38,15 +34,15 @@ const AnswersPage = () => {
     queryFn: () => getAllResponses(),
   });
 
+  const queryClient = useQueryClient();
+
   const { questions } = questionsData?.questions ?? {};
 
   const combinedData = useMemo(() => {
     if (!questions || !answersData?.answers) return [];
 
     return questions.map((question: Question) => {
-      const answer = answersData.answers.find(
-        (ans: Answer) => ans.questionId === question.id
-      );
+      const answer = answersData.answers.find((ans: Answer) => ans.id === question.id);
 
       return {
         id: question.id,
@@ -71,7 +67,9 @@ const AnswersPage = () => {
     return <DLoadingComponent />;
   }
 
-  const handleRestartQuiz = () => {
+  const handleRestartQuiz = async () => {
+    await deleteResponses();
+    queryClient.removeQueries({ queryKey: ["response"] });
     router.push(`/questionnaire/${id}`);
   };
 
@@ -80,46 +78,41 @@ const AnswersPage = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center p-16">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center p-8 sm:p-16">
       <div className="w-full max-w-7xl space-y-16">
         <div className="flex flex-wrap justify-center gap-8">
           {combinedData.map((item: CombinedData) => (
             <Card
               key={item.id}
-              className="w-full max-w-sm hover:shadow-lg transition-shadow"
-            >
+              className="flex w-full max-w-sm flex-col justify-between transition-shadow hover:shadow-lg">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold">
+                <CardTitle className="text-lg font-semibold text-primary-foreground">
                   {item.question}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="mt-2">
-                  <p className="text-sm font-medium text-gray-500">Answer:</p>
-                  <p className="mt-1 text-base">{formatAnswer(item.answer)}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-400">
-                    Question Type: {item.type}
-                  </p>
-                </div>
+                <Label className="text-sm font-medium">
+                  Answer:{" "}
+                  <span className="mt-1 text-base font-bold capitalize text-primary">
+                    {formatAnswer(item.answer)}
+                  </span>
+                </Label>
+                <Label className="block text-xs">Question Type: {item.type}</Label>
               </CardContent>
             </Card>
           ))}
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-8 flex-col md:flex-row">
+        <div className="flex flex-col flex-wrap items-center justify-center gap-8 md:flex-row">
           <Button
             variant="outline"
             onClick={() => handleTakeAnotherQuestionnaire()}
-            className="w-full max-w-sm hover:shadow-lg transition-shadow"
-          >
+            className="w-full max-w-sm transition-shadow hover:shadow-lg">
             Take Another Questionnaire
           </Button>
           <Button
             onClick={() => handleRestartQuiz()}
-            className="w-full max-w-sm hover:shadow-lg transition-shadow"
-          >
-            Restart Quiz
+            className="w-full max-w-sm transition-shadow hover:shadow-lg">
+            {t("restart")}
           </Button>
         </div>
       </div>

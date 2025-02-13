@@ -1,19 +1,16 @@
-import { useState, useEffect } from "react";
 import { useDebounce } from "@/app/hooks/useDebounce";
+import { useEffect, useState } from "react";
 
 interface UseSingleChoiceChangeProps {
   defaultValue: string;
   onChange: (newValue: string) => void;
 }
 
-export const useSingleChoiceChange = ({
-  defaultValue,
-  onChange,
-}: UseSingleChoiceChangeProps) => {
+export const useSingleChoiceChange = ({ defaultValue, onChange }: UseSingleChoiceChangeProps) => {
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
-    if (defaultValue !== undefined) {
+    if (defaultValue && defaultValue !== value) {
       setValue(defaultValue);
     }
   }, [defaultValue]);

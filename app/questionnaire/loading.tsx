@@ -2,7 +2,7 @@ import DLoadingComponent from "@/components/DLoadingComponent";
 
 const Loading = () => {
   return (
-    <div className="w-svw h-svh flex items-center justify-center">
+    <div className="flex h-svh w-svw items-center justify-center">
       <DLoadingComponent />
     </div>
   );
