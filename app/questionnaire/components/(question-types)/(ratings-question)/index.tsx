@@ -1,9 +1,10 @@
-import { ComponentRegistry } from "@/types/components";
-import { QuestionComponent } from "../../QuestionComponent";
-import { RatingsSubType } from "@/types/question";
-import DSlider from "./DSlider";
+import { ComponentRegistry } from "@/types/common";
 
-const RATINGS_COMPONENTS: ComponentRegistry<RatingsSubType> = {
+import { QuestionComponent } from "../../QuestionComponent";
+import DSlider from "./DSlider";
+import { RatingsSubType, RatingsSubTypeValues } from "./types";
+
+const RATINGS_COMPONENTS: ComponentRegistry<RatingsSubTypeValues> = {
   [RatingsSubType.SLIDER]: DSlider,
 };
 

@@ -12,11 +12,13 @@ import SingleChoiceQuestion from "./(question-types)/(single-choice-question)";
 import TextQuestion from "./(question-types)/(text-question)";
 import InvalidComponent from "./InvalidComponent";
 import SubmitAlert from "./SubmitAlert";
+import { RatingsQuestion } from "./(question-types)/(ratings-question)/index";
 
 const QUESTION_COMPONENTS: Record<QuestionTypeValues, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
   multiple_choice: MultipleChoiceQuestion,
+  ratings: RatingsQuestion,
 };
 
 const QuestionCard = () => {
