@@ -5,6 +5,7 @@ import { deleteResponses, getAllResponses } from "@/app/questionnaire/lib/respon
 import DLoadingComponent from "@/components/DLoadingComponent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { Answer, Question, QuestionTypeValues } from "@/types/common";
 import { useQuery } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
@@ -77,22 +78,26 @@ const AnswersPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center p-16">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center p-8 sm:p-16">
       <div className="w-full max-w-7xl space-y-16">
         <div className="flex flex-wrap justify-center gap-8">
           {combinedData.map((item: CombinedData) => (
-            <Card key={item.id} className="w-full max-w-sm transition-shadow hover:shadow-lg">
+            <Card
+              key={item.id}
+              className="flex w-full max-w-sm flex-col justify-between transition-shadow hover:shadow-lg">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold">{item.question}</CardTitle>
+                <CardTitle className="text-lg font-semibold text-primary-foreground">
+                  {item.question}
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="mt-2">
-                  <p className="text-sm font-medium text-gray-500">Answer:</p>
-                  <p className="mt-1 text-base">{formatAnswer(item.answer)}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-400">Question Type: {item.type}</p>
-                </div>
+                <Label className="text-sm font-medium">
+                  Answer:{" "}
+                  <span className="mt-1 text-base font-bold capitalize text-primary">
+                    {formatAnswer(item.answer)}
+                  </span>
+                </Label>
+                <Label className="block text-xs">Question Type: {item.type}</Label>
               </CardContent>
             </Card>
           ))}

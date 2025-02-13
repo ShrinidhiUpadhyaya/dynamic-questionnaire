@@ -47,6 +47,5 @@ export const useTextComponentChange = <T extends string | number>({
     value,
     error,
     handleChange,
-    setValue,
   };
 };

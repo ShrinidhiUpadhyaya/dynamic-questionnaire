@@ -83,7 +83,9 @@ type QuestionCardHeaderProps = {
 const QuestionCardHeader = ({ title }: QuestionCardHeaderProps) => {
   return (
     <CardHeader className="h-1/4">
-      <CardTitle className="text-3xl font-extrabold text-primary-foreground">{title}</CardTitle>
+      <CardTitle className="text-2xl font-extrabold text-primary-foreground sm:text-3xl">
+        {title}
+      </CardTitle>
     </CardHeader>
   );
 };
