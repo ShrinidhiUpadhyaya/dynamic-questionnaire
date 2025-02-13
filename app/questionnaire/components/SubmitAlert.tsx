@@ -1,16 +1,16 @@
+import { t } from "@/app/locales/translation";
 import {
   AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  AlertDialogCancel,
-  AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { t } from "@/app/locales/translation";
 
 const SubmitAlert = ({ onSubmit }: { onSubmit: () => void }) => {
   const handleSubmit = () => {
@@ -27,15 +27,13 @@ const SubmitAlert = ({ onSubmit }: { onSubmit: () => void }) => {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              This action cannot be undone. This will permanently delete your account and remove
+              your data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={() => handleSubmit()}>
-              Yes, Continue
-            </AlertDialogAction>
+            <AlertDialogAction onClick={() => handleSubmit()}>Yes, Continue</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

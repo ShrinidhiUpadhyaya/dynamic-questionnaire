@@ -20,9 +20,7 @@ export const getQuestions = async (params: {
     ...(params?.offset && { offset: params.offset.toString() }),
   });
 
-  return requestHandler(
-    `${API_URL.QUESTIONS}/${params.questionnaireId}?${queryParams}`
-  );
+  return requestHandler(`${API_URL.QUESTIONS}/${params.questionnaireId}?${queryParams}`);
 };
 
 /**
@@ -33,7 +31,5 @@ export const getQuestions = async (params: {
  * @returns A promise resolving to all questions for the specified questionnaire.
  */
 export const getAllQuestions = async (params: { questionnaireId: string }) => {
-  return requestHandler(
-    `${API_URL.QUESTIONS}/${params.questionnaireId}?all=true`
-  );
+  return requestHandler(`${API_URL.QUESTIONS}/${params.questionnaireId}?all=true`);
 };

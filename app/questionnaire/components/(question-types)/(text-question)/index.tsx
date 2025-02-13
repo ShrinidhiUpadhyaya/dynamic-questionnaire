@@ -1,14 +1,15 @@
-import { TextSubType } from "@/types/question";
-import ShortText from "./ShortText";
+import { ComponentRegistry } from "@/types/common";
+
+import { QuestionComponent } from "../../QuestionComponent";
 import LongText from "./LongText";
 import NumberText from "./NumberText";
-import { ComponentRegistry } from "@/types/components";
-import { QuestionComponent } from "../../QuestionComponent";
+import ShortText from "./ShortText";
+import { TextSubType, TextSubTypeValues } from "./types";
 
-const TEXT_COMPONENTS: ComponentRegistry<TextSubType> = {
-  [TextSubType.SHORT_TEXT]: ShortText,
-  [TextSubType.LONG_TEXT]: LongText,
-  [TextSubType.NUMBER_TEXT]: NumberText,
+const TEXT_COMPONENTS: ComponentRegistry<TextSubTypeValues> = {
+  [TextSubType.SHORT]: ShortText,
+  [TextSubType.LONG]: LongText,
+  [TextSubType.NUMBER]: NumberText,
 };
 
 export const TextQuestion = QuestionComponent({

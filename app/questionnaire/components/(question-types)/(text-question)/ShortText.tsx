@@ -1,5 +1,6 @@
-import { Input } from "@/components/ui/input";
 import { useTextComponentChange } from "@/app/questionnaire/hooks/useTextComponentChange";
+import DBaseInput from "@/components/DBaseInput";
+
 import { ShortTextInputProps } from "./types";
 
 const ShortText = ({
@@ -11,19 +12,19 @@ const ShortText = ({
 }: ShortTextInputProps) => {
   const validate = (value: string) => !maxLength || value.length <= maxLength;
 
-  const { value, handleChange } = useTextComponentChange({
+  const { value, handleChange } = useTextComponentChange<string>({
     onChange,
     validate,
     defaultValue: defaultValue,
   });
 
   return (
-    <Input
+    <DBaseInput
       placeholder={placeholder}
       minLength={minLength}
       maxLength={maxLength}
-      onChange={handleChange}
-      value={value}
+      onChange={(value) => handleChange(String(value))}
+      value={value || ""}
     />
   );
 };

@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import { useDebounce } from "@/app/hooks/useDebounce";
+import { useEffect, useState } from "react";
 
 interface UseMultipleChoiceChangeProps {
   defaultValue: string[];
@@ -13,7 +13,7 @@ export const useMultipleChoiceChange = ({
   const [values, setValues] = useState<string[]>(defaultValue);
 
   useEffect(() => {
-    if (defaultValue !== undefined) {
+    if (defaultValue && JSON.stringify(defaultValue) !== JSON.stringify(values)) {
       setValues(defaultValue);
     }
   }, [defaultValue]);
@@ -27,9 +27,7 @@ export const useMultipleChoiceChange = ({
   });
 
   const handleValueChange = (value: string, checked: boolean) => {
-    const newValues = checked
-      ? [...values, value]
-      : values.filter((v) => v !== value);
+    const newValues = checked ? [...values, value] : values?.filter((v) => v !== value);
     setValues(newValues);
     debouncedSave(newValues);
   };

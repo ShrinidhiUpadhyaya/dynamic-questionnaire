@@ -1,8 +1,7 @@
-import React from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { QuestionCardFooter } from "./QuestionCard";
 
 interface InvalidComponentProps {
@@ -24,15 +23,14 @@ const InvalidComponent = ({
 }: InvalidComponentProps) => {
   const [showDetails, setShowDetails] = useState(false);
   return (
-    <Card className="w-full h-full flex flex-col justify-between bg-red-100 border border-red-500 text-red-700 rounded-lg">
+    <Card className="flex h-full w-full flex-col justify-between rounded-lg border border-red-500 bg-red-100 text-red-700">
       <CardContent>
         <p className="text-2xl">
           Oops, something went wrong!
           <Button
             variant="link"
             className="text-primary-foreground"
-            onClick={() => setShowDetails(!showDetails)}
-          >
+            onClick={() => setShowDetails(!showDetails)}>
             {showDetails ? "Hide Details" : "Show Details"}
           </Button>
         </p>
@@ -41,12 +39,11 @@ const InvalidComponent = ({
           <>
             <p>Error: Unsupported question type</p>
             <p>
-              The provided question type{" "}
-              <strong className="text-red-600">{type}</strong> is not valid.
+              The provided question type <strong className="text-red-600">{type}</strong> is not
+              valid.
             </p>
             <p>
-              Supported types:{" "}
-              <strong>{supportedTypes.join(", ") || "None"}</strong>
+              Supported types: <strong>{supportedTypes.join(", ") || "None"}</strong>
             </p>
           </>
         )}

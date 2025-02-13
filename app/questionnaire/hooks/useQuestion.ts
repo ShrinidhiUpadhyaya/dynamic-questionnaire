@@ -1,7 +1,8 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getQuestions } from "../lib/questions";
-import { useState, useEffect, useMemo, useCallback } from "react";
 import useQuestionStore from "@/app/questionnaire/store/store";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+import { getQuestions } from "../lib/questions";
 
 const BATCH_SIZE = 2;
 const STALE_TIME = 5 * 60 * 1000;
@@ -12,17 +13,13 @@ export const useQuestion = (questionnaireId: string) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { setCurrentQuestionIndex, setTotalQuestions } = useQuestionStore();
 
-  const batchIndex = useMemo(
-    () => Math.floor(currentIndex / BATCH_SIZE),
-    [currentIndex]
-  );
+  const batchIndex = useMemo(() => Math.floor(currentIndex / BATCH_SIZE), [currentIndex]);
   const offset = useMemo(() => batchIndex * BATCH_SIZE, [batchIndex]);
 
   const queryConfig = useMemo(
     () => ({
       queryKey: ["questions", batchIndex, BATCH_SIZE],
-      queryFn: () =>
-        getQuestions({ questionnaireId, offset, limit: BATCH_SIZE }),
+      queryFn: () => getQuestions({ questionnaireId, offset, limit: BATCH_SIZE }),
       keepPreviousData: true,
       staleTime: STALE_TIME,
       cacheTime: CACHE_TIME,
@@ -31,15 +28,10 @@ export const useQuestion = (questionnaireId: string) => {
         console.error("Error fetching questions:", error);
       },
     }),
-    [batchIndex, offset, questionnaireId]
+    [batchIndex, offset, questionnaireId],
   );
 
-  const {
-    data: questionnaire,
-    isLoading,
-    isError,
-    error,
-  } = useQuery(queryConfig);
+  const { data: questionnaire, isLoading, isError, error } = useQuery(queryConfig);
 
   useEffect(() => {
     setCurrentQuestionIndex(currentIndex);
@@ -98,6 +90,6 @@ export const useQuestion = (questionnaireId: string) => {
       error,
       goToNextQuestion,
       goToPreviousQuestion,
-    ]
+    ],
   );
 };

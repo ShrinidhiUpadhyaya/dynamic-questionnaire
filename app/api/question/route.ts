@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { QUESTIONNAIRE_LIST } from "@/app/data/questions";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
@@ -8,9 +8,7 @@ export async function GET() {
       status: "success",
     });
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to fetch questionnaires" },
-      { status: 500 }
-    );
+    console.error("Error fetching questionnaires:", error);
+    return NextResponse.json({ error: "Failed to fetch questionnaires" }, { status: 500 });
   }
 }

@@ -1,31 +1,22 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import React from "react";
-import SingleChoiceQuestion from "./(question-types)/(single-choice-question)";
-import MultipleChoiceQuestion from "./(question-types)/(multiple-choice-question)";
-import TextQuestion from "./(question-types)/(text-question)";
-import { QuestionType } from "@/types/question";
-import InvalidComponent from "./InvalidComponent";
-import { useQuestionContext } from "../context/question-context";
-import { useCallback } from "react";
-import { useConditionalLogic } from "@/app/questionnaire/hooks/useConditionalLogic";
-import SubmitAlert from "./SubmitAlert";
-import { useRouter } from "next/navigation";
 import { t } from "@/app/locales/translation";
-import { useParams } from "next/navigation";
-import RatingsQuestion from "./(question-types)/(ratings-question)";
+import { useConditionalLogic } from "@/app/questionnaire/hooks/useConditionalLogic";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { QuestionTypeValues } from "@/types/common";
+import { useParams, useRouter } from "next/navigation";
+import { useCallback } from "react";
 
-const QUESTION_COMPONENTS: Record<QuestionType, React.FC<any>> = {
+import { useQuestionContext } from "../context/question-context";
+import MultipleChoiceQuestion from "./(question-types)/(multiple-choice-question)";
+import SingleChoiceQuestion from "./(question-types)/(single-choice-question)";
+import TextQuestion from "./(question-types)/(text-question)";
+import InvalidComponent from "./InvalidComponent";
+import SubmitAlert from "./SubmitAlert";
+
+const QUESTION_COMPONENTS: Record<QuestionTypeValues, React.FC<any>> = {
   text: TextQuestion,
   single_choice: SingleChoiceQuestion,
   multiple_choice: MultipleChoiceQuestion,
-  ratings: RatingsQuestion,
 };
 
 const QuestionCard = () => {
@@ -41,18 +32,20 @@ const QuestionCard = () => {
 
   const handleChange = useCallback(
     (value: string | string[]) => {
-      saveAnswer(value);
+      if (saveAnswer) {
+        saveAnswer(value);
+      }
     },
-    [saveAnswer]
+    [saveAnswer],
   );
 
-  const { showQuestion } = useConditionalLogic(currentQuestion);
+  const showQuestion = useConditionalLogic(currentQuestion);
+
+  const QuestionComponent = QUESTION_COMPONENTS[currentQuestion?.type];
 
   if (!currentQuestion) {
     return <div>No question found</div>;
   }
-
-  const QuestionComponent = QUESTION_COMPONENTS[currentQuestion?.type];
 
   if (!QuestionComponent) {
     return (
@@ -68,16 +61,10 @@ const QuestionCard = () => {
   }
 
   return (
-    <Card className="w-full h-full flex flex-col justify-between">
+    <Card className="flex h-full w-full flex-col justify-between">
       <QuestionCardHeader title={currentQuestion.question} />
-      <CardContent
-        className={`${!showQuestion() && "opacity-50 pointer-events-none"}`}
-      >
-        <QuestionComponent
-          question={currentQuestion}
-          answer={answer}
-          onChange={handleChange}
-        />
+      <CardContent className={`${!showQuestion && "pointer-events-none opacity-50"}`}>
+        <QuestionComponent question={currentQuestion} answer={answer} onChange={handleChange} />
       </CardContent>
       <QuestionCardFooter
         isFirstQuestion={isFirstQuestion}
@@ -96,7 +83,7 @@ type QuestionCardHeaderProps = {
 const QuestionCardHeader = ({ title }: QuestionCardHeaderProps) => {
   return (
     <CardHeader className="h-1/4">
-      <CardTitle className="font-extrabold text-4xl text-primary-foreground">
+      <CardTitle className="text-2xl font-extrabold text-primary-foreground sm:text-3xl">
         {title}
       </CardTitle>
     </CardHeader>
@@ -124,11 +111,7 @@ export const QuestionCardFooter = ({
   };
 
   return (
-    <CardFooter
-      className={`justify-between items-end h-1/4 ${
-        isFirstQuestion && "justify-end"
-      }`}
-    >
+    <CardFooter className={`h-1/4 items-end justify-between ${isFirstQuestion && "justify-end"}`}>
       {!isFirstQuestion && (
         <Button variant="outline" onClick={goToPrevious} className="w-24">
           {t("previous")}

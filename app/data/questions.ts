@@ -1,12 +1,150 @@
-import {
-  QuestionType,
-  Questionnaire,
-  TextSubType,
-  SingleChoiceSubType,
-  MultipleChoiceSubType,
-  RatingsSubType,
-} from "@/types/question";
+import { MultipleChoiceSubType } from "@/app/questionnaire/components/(question-types)/(multiple-choice-question)/types";
+import { SingleChoiceSubType } from "@/app/questionnaire/components/(question-types)/(single-choice-question)/types";
+import { TextSubType } from "@/app/questionnaire/components/(question-types)/(text-question)/types";
+import { QuestionType, Questionnaire } from "@/types/common";
 
+export const CYBER_SECURITY: Questionnaire = {
+  id: "cyber-security",
+  title: "Cyber Security Questions",
+  questions: [
+    {
+      id: "cyber-team",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "Does your company currently have a dedicated cyber security team?",
+      options: [
+        { id: "cyber-team-yes", label: "Yes", value: "yes" },
+        { id: "cyber-team-no", label: "No", value: "no" },
+      ],
+    },
+    {
+      id: "cyber-concerns",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
+      question: "What are the main areas of concern regarding cyber security in your company?",
+      options: [
+        { id: "concern-phishing", label: "Phishing Attacks", value: "phishing" },
+        { id: "concern-ransomware", label: "Ransomware", value: "ransomware" },
+        { id: "concern-insider", label: "Insider Threats", value: "insider" },
+        { id: "concern-databreach", label: "Data Breaches", value: "data-breaches" },
+        { id: "concern-other", label: "Other", value: "other" },
+      ],
+    },
+    {
+      id: "cyber-other-details",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.SHORT,
+      question: "Please specify your concerns if 'Other' was selected.",
+      conditional: [
+        {
+          questionId: "cyber-concerns",
+          operator: "contains",
+          value: "other",
+        },
+      ],
+    },
+    {
+      id: "training-frequency",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "How often does your company conduct cyber security training for employees?",
+      options: [
+        { id: "training-monthly", label: "Monthly", value: "monthly" },
+        { id: "training-quarterly", label: "Quarterly", value: "quarterly" },
+        { id: "training-annually", label: "Annually", value: "annually" },
+        { id: "training-never", label: "Never", value: "never" },
+      ],
+    },
+    {
+      id: "incident-experience",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "Have you experienced a cyber security incident in the past year?",
+      options: [
+        { id: "incident-yes", label: "Yes", value: "yes" },
+        { id: "incident-no", label: "No", value: "no" },
+      ],
+    },
+    {
+      id: "incident-description",
+      type: QuestionType.TEXT,
+      sub_type: TextSubType.LONG,
+      question: "If yes, please describe the incident and its impact.",
+      conditional: [
+        {
+          questionId: "incident-experience",
+          operator: "equals",
+          value: "yes",
+        },
+      ],
+    },
+    {
+      id: "security-posture",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question: "How would you rate your company’s current cyber security posture?",
+      options: [
+        { id: "posture-excellent", label: "Excellent", value: "excellent" },
+        { id: "posture-good", label: "Good", value: "good" },
+        { id: "posture-fair", label: "Fair", value: "fair" },
+        { id: "posture-poor", label: "Poor", value: "poor" },
+      ],
+    },
+    {
+      id: "security-measures",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
+      question: "What cyber security measures are currently implemented in your company?",
+      options: [
+        { id: "measures-firewalls", label: "Firewalls", value: "firewalls" },
+        { id: "measures-ids", label: "Intrusion Detection Systems", value: "ids" },
+        { id: "measures-antivirus", label: "Antivirus Software", value: "antivirus" },
+        { id: "measures-training", label: "Employee Training", value: "training" },
+        { id: "measures-encryption", label: "Encryption", value: "encryption" },
+        { id: "measures-mfa", label: "Multi-factor Authentication", value: "mfa" },
+      ],
+    },
+    {
+      id: "future-investment",
+      type: QuestionType.SINGLE_CHOICE,
+      sub_type: SingleChoiceSubType.RADIO,
+      question:
+        "Does your company plan to invest in new cyber security technologies in the next 12 months?",
+      options: [
+        { id: "investment-yes", label: "Yes", value: "yes" },
+        { id: "investment-no", label: "No", value: "no" },
+        { id: "investment-not-sure", label: "Not Sure", value: "not_sure" },
+      ],
+    },
+    {
+      id: "investment-areas",
+      type: QuestionType.MULTIPLE_CHOICE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
+      question:
+        "Which areas of cyber security do you intend to focus on for future investments? (Select all that apply)",
+      options: [
+        { id: "area-network", label: "Network Security", value: "network_security" },
+        { id: "area-endpoint", label: "Endpoint Security", value: "endpoint_security" },
+        { id: "area-cloud", label: "Cloud Security", value: "cloud_security" },
+        { id: "area-iam", label: "Identity and Access Management", value: "iam" },
+        { id: "area-incident", label: "Incident Response", value: "incident_response" },
+        { id: "area-training", label: "Security Awareness Training", value: "security_training" },
+      ],
+      conditional: [
+        {
+          questionId: "future-investment",
+          operator: "equals",
+          value: "yes",
+        },
+        {
+          questionId: "security-measures",
+          operator: "notEquals",
+          value: "firewalls",
+        },
+      ],
+    },
+  ],
+};
 export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
   id: "hair-transplant",
   title: "Hair Transplant Experience and Expectations",
@@ -19,11 +157,7 @@ export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
       options: [
         { id: "reason-1", label: "Genetics", value: "genetics" },
         { id: "reason-2", label: "Stress", value: "stress" },
-        {
-          id: "reason-3",
-          label: "Medical Condition",
-          value: "medical-condition",
-        },
+        { id: "reason-3", label: "Medical Condition", value: "medical-condition" },
         { id: "reason-4", label: "Other", value: "other" },
       ],
     },
@@ -33,25 +167,23 @@ export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
       sub_type: SingleChoiceSubType.SELECT,
       question: "How long have you been experiencing hair loss?",
       options: [
-        {
-          id: "duration-1",
-          label: "Less than a year",
-          value: "less-than-a-year",
-        },
+        { id: "duration-1", label: "Less than a year", value: "less-than-a-year" },
         { id: "duration-2", label: "1-3 years", value: "1-3-years" },
-        {
-          id: "duration-3",
-          label: "More than 3 years",
-          value: "more-than-3-years",
-        },
+        { id: "duration-3", label: "More than 3 years", value: "more-than-3-years" },
       ],
     },
     {
       id: "previous-hair-treatments",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
-      question:
-        "Have you undergone any previous hair loss treatments? If yes, please specify.",
+      sub_type: TextSubType.SHORT,
+      question: "Have you undergone any previous hair loss treatments? If yes, please specify.",
+      conditional: [
+        {
+          questionId: "reason-for-hair-loss",
+          operator: "equals",
+          value: "medical-condition",
+        },
+      ],
     },
     {
       id: "transplant-expectations",
@@ -59,16 +191,8 @@ export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
       sub_type: MultipleChoiceSubType.CHECKBOX,
       question: "What are your expectations from a hair transplant?",
       options: [
-        {
-          id: "expectation-1",
-          label: "Full Hair Restoration",
-          value: "full-restoration",
-        },
-        {
-          id: "expectation-2",
-          label: "Improved Hairline",
-          value: "improved-hairline",
-        },
+        { id: "expectation-1", label: "Full Hair Restoration", value: "full-restoration" },
+        { id: "expectation-2", label: "Improved Hairline", value: "improved-hairline" },
         { id: "expectation-3", label: "Thicker Hair", value: "thicker-hair" },
       ],
     },
@@ -89,23 +213,22 @@ export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
       sub_type: SingleChoiceSubType.RADIO,
       question: "Which hair transplant technique are you interested in?",
       options: [
-        {
-          id: "technique-1",
-          label: "FUE (Follicular Unit Extraction)",
-          value: "fue",
-        },
-        {
-          id: "technique-2",
-          label: "FUT (Follicular Unit Transplant)",
-          value: "fut",
-        },
+        { id: "technique-1", label: "FUE (Follicular Unit Extraction)", value: "fue" },
+        { id: "technique-2", label: "FUT (Follicular Unit Transplant)", value: "fut" },
       ],
     },
     {
       id: "desired-hair-density",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "What is your desired hair density after the procedure?",
+      conditional: [
+        {
+          questionId: "transplant-expectations",
+          operator: "contains",
+          value: "full-restoration",
+        },
+      ],
     },
     {
       id: "pain-threshold",
@@ -113,23 +236,22 @@ export const HAIR_TRANSPLANT_QUESTIONNAIRE: Questionnaire = {
       sub_type: SingleChoiceSubType.RADIO,
       question: "How comfortable are you with minor surgical pain?",
       options: [
-        {
-          id: "pain-1",
-          label: "Not comfortable at all",
-          value: "not-comfortable",
-        },
-        {
-          id: "pain-2",
-          label: "Moderately comfortable",
-          value: "moderately-comfortable",
-        },
+        { id: "pain-1", label: "Not comfortable at all", value: "not-comfortable" },
+        { id: "pain-2", label: "Moderately comfortable", value: "moderately-comfortable" },
         { id: "pain-3", label: "Very comfortable", value: "very-comfortable" },
+      ],
+      conditional: [
+        {
+          questionId: "preferred-technique",
+          operator: "equals",
+          value: "fut",
+        },
       ],
     },
     {
       id: "post-surgery-care",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "Do you have any concerns about post-surgery care?",
     },
     {
@@ -169,7 +291,7 @@ export const PLASTIC_SURGERY_QUESTIONNAIRE: Questionnaire = {
     {
       id: "motivation-for-surgery",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "What is your main motivation for considering surgery?",
     },
     {
@@ -185,7 +307,7 @@ export const PLASTIC_SURGERY_QUESTIONNAIRE: Questionnaire = {
     {
       id: "expected-recovery-time",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "What is your expected recovery time?",
     },
     {
@@ -202,13 +324,13 @@ export const PLASTIC_SURGERY_QUESTIONNAIRE: Questionnaire = {
     {
       id: "past-surgeries",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "Have you undergone any previous cosmetic surgeries?",
     },
     {
       id: "realistic-outcomes",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "What are your realistic expectations for the outcome?",
     },
   ],
@@ -221,7 +343,7 @@ export const QUESTIONS_FOR_DOCTORS_QUESTIONNAIRE: Questionnaire = {
     {
       id: "health-concern",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.SHORT_TEXT,
+      sub_type: TextSubType.SHORT,
       question: "What is the primary health concern you want to discuss?",
     },
     {
@@ -238,9 +360,8 @@ export const QUESTIONS_FOR_DOCTORS_QUESTIONNAIRE: Questionnaire = {
     {
       id: "medications",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
-      question:
-        "Are you currently taking any medications or supplements? If so, please list them.",
+      sub_type: TextSubType.LONG,
+      question: "Are you currently taking any medications or supplements? If so, please list them.",
     },
     {
       id: "symptom-duration",
@@ -271,7 +392,7 @@ export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
     {
       id: "important-work-values",
       type: QuestionType.MULTIPLE_CHOICE,
-      sub_type: MultipleChoiceSubType.TOGGLE,
+      sub_type: MultipleChoiceSubType.CHECKBOX,
       question: "What work values are most important to you?",
       options: [
         {
@@ -284,16 +405,6 @@ export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
         { id: "value-4", label: "Career Growth", value: "career-growth" },
         { id: "value-5", label: "Company Culture", value: "company-culture" },
       ],
-    },
-    {
-      id: "dummy-ratings",
-      type: QuestionType.RATINGS,
-      sub_type: RatingsSubType.SLIDER,
-      question: "How important is work-life balance to you?",
-      min: 1,
-      max: 10,
-      step: 1,
-      defaultValue: 5,
     },
     {
       id: "preferred-work-environment",
@@ -310,7 +421,7 @@ export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
     {
       id: "career-goals",
       type: QuestionType.TEXT,
-      sub_type: TextSubType.LONG_TEXT,
+      sub_type: TextSubType.LONG,
       question: "What are your long-term career goals?",
     },
     {
@@ -424,6 +535,7 @@ export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
 };
 
 export const QUESTIONNAIRE_LIST = [
+  CYBER_SECURITY,
   HAIR_TRANSPLANT_QUESTIONNAIRE,
   PLASTIC_SURGERY_QUESTIONNAIRE,
   QUESTIONS_FOR_DOCTORS_QUESTIONNAIRE,
