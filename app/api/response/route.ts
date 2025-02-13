@@ -43,13 +43,13 @@ const getRedisAllAnswers = async () => {
   }
 };
 
-const getRedisAnswer = async (id: string) => {
+const getRedisAnswer = async (id: string): Promise<Answer | null> => {
   if (!redis) {
     return null;
   }
   try {
     const answer = await redis.hget(`answers:${id}`, "answer");
-    return answer;
+    return { id, answer };
   } catch (error) {
     console.error(`Error fetching answer from Redis: ${id}`, error);
     return null;
@@ -120,7 +120,7 @@ export async function GET(request: NextRequest) {
     const answer = redis ? await getRedisAnswer(id) : findAnswer(id);
 
     return NextResponse.json({
-      answer: answer ? answer : null,
+      answer: answer ? answer?.answer : null,
       status: "success",
     });
   } catch (error) {

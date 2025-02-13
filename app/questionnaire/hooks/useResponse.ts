@@ -48,7 +48,7 @@ export const useResponse = (questionId: string) => {
   }
 
   return {
-    answer: answerData?.answer?.answer,
+    answer: answerData?.answer,
     isLoading,
     error,
     saveAnswers,
