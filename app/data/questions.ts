@@ -18,16 +18,6 @@ export const CYBER_SECURITY: Questionnaire = {
       ],
     },
     {
-      id: "dummy-ratings",
-      type: QuestionType.RATINGS,
-      sub_type: RatingsSubType.SLIDER,
-      question: "How important is work-life balance to you?",
-      min: 1,
-      max: 10,
-      step: 1,
-      defaultValue: 5,
-    },
-    {
       id: "cyber-concerns",
       type: QuestionType.MULTIPLE_CHOICE,
       sub_type: MultipleChoiceSubType.CHECKBOX,
@@ -399,6 +389,16 @@ export const JOB_SEEKERS_WORK_VALUES_QUESTIONNAIRE: Questionnaire = {
   id: "job-seekers-values",
   title: "Work Values and Career Priorities",
   questions: [
+    {
+      id: "new-slider-type",
+      type: QuestionType.RATINGS,
+      sub_type: RatingsSubType.SLIDER,
+      question: "How important is work-life balance to you?",
+      min: 1,
+      max: 10,
+      step: 1,
+      defaultValue: 5,
+    },
     {
       id: "important-work-values",
       type: QuestionType.MULTIPLE_CHOICE,
