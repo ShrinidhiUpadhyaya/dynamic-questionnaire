@@ -20,7 +20,7 @@ export const CYBER_SECURITY: Questionnaire = {
     {
       id: "cyber-concerns",
       type: QuestionType.MULTIPLE_CHOICE,
-      sub_type: MultipleChoiceSubType.CHECKBOX,
+      sub_type: MultipleChoiceSubType.TOGGLE,
       question: "What are the main areas of concern regarding cyber security in your company?",
       options: [
         { id: "concern-phishing", label: "Phishing Attacks", value: "phishing" },

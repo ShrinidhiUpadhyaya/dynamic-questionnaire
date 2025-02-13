@@ -9,6 +9,7 @@ import {
 
 export const MultipleChoiceSubType = {
   CHECKBOX: "checkbox",
+  TOGGLE: "toggle",
 } as const;
 
 export type MultipleChoiceSubTypeKeys = keyof typeof MultipleChoiceSubType;
