@@ -260,7 +260,7 @@ export type MultipleChoiceQuestionComponentProps =
 ## Adding a new Question Type
 Lets create a new question type called ratings
 
-**Note:-** The complete implementation can be found on [Slider](https://github.com/ShrinidhiUpadhyaya/dynamic-questionnaire/tree/slider) branch
+**Note:-** The complete implementation can be found on [Ratings-Question-Type](https://github.com/ShrinidhiUpadhyaya/dynamic-questionnaire/tree/ratings-question-type) branch
 -  add a new type called ratings in `QuestionType` in types
 ```
 export enum QuestionType {
