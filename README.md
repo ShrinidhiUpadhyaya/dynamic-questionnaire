@@ -210,6 +210,8 @@ The schema is defined as a Questionnaire object with the following top-level pro
     ```
 ## Adding a New Component Sub Component to a existing Component Type
 Lets a Toggle Button Component in `multi-choice-question`
+
+**Note:-** The complete implementation can be found on [Toggle-Button](https://github.com/ShrinidhiUpadhyaya/dynamic-questionnaire/tree/toggle-button) branch
 - Install the toggle component from `shadcn\ui`
   ```
   npx shadcn@latest add toggle
@@ -257,6 +259,8 @@ export type MultipleChoiceQuestionComponentProps =
 
 ## Adding a new Question Type
 Lets create a new question type called ratings
+
+**Note:-** The complete implementation can be found on [Slider](https://github.com/ShrinidhiUpadhyaya/dynamic-questionnaire/tree/slider) branch
 -  add a new type called ratings in `QuestionType` in types
 ```
 export enum QuestionType {
