@@ -15,6 +15,7 @@ interface QuestionContextType {
   isLastQuestion: boolean;
   isLoading: boolean;
   error: Error | null;
+  errorStatus: number | null;
   saveAnswer:
     | UseMutateFunction<any, Error, UserAnswer | UserAnswer[], { previousAnswers: unknown }>
     | undefined;
@@ -29,6 +30,7 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const {
     isLoading,
     error,
+    errorStatus,
     currentQuestion,
     goToNextQuestion,
     goToPreviousQuestion,
@@ -46,10 +48,11 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const contextValue = useMemo(
     () => ({
       isLoading,
-      error,
       currentQuestion,
       answer,
       showQuestion,
+      error,
+      errorStatus,
       isFirstQuestion,
       isLastQuestion,
       saveAnswer: saveAnswers,
@@ -58,10 +61,11 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }),
     [
       isLoading,
-      error,
       currentQuestion,
       answer,
       showQuestion,
+      error,
+      errorStatus,
       isFirstQuestion,
       isLastQuestion,
       saveAnswers,

@@ -1,8 +1,7 @@
 "use client";
 
+import loadingAnimation from "@/public/LoadingAnimation.json";
 import dynamic from "next/dynamic";
-
-import loadingAnimation from "../app/LoadingAnimation.json";
 
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,

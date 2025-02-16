@@ -102,3 +102,7 @@ export interface Answer {
 }
 
 export type UserAnswer = string | string[] | number | null;
+
+export interface CustomError extends Error {
+  status?: number;
+}
