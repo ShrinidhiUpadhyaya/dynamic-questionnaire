@@ -1,5 +1,4 @@
 import { t } from "@/app/locales/translation";
-import { useConditionalLogic } from "@/app/questionnaire/hooks/useConditionalLogic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { QuestionTypeValues } from "@/types/common";
@@ -23,6 +22,7 @@ const QuestionCard = () => {
   const {
     currentQuestion,
     answer,
+    showQuestion,
     saveAnswer,
     goToNext,
     goToPrevious,
@@ -38,8 +38,6 @@ const QuestionCard = () => {
     },
     [saveAnswer],
   );
-
-  const showQuestion = useConditionalLogic(currentQuestion);
 
   const QuestionComponent = QUESTION_COMPONENTS[currentQuestion?.type];
 

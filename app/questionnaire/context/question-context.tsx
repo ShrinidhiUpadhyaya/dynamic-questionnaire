@@ -1,23 +1,25 @@
 import { useQuestion } from "@/app/questionnaire/hooks/useQuestion";
 import { useResponse } from "@/app/questionnaire/hooks/useResponse";
-import { UserAnswer } from "@/types/common";
-import { Question } from "@/types/common";
+import { Question, UserAnswer } from "@/types/common";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { createContext, useContext, useMemo } from "react";
 
+import { useConditionalLogic } from "../hooks/useConditionalLogic";
+
 interface QuestionContextType {
   currentQuestion: Question;
   answer: string | string[];
+  showQuestion: boolean;
+  isFirstQuestion: boolean;
+  isLastQuestion: boolean;
+  isLoading: boolean;
+  error: Error | null;
   saveAnswer:
     | UseMutateFunction<any, Error, UserAnswer | UserAnswer[], { previousAnswers: unknown }>
     | undefined;
   goToNext: () => void;
   goToPrevious: () => void;
-  isFirstQuestion: boolean;
-  isLastQuestion: boolean;
-  isLoading: boolean;
-  error: Error | null;
 }
 
 const QuestionContext = createContext<QuestionContextType | null>(null);
@@ -35,6 +37,9 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   } = useQuestion(id as string);
 
   const response = useResponse(currentQuestion?.id as string);
+
+  const showQuestion = useConditionalLogic(currentQuestion, response?.answer);
+
   const answer = response?.answer;
   const saveAnswers = response?.saveAnswers;
 
@@ -44,22 +49,24 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       error,
       currentQuestion,
       answer,
+      showQuestion,
+      isFirstQuestion,
+      isLastQuestion,
       saveAnswer: saveAnswers,
       goToNext: goToNextQuestion,
       goToPrevious: goToPreviousQuestion,
-      isFirstQuestion,
-      isLastQuestion,
     }),
     [
+      isLoading,
+      error,
       currentQuestion,
       answer,
+      showQuestion,
+      isFirstQuestion,
+      isLastQuestion,
       saveAnswers,
       goToNextQuestion,
       goToPreviousQuestion,
-      isFirstQuestion,
-      isLastQuestion,
-      isLoading,
-      error,
     ],
   );
 
