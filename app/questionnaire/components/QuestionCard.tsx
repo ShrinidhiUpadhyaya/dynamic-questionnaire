@@ -39,9 +39,7 @@ const QuestionCard = () => {
     [saveAnswer],
   );
 
-  const QuestionComponent = currentQuestion?.type
-    ? QUESTION_COMPONENTS[currentQuestion.type as QuestionTypeValues]
-    : null;
+  const QuestionComponent = QUESTION_COMPONENTS[currentQuestion.type];
 
   if (!currentQuestion) {
     return <div>No question found</div>;
