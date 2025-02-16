@@ -19,7 +19,7 @@ export const useTextComponentChange = <T extends string | number>({
     if (defaultValue && defaultValue !== value) {
       setValue(defaultValue);
     }
-  }, [defaultValue]);
+  }, [defaultValue, value]);
 
   const { debouncedSave } = useDebounce({
     onSave: useCallback(
