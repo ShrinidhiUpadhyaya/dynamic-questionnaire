@@ -13,7 +13,7 @@ export const useSingleChoiceChange = ({ defaultValue, onChange }: UseSingleChoic
     if (defaultValue && defaultValue !== value) {
       setValue(defaultValue);
     }
-  }, [defaultValue]);
+  }, [defaultValue, value]);
 
   const { debouncedSave } = useDebounce({
     onSave: async (newValue: string) => {

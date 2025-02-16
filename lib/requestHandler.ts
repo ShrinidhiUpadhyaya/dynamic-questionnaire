@@ -1,3 +1,5 @@
+import { CustomError } from "@/types/common";
+
 const requestHandler = async (url: string, options: RequestInit = {}) => {
   const response = await fetch(url, {
     ...options,
@@ -8,7 +10,10 @@ const requestHandler = async (url: string, options: RequestInit = {}) => {
   });
 
   if (!response.ok) {
-    throw new Error(`API Error: ${response.statusText}`);
+    const errorData = await response.json().catch(() => ({}));
+    const error: CustomError = new Error(errorData.message || `API error!`);
+    error.status = response.status;
+    throw error;
   }
 
   return response.json();

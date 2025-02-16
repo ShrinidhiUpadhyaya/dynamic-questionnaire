@@ -16,7 +16,7 @@ export const useMultipleChoiceChange = ({
     if (defaultValue && JSON.stringify(defaultValue) !== JSON.stringify(values)) {
       setValues(defaultValue);
     }
-  }, [defaultValue]);
+  }, [defaultValue, values]);
 
   const { debouncedSave } = useDebounce({
     onSave: async (newValues: string[]) => {

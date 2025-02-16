@@ -1,7 +1,7 @@
 import {
   SingleChoiceSubType,
   SingleChoiceSubTypeValues,
-} from "@/app/questionnaire/components/(question-types)/(single-choice-question)/types";
+} from "@/app/questionnaire/components/question-types/single-choice-question/types";
 import { ComponentRegistry } from "@/types/common";
 
 import { QuestionComponent } from "../../QuestionComponent";

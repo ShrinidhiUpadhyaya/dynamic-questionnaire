@@ -1,11 +1,11 @@
-import { MultipleChoiceQuestion } from "@/app/questionnaire/components/(question-types)/(multiple-choice-question)/types";
-import { SingleChoiceQuestion } from "@/app/questionnaire/components/(question-types)/(single-choice-question)/types";
+import { MultipleChoiceQuestion } from "@/app/questionnaire/components/question-types/multiple-choice-question/types";
+import { SingleChoiceQuestion } from "@/app/questionnaire/components/question-types/single-choice-question/types";
 import {
   BaseValidation,
   LongTextQuestion,
   NumberQuestion,
   ShortTextQuestion,
-} from "@/app/questionnaire/components/(question-types)/(text-question)/types";
+} from "@/app/questionnaire/components/question-types/text-question/types";
 
 export type ID = string;
 export type ValidationMessage = string;
@@ -102,3 +102,7 @@ export interface Answer {
 }
 
 export type UserAnswer = string | string[] | number | null;
+
+export interface CustomError extends Error {
+  status?: number;
+}

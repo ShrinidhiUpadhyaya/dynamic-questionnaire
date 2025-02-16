@@ -1,5 +1,7 @@
 "use client";
 
+import { notFound } from "next/navigation";
+
 import QuestionCard from "../components/QuestionCard";
 import QuestionLoadingCard from "../components/QuestionLoadingCard";
 import { QuestionProvider, useQuestionContext } from "../context/question-context";
@@ -13,10 +15,14 @@ const QuestionPage = () => {
 };
 
 const QuestionPageContent = () => {
-  const { isLoading, error, currentQuestion } = useQuestionContext();
+  const { isLoading, error, errorStatus, currentQuestion } = useQuestionContext();
 
   if (isLoading) {
     return <QuestionLoadingCard />;
+  }
+
+  if (errorStatus === 404) {
+    return notFound();
   }
 
   if (error || !currentQuestion) {

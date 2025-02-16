@@ -1,12 +1,10 @@
-import { ConditionalRule, Question } from "@/types/common";
+import { ConditionalRule, Question, UserAnswer } from "@/types/common";
 import { useEffect, useState } from "react";
 
-import { useQuestionContext } from "../context/question-context";
 import { getResponse } from "../lib/response";
 
-export const useConditionalLogic = (question?: Question) => {
+export const useConditionalLogic = (question: Question, answer: UserAnswer) => {
   const [shouldShow, setShouldShow] = useState(true);
-  const { answer } = useQuestionContext();
 
   const evaluateCondition = async (condition: ConditionalRule): Promise<boolean> => {
     try {

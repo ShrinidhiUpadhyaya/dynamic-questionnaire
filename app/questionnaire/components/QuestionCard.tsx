@@ -1,5 +1,4 @@
 import { t } from "@/app/locales/translation";
-import { useConditionalLogic } from "@/app/questionnaire/hooks/useConditionalLogic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { QuestionTypeValues } from "@/types/common";
@@ -7,11 +6,11 @@ import { useParams, useRouter } from "next/navigation";
 import { useCallback } from "react";
 
 import { useQuestionContext } from "../context/question-context";
-import MultipleChoiceQuestion from "./(question-types)/(multiple-choice-question)";
-import SingleChoiceQuestion from "./(question-types)/(single-choice-question)";
-import TextQuestion from "./(question-types)/(text-question)";
 import InvalidComponent from "./InvalidComponent";
 import SubmitAlert from "./SubmitAlert";
+import MultipleChoiceQuestion from "./question-types/multiple-choice-question";
+import SingleChoiceQuestion from "./question-types/single-choice-question";
+import TextQuestion from "./question-types/text-question";
 
 const QUESTION_COMPONENTS: Record<QuestionTypeValues, React.FC<any>> = {
   text: TextQuestion,
@@ -23,6 +22,7 @@ const QuestionCard = () => {
   const {
     currentQuestion,
     answer,
+    showQuestion,
     saveAnswer,
     goToNext,
     goToPrevious,
@@ -39,9 +39,7 @@ const QuestionCard = () => {
     [saveAnswer],
   );
 
-  const showQuestion = useConditionalLogic(currentQuestion);
-
-  const QuestionComponent = QUESTION_COMPONENTS[currentQuestion?.type];
+  const QuestionComponent = QUESTION_COMPONENTS[currentQuestion.type];
 
   if (!currentQuestion) {
     return <div>No question found</div>;

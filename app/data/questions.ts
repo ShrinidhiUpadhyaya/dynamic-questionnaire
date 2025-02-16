@@ -1,6 +1,6 @@
-import { MultipleChoiceSubType } from "@/app/questionnaire/components/(question-types)/(multiple-choice-question)/types";
-import { SingleChoiceSubType } from "@/app/questionnaire/components/(question-types)/(single-choice-question)/types";
-import { TextSubType } from "@/app/questionnaire/components/(question-types)/(text-question)/types";
+import { MultipleChoiceSubType } from "@/app/questionnaire/components/question-types/multiple-choice-question/types";
+import { SingleChoiceSubType } from "@/app/questionnaire/components/question-types/single-choice-question/types";
+import { TextSubType } from "@/app/questionnaire/components/question-types/text-question/types";
 import { QuestionType, Questionnaire } from "@/types/common";
 
 export const CYBER_SECURITY: Questionnaire = {
