@@ -1,4 +1,5 @@
 import { QUESTIONNAIRE_LIST } from "@/app/data/questions";
+import { HTTP_STATUS, createErrorResponse, createSuccessResponse } from "@/lib/api/response";
 import { Question, Questionnaire } from "@/types/common";
 import { NextRequest, NextResponse } from "next/server";
 import { cache } from "react";
@@ -27,7 +28,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   try {
     const { id } = await params;
     if (!id) {
-      return NextResponse.json({ error: "Questionnaire ID is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Questionnaire ID is required" },
+        { status: HTTP_STATUS.BAD_REQUEST },
+      );
     }
 
     const { searchParams } = new URL(request.url);
@@ -35,10 +39,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     if (getAll) {
       const questions = await getQuestionnaire(id);
-      return NextResponse.json({
+
+      return createSuccessResponse({
         questions,
         total: questions?.questions.length,
-        status: "success",
       });
     }
 
@@ -47,15 +51,12 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     const result = await getPaginatedQuestions(id, limit, offset);
     if (!result.questions.length) {
-      return NextResponse.json({ error: "Questionnaire not found" }, { status: 404 });
+      return createErrorResponse("Questionnaire not found", HTTP_STATUS.NOT_FOUND);
     }
 
-    return NextResponse.json({
-      ...result,
-      status: "success",
-    });
+    return createSuccessResponse(result);
   } catch (error) {
     console.error("Error fetching questionnaire:", error);
-    return NextResponse.json({ error: "Failed to fetch questionnaire" }, { status: 500 });
+    return createErrorResponse("Failed to fetch questionnaire", HTTP_STATUS.INTERNAL_SERVER_ERROR);
   }
 }

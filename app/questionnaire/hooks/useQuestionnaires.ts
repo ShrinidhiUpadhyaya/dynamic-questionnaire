@@ -7,8 +7,7 @@ const useQuestionnaires = () => {
     queryKey: ["questionnaires"],
     queryFn: () => getQuestionnaires(),
   });
-
-  return { data, isLoading, error };
+  return { data: data?.data, isLoading, error };
 };
 
 export default useQuestionnaires;

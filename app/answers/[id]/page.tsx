@@ -24,7 +24,7 @@ interface CombinedData {
 const AnswersPage = () => {
   const { id } = useParams();
   const router = useRouter();
-  const { data: questionsData, isLoading: isLoadingQuestions } = useQuery({
+  const { data, isLoading: isLoadingQuestions } = useQuery({
     queryKey: ["questions"],
     queryFn: () => getAllQuestions({ questionnaireId: id as string }),
   });
@@ -36,7 +36,7 @@ const AnswersPage = () => {
 
   const queryClient = useQueryClient();
 
-  const { questions } = questionsData?.questions ?? {};
+  const { questions } = data?.data?.questions ?? {};
 
   const combinedData = useMemo(() => {
     if (!questions || !answersData?.answers) return [];

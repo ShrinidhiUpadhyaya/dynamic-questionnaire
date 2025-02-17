@@ -37,7 +37,7 @@ const DBaseInput = ({
         className={`${error && "border-red-500 focus-visible:ring-red-500"} `}
         {...props}
       />
-      {error && <DErrorMessage error={error} />}
+      {error && <DErrorMessage message={error} />}
     </div>
   );
 };

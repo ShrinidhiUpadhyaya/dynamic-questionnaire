@@ -11,8 +11,9 @@ const requestHandler = async (url: string, options: RequestInit = {}) => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    const error: CustomError = new Error(errorData.message || `API error!`);
+    const error: CustomError = new Error(errorData.error || `API error!`);
     error.status = response.status;
+    error.message = errorData.message;
     throw error;
   }
 

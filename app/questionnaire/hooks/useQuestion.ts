@@ -42,14 +42,14 @@ export const useQuestion = (questionnaireId: string) => {
     [batchIndex, offset, questionnaireId],
   );
 
-  const { data: questionnaire, isLoading, error } = useQuery(queryConfig);
+  const { data, isLoading, error } = useQuery(queryConfig);
 
   useEffect(() => {
     setCurrentQuestionIndex(currentIndex);
   }, [currentIndex, setCurrentQuestionIndex]);
 
-  const questions = questionnaire?.questions || [];
-  const totalQuestions = questionnaire?.total || 0;
+  const questions = data?.data?.questions || [];
+  const totalQuestions = data?.data?.total || 0;
   const currentQuestion = questions[currentIndex % BATCH_SIZE];
 
   useEffect(() => {

@@ -1,9 +1,11 @@
 "use client";
 
 import useQuestionnaires from "@/app/questionnaire/hooks/useQuestionnaires";
+import { CustomError } from "@/types/common";
 import { Questionnaire } from "@/types/common";
 import { useRouter } from "next/navigation";
 
+import DErrorPage from "../../components/DErrorPage";
 import DLoadingComponent from "../../components/DLoadingComponent";
 import { deleteResponses } from "./lib/response";
 
@@ -12,14 +14,9 @@ const QuestionnairePage = () => {
   const router = useRouter();
 
   if (isLoading) return <DLoadingComponent />;
-  if (error)
-    return (
-      <div className="flex h-svh w-svw items-center justify-center text-2xl">
-        Error: {error.message}
-      </div>
-    );
+  if (error) return <DErrorPage error={error as CustomError} className="h-screen" />;
 
-  const { questionnaires }: { questionnaires: Questionnaire[] } = data;
+  const questionnaires: Questionnaire[] = data;
 
   const handleClick = (id: string) => {
     router.push(`/questionnaire/${id}`);

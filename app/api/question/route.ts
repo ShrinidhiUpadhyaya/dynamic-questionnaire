@@ -1,14 +1,11 @@
 import { QUESTIONNAIRE_LIST } from "@/app/data/questions";
-import { NextResponse } from "next/server";
+import { HTTP_STATUS, createErrorResponse, createSuccessResponse } from "@/lib/api/response";
 
 export async function GET() {
   try {
-    return NextResponse.json({
-      questionnaires: QUESTIONNAIRE_LIST,
-      status: "success",
-    });
+    return createSuccessResponse(QUESTIONNAIRE_LIST);
   } catch (error) {
     console.error("Error fetching questionnaires:", error);
-    return NextResponse.json({ error: "Failed to fetch questionnaires" }, { status: 500 });
+    return createErrorResponse("Failed to fetch questionnaires", HTTP_STATUS.INTERNAL_SERVER_ERROR);
   }
 }

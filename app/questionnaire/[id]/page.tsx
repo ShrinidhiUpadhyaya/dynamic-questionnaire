@@ -1,5 +1,7 @@
 "use client";
 
+import DErrorPage from "@/components/DErrorPage";
+import { CustomError } from "@/types/common";
 import { notFound } from "next/navigation";
 
 import QuestionCard from "../components/QuestionCard";
@@ -26,7 +28,7 @@ const QuestionPageContent = () => {
   }
 
   if (error || !currentQuestion) {
-    return <p>Error: {error?.message}</p>;
+    return <DErrorPage error={error as CustomError} />;
   }
 
   return (
