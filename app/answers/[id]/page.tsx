@@ -1,14 +1,15 @@
 "use client";
 
+import { useAllResponses } from "@/app/questionnaire/hooks/useResponse";
 import { getAllQuestions } from "@/app/questionnaire/lib/questions";
-import { deleteResponses, getAllResponses } from "@/app/questionnaire/lib/response";
+import { deleteResponses } from "@/app/questionnaire/lib/response";
+import DErrorPage from "@/components/DErrorPage";
 import DLoadingComponent from "@/components/DLoadingComponent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Answer, Question, QuestionTypeValues } from "@/types/common";
-import { useQuery } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
+import { Answer, CustomError, Question, QuestionTypeValues } from "@/types/common";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
 
@@ -24,19 +25,19 @@ interface CombinedData {
 const AnswersPage = () => {
   const { id } = useParams();
   const router = useRouter();
-  const { data, isLoading: isLoadingQuestions } = useQuery({
+  const {
+    data: questionsData,
+    isLoading: isLoadingQuestions,
+    error: errorQuestions,
+  } = useQuery({
     queryKey: ["questions"],
     queryFn: () => getAllQuestions({ questionnaireId: id as string }),
   });
 
-  const { data: answersData, isLoading: isLoadingAnswers } = useQuery({
-    queryKey: ["answers"],
-    queryFn: () => getAllResponses(),
-  });
-
+  const { data: answersData, isLoading: isLoadingAnswers, error: errorAnswers } = useAllResponses();
   const queryClient = useQueryClient();
 
-  const { questions } = data?.data?.questions ?? {};
+  const { questions } = questionsData?.data?.questions ?? {};
 
   const combinedData = useMemo(() => {
     if (!questions || !answersData?.answers) return [];
@@ -63,10 +64,6 @@ const AnswersPage = () => {
     return answer.toString();
   };
 
-  if (isLoadingQuestions || isLoadingAnswers) {
-    return <DLoadingComponent />;
-  }
-
   const handleRestartQuiz = async () => {
     await deleteResponses();
     queryClient.removeQueries({ queryKey: ["response"] });
@@ -76,6 +73,14 @@ const AnswersPage = () => {
   const handleTakeAnotherQuestionnaire = () => {
     router.push("/questionnaire");
   };
+
+  if (isLoadingQuestions || isLoadingAnswers) {
+    return <DLoadingComponent />;
+  }
+
+  if (errorQuestions || errorAnswers) {
+    return <DErrorPage error={errorQuestions as CustomError} />;
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center p-8 sm:p-16">
