@@ -1,5 +1,5 @@
 import { QUERY_CONFIG, QUERY_KEYS } from "@/app/config/queryConfig";
-import { UserAnswer } from "@/types/common";
+import { UserResponse } from "@/types/common";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getAllResponses, getResponse, sendResponse } from "../lib/response";
@@ -31,19 +31,19 @@ export const useResponse = (questionId: string) => {
     enabled: !!questionId,
   });
 
-  const { mutate: saveAnswers, isPending: isSaving } = useMutation({
-    mutationFn: (answers: UserAnswer | UserAnswer[]) => sendResponse(questionId, answers),
-    onMutate: async (newAnswers) => {
+  const { mutate: saveResponse, isPending: isSaving } = useMutation({
+    mutationFn: (response: UserResponse | UserResponse[]) => sendResponse(questionId, response),
+    onMutate: async (newResponse) => {
       await queryClient.cancelQueries({ queryKey: queryKey });
-      const previousAnswers = queryClient.getQueryData(queryKey);
+      const previousResponses = queryClient.getQueryData(queryKey);
       queryClient.setQueryData(queryKey, {
-        answer: newAnswers,
+        response: newResponse,
       });
 
-      return { previousAnswers };
+      return { previousResponses };
     },
     onError: (_, __, context) => {
-      queryClient.setQueryData(queryKey, context?.previousAnswers);
+      queryClient.setQueryData(queryKey, context?.previousResponses);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKey });
@@ -51,10 +51,10 @@ export const useResponse = (questionId: string) => {
   });
 
   return {
-    answer: data?.answer,
+    response: data?.response,
     isLoading,
     error,
-    saveAnswers,
+    saveResponse,
     isSaving,
   };
 };

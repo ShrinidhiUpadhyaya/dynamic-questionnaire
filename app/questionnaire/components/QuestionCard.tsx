@@ -21,9 +21,9 @@ const QUESTION_COMPONENTS: Record<QuestionTypeValues, React.FC<any>> = {
 const QuestionCard = () => {
   const {
     currentQuestion,
-    answer,
+    response,
     showQuestion,
-    saveAnswer,
+    saveResponse,
     goToNext,
     goToPrevious,
     isFirstQuestion,
@@ -32,11 +32,11 @@ const QuestionCard = () => {
 
   const handleChange = useCallback(
     (value: string | string[]) => {
-      if (saveAnswer) {
-        saveAnswer(value);
+      if (saveResponse) {
+        saveResponse(value);
       }
     },
-    [saveAnswer],
+    [saveResponse],
   );
 
   const QuestionComponent = QUESTION_COMPONENTS[currentQuestion.type];
@@ -62,7 +62,7 @@ const QuestionCard = () => {
     <Card className="flex h-full w-full flex-col justify-between">
       <QuestionCardHeader title={currentQuestion.question} />
       <CardContent className={`${!showQuestion && "pointer-events-none opacity-50"}`}>
-        <QuestionComponent question={currentQuestion} answer={answer} onChange={handleChange} />
+        <QuestionComponent question={currentQuestion} response={response} onChange={handleChange} />
       </CardContent>
       <QuestionCardFooter
         isFirstQuestion={isFirstQuestion}
@@ -105,7 +105,7 @@ export const QuestionCardFooter = ({
   const router = useRouter();
 
   const handleSubmit = () => {
-    router.push(`/answers/${id}`);
+    router.push(`/response/${id}`);
   };
 
   return (

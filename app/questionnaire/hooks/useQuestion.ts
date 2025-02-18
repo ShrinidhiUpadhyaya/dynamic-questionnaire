@@ -20,7 +20,6 @@ export const useQuestion = (questionnaireId: string) => {
 
   const errorHandler = (error: unknown) => {
     if (isCustomError(error)) {
-      console.log("Error fetching questions:", error.status);
       setErrorStatus(error.status ?? null);
       throw error;
     } else {

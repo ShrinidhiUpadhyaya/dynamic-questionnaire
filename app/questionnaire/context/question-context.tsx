@@ -1,6 +1,6 @@
 import { useQuestion } from "@/app/questionnaire/hooks/useQuestion";
 import { useResponse } from "@/app/questionnaire/hooks/useResponse";
-import { Question, UserAnswer } from "@/types/common";
+import { Question, UserResponse } from "@/types/common";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { createContext, useContext, useMemo } from "react";
@@ -9,15 +9,15 @@ import { useConditionalLogic } from "../hooks/useConditionalLogic";
 
 interface QuestionContextType {
   currentQuestion: Question;
-  answer: string | string[];
+  response: string | string[];
   showQuestion: boolean;
   isFirstQuestion: boolean;
   isLastQuestion: boolean;
   isLoading: boolean;
   error: Error | null;
   errorStatus: number | null;
-  saveAnswer:
-    | UseMutateFunction<any, Error, UserAnswer | UserAnswer[], { previousAnswers: unknown }>
+  saveResponse:
+    | UseMutateFunction<any, Error, UserResponse | UserResponse[], { previousResponses: unknown }>
     | undefined;
   goToNext: () => void;
   goToPrevious: () => void;
@@ -38,37 +38,34 @@ export const QuestionProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     isLastQuestion,
   } = useQuestion(id as string);
 
-  const response = useResponse(currentQuestion?.id as string);
+  const { response, saveResponse } = useResponse(currentQuestion?.id as string);
 
-  const showQuestion = useConditionalLogic(currentQuestion, response?.answer);
-
-  const answer = response?.answer;
-  const saveAnswers = response?.saveAnswers;
+  const showQuestion = useConditionalLogic(currentQuestion, response?.response);
 
   const contextValue = useMemo(
     () => ({
       isLoading,
       currentQuestion,
-      answer,
+      response,
       showQuestion,
       error,
       errorStatus,
       isFirstQuestion,
       isLastQuestion,
-      saveAnswer: saveAnswers,
+      saveResponse: saveResponse,
       goToNext: goToNextQuestion,
       goToPrevious: goToPreviousQuestion,
     }),
     [
       isLoading,
       currentQuestion,
-      answer,
+      response,
       showQuestion,
       error,
       errorStatus,
       isFirstQuestion,
       isLastQuestion,
-      saveAnswers,
+      saveResponse,
       goToNextQuestion,
       goToPreviousQuestion,
     ],

@@ -4,7 +4,7 @@ import {
   HandleChange,
   QuestionOption,
   QuestionType,
-  UserAnswer,
+  UserResponse,
 } from "@/types/common";
 
 export const MultipleChoiceSubType = {
@@ -20,12 +20,12 @@ export interface MultipleChoiceQuestion extends BaseQuestion {
   options: QuestionOption[];
 }
 export interface MultipleChoiceQuestionProps extends BaseQuestionProps<MultipleChoiceQuestion> {
-  answer: string[];
-  onChange: HandleChange<UserAnswer>;
+  response: string[];
+  onChange: HandleChange<UserResponse>;
 }
 
 export interface MultipleChoiceComponentProps {
   options: QuestionOption[];
   defaultValue: string[];
-  onChange: HandleChange<UserAnswer>;
+  onChange: HandleChange<UserResponse>;
 }

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Mock, beforeEach, describe, expect, test, vi } from "vitest";
 
-import AnswersPage from "../answers/[id]/page";
+import ResponsePage from "../response/[id]/page";
 
 const mockPush = vi.fn();
 const mockParams = { id: "test-id" };
@@ -24,10 +24,10 @@ const mockQuestions = [
   { id: "3", question: "Describe yourself", type: "text" },
 ];
 
-const mockAnswers = [
-  { id: "1", answer: "John Doe" },
-  { id: "2", answer: ["Reading", "Swimming"] },
-  { id: "3", answer: "I am a software developer" },
+const mockResponses = [
+  { id: "1", response: "John Doe" },
+  { id: "2", response: ["Reading", "Swimming"] },
+  { id: "3", response: "I am a software developer" },
 ];
 
 const setupMockQuery = (overrides = {}) => {
@@ -43,14 +43,14 @@ const setupMockQuery = (overrides = {}) => {
     if (queryType === "questions") {
       return { ...defaultResponse, data: { questions: mockQuestions } };
     }
-    if (queryType === "answers") {
-      return { ...defaultResponse, data: { answers: mockAnswers } };
+    if (queryType === "responses") {
+      return { ...defaultResponse, data: { responses: mockResponses } };
     }
     return defaultResponse;
   });
 };
 
-describe("AnswersPage", () => {
+describe("ResponsePage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     setupMockQuery();
@@ -58,12 +58,12 @@ describe("AnswersPage", () => {
 
   test("renders loading state while fetching data", () => {
     setupMockQuery({ isLoading: true });
-    render(<AnswersPage />);
+    render(<ResponsePage />);
     expect(screen.getByTestId("loading-animation")).toBeInTheDocument();
   });
 
   test("handles navigation actions correctly", async () => {
-    render(<AnswersPage />);
+    render(<ResponsePage />);
 
     const takeAnotherBtn = screen.getByText("Take Another Questionnaire");
     const restartBtn = screen.getByText("Restart Questionnaire");

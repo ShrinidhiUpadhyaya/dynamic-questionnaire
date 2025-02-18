@@ -1,6 +1,6 @@
 import { API_URL } from "@/app/config/apiUrls";
 import requestHandler from "@/lib/requestHandler";
-import { UserAnswer } from "@/types/common";
+import { UserResponse } from "@/types/common";
 
 /**
  * Fetches the response for a specific question.
@@ -16,19 +16,19 @@ export const getResponse = async (questionId: string) => {
 };
 
 /**
- * Sends user answers for a specific question.
+ * Sends user response for a specific question.
  *
  * @param questionId - The unique identifier for the question.
- * @param answers - An array of user answers.
+ * @param response - An array of user response.
  * @returns A promise resolving with the result of the submission.
  */
-export const sendResponse = async (questionId: string, answers: UserAnswer | UserAnswer[]) => {
+export const sendResponse = async (questionId: string, response: UserResponse | UserResponse[]) => {
   if (!questionId) throw new Error("Question ID is required");
-  if (!answers) throw new Error("Answers are required");
+  if (!response) throw new Error("Response is required");
 
   return requestHandler(`${API_URL.RESPONSE}${questionId}`, {
     method: "POST",
-    body: JSON.stringify({ answers }),
+    body: JSON.stringify({ response }),
   });
 };
 

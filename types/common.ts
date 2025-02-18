@@ -26,7 +26,7 @@ export type LogicOperator = "and" | "or";
 export interface ConditionalRule {
   questionId: ID;
   operator: Operator;
-  value: UserAnswer;
+  value: UserResponse;
   logic?: LogicOperator;
 }
 
@@ -58,8 +58,8 @@ export interface BaseQuestionProps<T> {
     options?: QuestionOption[];
     validation?: BaseValidation;
   };
-  answer?: UserAnswer;
-  onChange: HandleChange<UserAnswer>;
+  response?: UserResponse;
+  onChange: HandleChange<UserResponse>;
 }
 
 export interface BaseInputProps {
@@ -96,12 +96,12 @@ export interface Questionnaire {
   questions: Question[];
 }
 
-export interface Answer {
+export interface Response {
   id: ID;
-  answer: UserAnswer;
+  response: UserResponse;
 }
 
-export type UserAnswer = string | string[] | number | null;
+export type UserResponse = string | string[] | number | null;
 
 export interface CustomError extends Error {
   status?: number;

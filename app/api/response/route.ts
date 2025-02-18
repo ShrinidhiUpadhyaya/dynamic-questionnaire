@@ -1,73 +1,73 @@
 import { redis } from "@/lib/redis";
-import type { Answer } from "@/types/common";
+import type { Response } from "@/types/common";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-let answers: Answer[] = [];
+let responses: Response[] = [];
 
-const findAnswer = (id: string): Answer | undefined => {
-  return answers.find((item) => item.id === id);
+const findResponse = (id: string): Response | undefined => {
+  return responses.find((item) => item.id === id);
 };
 
-const upsertAnswer = (id: string, answer: string): void => {
-  const existingIndex = answers.findIndex((item) => item.id === id);
+const upsertResponse = (id: string, response: string): void => {
+  const existingIndex = responses.findIndex((item) => item.id === id);
 
   if (existingIndex !== -1) {
-    answers[existingIndex] = { ...answers[existingIndex], answer };
+    responses[existingIndex] = { ...responses[existingIndex], response };
   } else {
-    answers = [...answers, { id, answer }];
+    responses = [...responses, { id, response }];
   }
 };
 
-const getRedisAllAnswers = async () => {
+const getRedisAllResponses = async () => {
   if (!redis) {
     return null;
   }
   try {
-    const keys = await redis.keys("answers:*");
+    const keys = await redis.keys("responses:*");
     if (!keys.length) return [];
 
-    const allAnswers = await Promise.all(
+    const allResponses = await Promise.all(
       keys.map(async (key) => {
-        const answer = await redis?.hget(key, "answer");
+        const response = await redis?.hget(key, "response");
         return {
-          id: key.replace("answers:", ""),
-          answer,
+          id: key.replace("responses:", ""),
+          response,
         };
       }),
     );
-    return allAnswers;
+    return allResponses;
   } catch (error) {
-    console.error("Error fetching all answers from Redis:", error);
+    console.error("Error fetching all responses from Redis:", error);
     return null;
   }
 };
 
-const getRedisAnswer = async (id: string): Promise<Answer | null> => {
+const getRedisResponse = async (id: string): Promise<Response | null> => {
   if (!redis) {
     return null;
   }
   try {
-    const answer = await redis.hget(`answers:${id}`, "answer");
-    return { id, answer };
+    const response = await redis.hget(`responses:${id}`, "response");
+    return { id, response };
   } catch (error) {
-    console.error(`Error fetching answer from Redis: ${id}`, error);
+    console.error(`Error fetching response from Redis: ${id}`, error);
     return null;
   }
 };
 
-const deleteRedisAnswers = async () => {
+const deleteRedisResponses = async () => {
   if (!redis) {
     return null;
   }
   try {
-    const keys = await redis.keys("answers:*");
+    const keys = await redis.keys("responses:*");
     if (keys.length > 0) {
       await redis.del(...keys);
     }
     return true;
   } catch (error) {
-    console.error(`Error deleting answers from Redis`, error);
+    console.error(`Error deleting responses from Redis`, error);
     return false;
   }
 };
@@ -76,25 +76,25 @@ export async function POST(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
-    const { answers: userAnswer } = await request.json();
+    const { response: userResponse } = await request.json();
 
-    if (!id || !userAnswer) {
-      return NextResponse.json({ error: "Question ID and answer are required" }, { status: 400 });
+    if (!id || !userResponse) {
+      return NextResponse.json({ error: "Question ID and response are required" }, { status: 400 });
     }
 
     if (redis) {
-      await redis.hset(`answers:${id}`, "answer", userAnswer);
+      await redis.hset(`responses:${id}`, "response", userResponse);
     } else {
-      upsertAnswer(id, userAnswer);
+      upsertResponse(id, userResponse);
     }
 
     return NextResponse.json(
-      { message: "Answer saved successfully", status: "success" },
+      { message: "Response saved successfully", status: "success" },
       { status: 200 },
     );
   } catch (error) {
-    console.error("Error saving answer:", error);
-    return NextResponse.json({ error: "Failed to save answer" }, { status: 500 });
+    console.error("Error saving response:", error);
+    return NextResponse.json({ error: "Failed to save response" }, { status: 500 });
   }
 }
 
@@ -108,41 +108,41 @@ export async function GET(request: NextRequest) {
     }
 
     if (id === "all") {
-      const allAnswers = redis ? await getRedisAllAnswers() : answers;
+      const allResponses = redis ? await getRedisAllResponses() : responses;
 
       return NextResponse.json({
-        answers: allAnswers,
-        total: allAnswers?.length,
+        responses: allResponses,
+        total: allResponses?.length,
         status: "success",
       });
     }
 
-    const answer = redis ? await getRedisAnswer(id) : findAnswer(id);
+    const response = redis ? await getRedisResponse(id) : findResponse(id);
 
     return NextResponse.json({
-      answer: answer ? answer?.answer : null,
+      response: response ? response?.response : null,
       status: "success",
     });
   } catch (error) {
-    console.error("Error fetching answers:", error);
-    return NextResponse.json({ error: "Failed to fetch answers" }, { status: 500 });
+    console.error("Error fetching responses:", error);
+    return NextResponse.json({ error: "Failed to fetch responses" }, { status: 500 });
   }
 }
 
 export async function DELETE() {
   try {
     if (redis) {
-      await deleteRedisAnswers();
+      await deleteRedisResponses();
     } else {
-      answers = [];
+      responses = [];
     }
 
     return NextResponse.json(
-      { message: "All answers cleared successfully", status: "success" },
+      { message: "All responses cleared successfully", status: "success" },
       { status: 200 },
     );
   } catch (error) {
-    console.error("Error clearing answers:", error);
-    return NextResponse.json({ error: "Failed to clear answers" }, { status: 500 });
+    console.error("Error clearing responses:", error);
+    return NextResponse.json({ error: "Failed to clear responses" }, { status: 500 });
   }
 }

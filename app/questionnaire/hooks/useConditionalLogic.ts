@@ -1,20 +1,20 @@
-import { ConditionalRule, Question, UserAnswer } from "@/types/common";
+import { ConditionalRule, Question, UserResponse } from "@/types/common";
 import { useEffect, useState } from "react";
 
 import { getResponse } from "../lib/response";
 
-export const useConditionalLogic = (question: Question, answer: UserAnswer) => {
+export const useConditionalLogic = (question: Question, response: UserResponse) => {
   const [shouldShow, setShouldShow] = useState(true);
 
   const evaluateCondition = async (condition: ConditionalRule): Promise<boolean> => {
     try {
-      const previousAnswer = await getResponse(condition.questionId);
+      const previousResponse = await getResponse(condition.questionId);
 
-      if (!previousAnswer) {
+      if (!previousResponse) {
         return false;
       }
 
-      const { answer } = previousAnswer;
+      const { response } = previousResponse;
 
       const compareValues = (a: any, b: any): number => {
         if (a == null || b == null) {
@@ -40,58 +40,60 @@ export const useConditionalLogic = (question: Question, answer: UserAnswer) => {
 
       switch (condition.operator) {
         case "equals":
-          if (Array.isArray(answer) && Array.isArray(condition.value)) {
+          if (Array.isArray(response) && Array.isArray(condition.value)) {
             return (
-              JSON.stringify(answer.sort()) === JSON.stringify((condition.value as string[]).sort())
+              JSON.stringify(response.sort()) ===
+              JSON.stringify((condition.value as string[]).sort())
             );
           }
-          return typeof answer === "string" && typeof condition.value === "string"
-            ? answer.toLowerCase() === condition.value.toLowerCase()
-            : answer === condition.value;
+          return typeof response === "string" && typeof condition.value === "string"
+            ? response.toLowerCase() === condition.value.toLowerCase()
+            : response === condition.value;
 
         case "notEquals":
-          if (Array.isArray(answer) && Array.isArray(condition.value)) {
+          if (Array.isArray(response) && Array.isArray(condition.value)) {
             return (
-              JSON.stringify(answer.sort()) !== JSON.stringify((condition.value as string[]).sort())
+              JSON.stringify(response.sort()) !==
+              JSON.stringify((condition.value as string[]).sort())
             );
           }
-          return typeof answer === "string" && typeof condition.value === "string"
-            ? answer.toLowerCase() !== condition.value.toLowerCase()
-            : answer !== condition.value;
+          return typeof response === "string" && typeof condition.value === "string"
+            ? response.toLowerCase() !== condition.value.toLowerCase()
+            : response !== condition.value;
 
         case "contains":
-          if (Array.isArray(answer)) {
-            return arrayContains(answer, condition.value);
+          if (Array.isArray(response)) {
+            return arrayContains(response, condition.value);
           }
-          if (typeof answer === "string" && typeof condition.value === "string") {
-            return answer.toLowerCase().includes(condition.value.toLowerCase());
+          if (typeof response === "string" && typeof condition.value === "string") {
+            return response.toLowerCase().includes(condition.value.toLowerCase());
           }
           return false;
 
         case "notContains":
-          if (Array.isArray(answer)) {
-            return !arrayContains(answer, condition.value);
+          if (Array.isArray(response)) {
+            return !arrayContains(response, condition.value);
           }
-          if (typeof answer === "string" && typeof condition.value === "string") {
-            return !answer.toLowerCase().includes(condition.value.toLowerCase());
+          if (typeof response === "string" && typeof condition.value === "string") {
+            return !response.toLowerCase().includes(condition.value.toLowerCase());
           }
           return true;
 
         case "greaterThan":
-          const numericAnswer = Number(answer);
+          const numericResponse = Number(response);
           const numericValue = Number(condition.value);
-          if (!isNaN(numericAnswer) && !isNaN(numericValue)) {
-            return numericAnswer > numericValue;
+          if (!isNaN(numericResponse) && !isNaN(numericValue)) {
+            return numericResponse > numericValue;
           }
-          return compareValues(answer, condition.value) > 0;
+          return compareValues(response, condition.value) > 0;
 
         case "lessThan":
-          const numA = Number(answer);
+          const numA = Number(response);
           const numB = Number(condition.value);
           if (!isNaN(numA) && !isNaN(numB)) {
             return numA < numB;
           }
-          return compareValues(answer, condition.value) < 0;
+          return compareValues(response, condition.value) < 0;
 
         default:
           console.warn(`Unsupported operator: ${condition.operator}`);
@@ -128,7 +130,7 @@ export const useConditionalLogic = (question: Question, answer: UserAnswer) => {
     };
 
     evaluateShowQuestion();
-  }, [question, answer]);
+  }, [question, response]);
 
   return shouldShow;
 };

@@ -8,7 +8,7 @@ import DLoadingComponent from "@/components/DLoadingComponent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Answer, CustomError, Question, QuestionTypeValues } from "@/types/common";
+import { CustomError, Question, QuestionTypeValues, Response } from "@/types/common";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
@@ -18,11 +18,11 @@ import { t } from "../../locales/translation";
 interface CombinedData {
   id: string;
   question: string;
-  answer: string | string[] | null;
+  response: string | string[] | null;
   type: QuestionTypeValues;
 }
 
-const AnswersPage = () => {
+const ResponsePage = () => {
   const { id } = useParams();
   const router = useRouter();
   const {
@@ -34,34 +34,38 @@ const AnswersPage = () => {
     queryFn: () => getAllQuestions({ questionnaireId: id as string }),
   });
 
-  const { data: answersData, isLoading: isLoadingAnswers, error: errorAnswers } = useAllResponses();
+  const {
+    data: responsesData,
+    isLoading: isLoadingResponses,
+    error: errorResponses,
+  } = useAllResponses();
   const queryClient = useQueryClient();
 
   const { questions } = questionsData?.data?.questions ?? {};
 
   const combinedData = useMemo(() => {
-    if (!questions || !answersData?.answers) return [];
+    if (!questions || !responsesData?.responses) return [];
 
     return questions.map((question: Question) => {
-      const answer = answersData.answers.find((ans: Answer) => ans.id === question.id);
+      const response = responsesData.responses.find((ans: Response) => ans.id === question.id);
 
       return {
         id: question.id,
         question: question.question,
         type: question.type,
-        answer: answer ? answer.answer : null,
+        response: response ? response.response : null,
       };
     });
-  }, [questions, answersData]);
+  }, [questions, responsesData]);
 
-  const formatAnswer = (answer: string | string[] | null) => {
-    if (!answer) return "No answer provided";
+  const formatResponse = (response: string | string[] | null) => {
+    if (!response) return "No response provided";
 
-    if (Array.isArray(answer)) {
-      return answer.join(", ");
+    if (Array.isArray(response)) {
+      return response.join(", ");
     }
 
-    return answer.toString();
+    return response.toString();
   };
 
   const handleRestartQuiz = async () => {
@@ -74,11 +78,11 @@ const AnswersPage = () => {
     router.push("/questionnaire");
   };
 
-  if (isLoadingQuestions || isLoadingAnswers) {
+  if (isLoadingQuestions || isLoadingResponses) {
     return <DLoadingComponent />;
   }
 
-  if (errorQuestions || errorAnswers) {
+  if (errorQuestions || errorResponses) {
     return <DErrorPage error={errorQuestions as CustomError} />;
   }
 
@@ -97,9 +101,9 @@ const AnswersPage = () => {
               </CardHeader>
               <CardContent>
                 <Label className="text-sm font-medium">
-                  Answer:{" "}
+                  Response:{" "}
                   <span className="mt-1 text-base font-bold capitalize text-primary">
-                    {formatAnswer(item.answer)}
+                    {formatResponse(item.response)}
                   </span>
                 </Label>
                 <Label className="block text-xs">Question Type: {item.type}</Label>
@@ -125,4 +129,4 @@ const AnswersPage = () => {
   );
 };
 
-export default AnswersPage;
+export default ResponsePage;

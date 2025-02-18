@@ -4,7 +4,7 @@ import {
   BaseQuestionProps,
   HandleChange,
   QuestionType,
-  UserAnswer,
+  UserResponse,
   ValidationMessage,
 } from "@/types/common";
 
@@ -54,8 +54,8 @@ export interface LongTextQuestion extends TextQuestionBase {
 }
 
 export interface TextQuestionProps extends BaseQuestionProps<TextQuestionBase> {
-  answer: string;
-  onChange: HandleChange<UserAnswer>;
+  response: string;
+  onChange: HandleChange<UserResponse>;
 }
 
 export interface LongTextInputProps extends BaseInputProps {

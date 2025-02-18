@@ -9,7 +9,7 @@ export function QuestionComponent<T extends string>({
 }) {
   return function WrappedQuestionComponent({
     question,
-    answer,
+    response,
     onChange,
     ...props
   }: BaseQuestionProps<T>) {
@@ -20,7 +20,12 @@ export function QuestionComponent<T extends string>({
     }
 
     return (
-      <Component options={question.options} defaultValue={answer} onChange={onChange} {...props} />
+      <Component
+        options={question.options}
+        defaultValue={response}
+        onChange={onChange}
+        {...props}
+      />
     );
   };
 }

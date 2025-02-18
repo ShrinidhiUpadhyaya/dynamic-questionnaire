@@ -1,6 +1,6 @@
 # Dynamic Questionnaire
 
-A full stack Next.js application that allows you to create dynamic questionnaires based on a JSON schema, supports conditional logic and validation. The answers are by default stored temporarily on the server and if needed you could also enabled Redis
+A full stack Next.js application that allows you to create dynamic questionnaires based on a JSON schema, supports conditional logic and validation. The responses are by default stored temporarily on the server and if needed you could also enabled Redis
 
 ## Features
 
@@ -8,7 +8,7 @@ A full stack Next.js application that allows you to create dynamic questionnaire
 - [x] Multiple question types
 - [x] Progress Tracking
 - [x] Response Saving
-- [x] Answers 
+- [x] Responses 
 
 ## Tech Stack
 
@@ -44,15 +44,15 @@ The schema is defined as a Questionnaire object with the following top-level pro
 - `questions:` An array of question objects. Each object in this array represents a single question with its specific configuration.
 
 ### Question Schema
-- `id:` A unique identifier for the question (e.g., "health-concern"). This helps in referencing and handling responses for the specific question.
+- `id:` A unique identifier for the question (e.g., "health-concern"). This helps in referencing and handling response for the specific question.
 
-- `type:` Specifies the main type of the answer. Supported types include:
+- `type:` Specifies the main type of the response. Supported types include:
   ```
   TEXT = "text",
   SINGLE_CHOICE = "single_choice",
   MULTIPLE_CHOICE = "multiple_choice",
   ```
-- `sub_type:` Further refines the type of answers:
+- `sub_type:` Further refines the type of response:
 
   ```
   export enum TextSubType {
@@ -94,38 +94,38 @@ The schema is defined as a Questionnaire object with the following top-level pro
 
 ## API Endpoints
 ### POST /api/response
-  - **Purpose:** Retrieve a single answer by question ID or fetch all answers.
+  - **Purpose:** Retrieve a single response by question ID or fetch all user responses.
   - **Query Parameters:**
-    - `id (string, required)` The unique identifier of the question for which the answer is being submitted.
+    - `id (string, required)` The unique identifier of the question for which the response is being submitted.
   - **Request Body:**
     - JSON payload with the following property:
-    - `answers (string | string[]):` The answer to be saved for the question.
- - **Sucessfull Responses**
+    - `response (string | string[]):` The response to be saved for the question.
+ - **Sucessfull Response**
    ```
    {
-     "message": "Answer saved successfully",
+     "message": "Response saved successfully",
      "status": "success"
    }
    ```
-- **Error Responses:**
+- **Error Response:**
   ```
   {
-    "error": "Question ID and answer are required"
+    "error": "Question ID and response are required"
   }
   ```
 
 
 ### GET /api/response
-  - **Purpose:** Retrieve a single answer by question ID or fetch all answers.
+  - **Purpose:** Retrieve a single response by question ID or fetch all responses.
   - **Query Parameters:**
     - `id (string, required):`
-      - If `id=all`, returns all answers stored.
-      - Otherwise, returns the answer associated with the specified question ID.
-  - **Successfull Responses:**
+      - If `id=all`, returns all responses stored.
+      - Otherwise, returns the response associated with the specified question ID.
+  - **Successfull Response:**
   - `id=all`
     ```
     {
-      "answers": [ /* Array of answer objects */ ],
+      "responses": [ /* Array of response objects */ ],
       "total": 3,
       "status": "success"
     }
@@ -133,19 +133,19 @@ The schema is defined as a Questionnaire object with the following top-level pro
   - Id specific
     ```
     {
-      "answer": "I have a persistent cough and mild fever.",
+      "response": "I have a persistent cough and mild fever.",
       "status": "success"
     }
     ```
-- **Error Responses:**
+- **Error Response:**
   ```
   {
-    "error": "Failed to fetch answers"
+    "error": "Failed to fetch responses"
   }
   ```
 ### GET /api/question
  - **Purpose:** Retrieve all questionnaires available in the system
- - **Successfull Responses:**
+ - **Successfull Response:**
    ```
    {
      "questionnaires": [
@@ -154,7 +154,7 @@ The schema is defined as a Questionnaire object with the following top-level pro
      "status": "success"
    }
    ```
-- **Error Responses:**
+- **Error Response:**
   ```
   {
   "error": "Failed to fetch questionnaires"
@@ -168,7 +168,7 @@ The schema is defined as a Questionnaire object with the following top-level pro
   - `all(optional)` the API returns all questions for the questionnaire.
   - `limit(optional)` When not fetching all questions, defines the maximum number of questions to return (default is `5`).
   - `offset (optional, number)` When not fetching all questions, defines the starting index for the questions to return (default is `0`).
-- **Sucessfull Responses:**
+- **Sucessfull Response:**
   - When Fetching All Questions:
     ```
     {
@@ -189,7 +189,7 @@ The schema is defined as a Questionnaire object with the following top-level pro
     "status": "success"
     }
     ```
-- **Error Responses**
+- **Error Response**
   - 400 Bad Request
     ```
     {
@@ -366,7 +366,7 @@ text: TextQuestion,
 ```
 
 ## Setup with Redis
-You can build the docker image for the app using the `Dockerfile` and connect with Redis to save the answers
+You can build the docker image for the app using the `Dockerfile` and connect with Redis to save the responses
 - create `.env` file and add the below variables. You can also find these variables in `.env.example`
 ```
 USE_REDIS=true

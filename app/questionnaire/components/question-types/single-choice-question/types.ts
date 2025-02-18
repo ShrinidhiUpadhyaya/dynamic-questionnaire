@@ -4,7 +4,7 @@ import {
   HandleChange,
   QuestionOption,
   QuestionType,
-  UserAnswer,
+  UserResponse,
 } from "@/types/common";
 
 export const SingleChoiceSubType = {
@@ -22,12 +22,12 @@ export interface SingleChoiceQuestion extends BaseQuestion {
 }
 
 export interface SingleChoiceQuestionProps extends BaseQuestionProps<SingleChoiceQuestion> {
-  answer: string;
-  onChange: HandleChange<UserAnswer>;
+  response: string;
+  onChange: HandleChange<UserResponse>;
 }
 
 export interface SingleChoiceComponentProps {
   options: QuestionOption[];
   defaultValue: string;
-  onChange: HandleChange<UserAnswer>;
+  onChange: HandleChange<UserResponse>;
 }
