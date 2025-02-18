@@ -1,7 +1,7 @@
 "use client";
 
+import { useAllQuestions } from "@/app/questionnaire/hooks/useQuestion";
 import { useAllResponses } from "@/app/questionnaire/hooks/useResponse";
-import { getAllQuestions } from "@/app/questionnaire/lib/questions";
 import { deleteResponses } from "@/app/questionnaire/lib/response";
 import DErrorPage from "@/components/DErrorPage";
 import DLoadingComponent from "@/components/DLoadingComponent";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { CustomError, Question, QuestionTypeValues, Response } from "@/types/common";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
 
@@ -29,10 +29,7 @@ const ResponsePage = () => {
     data: questionsData,
     isLoading: isLoadingQuestions,
     error: errorQuestions,
-  } = useQuery({
-    queryKey: ["questions"],
-    queryFn: () => getAllQuestions({ questionnaireId: id as string }),
-  });
+  } = useAllQuestions(id as string);
 
   const {
     data: responsesData,
